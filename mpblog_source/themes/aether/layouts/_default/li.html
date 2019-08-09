@@ -1,0 +1,23 @@
+<a ontouchstart="cardPressed.call(this)" ontouchend="cardReleased.call(this)" ontouchmove="cardReleased.call(this)" 
+  href="{{ .Permalink }}" class="card blog-card" rel="bookmark" >
+  {{ with .Resources.GetMatch "featuredImage" }}
+  <div class="card-img-container">
+    <picture>
+      {{ with $.Resources.GetMatch (replace (.Title) (path.Ext (.Title)) ".webp") -}}
+      <source srcset="{{ .Permalink }}" type="image/webp">
+      {{- end }}
+      {{ $thumbnail := .Fit "400x300 Lanczos" }}
+      <source srcset="{{ $thumbnail.Permalink }}">
+      <img src="{{ $thumbnail.Permalink }}" class="card-img" {{ with .Params.description -}} alt="{{ . }}" {{- end }}>
+    </picture>
+  </div>
+  {{- end }}
+  <article class="card-body">
+    <h2 class="card-title">{{ .Title }}</h2>
+    <p class="card-text">{{ if (isset .Params "description") }}{{ index .Params "description" }}{{ else }}{{ .Summary }}{{ end }}</p>
+    <div class="card-subtext muted-text">
+      <p>Posted <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time></p>
+      {{ if (isset .Params "categories") }}<p>{{ range .Params.categories }}#{{ . }} {{ end }}</p>{{ end }}
+    </div>
+  </article>
+</a>

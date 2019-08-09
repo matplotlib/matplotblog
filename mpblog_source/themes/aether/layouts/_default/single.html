@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="ltr">
+  {{ partial "head.html" . }}
+  <body class="single-body">
+    {{ partial "nav-bar.html" . }}
+    <main class="content side-text-padding">
+      <article class="post {{ if ne .Params.dropcap false }}dropcase{{ end }}">
+        <header class="post-header">
+        	<h1 class="post-title">{{ .Title }}</h1>
+          {{ if isset .Params "date" }}<p class="post-date">Posted <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time></p>{{ end }}
+        </header>
+        {{ with .Resources.GetMatch "featuredImage" }}
+        <picture class="post-figure">
+          {{ with $.Resources.GetMatch (replace (.Title) (path.Ext (.Title)) ".webp") -}}
+          <source srcset="{{ .Permalink }}" type="image/webp">
+          {{- end }}
+          {{ $featured := .Resize "800x Lanczos" }}
+          <source srcset="{{ $featured.Permalink }}">
+          <img src="{{ $featured.Permalink }}" {{ with .Params.description -}} alt="{{ . }}" {{- end }}>
+        </picture>
+        {{ end }}
+        {{ .Content }}
+      </article>
+      {{ template "_internal/disqus.html" . }}
+    </main>
+    <nav class="end-nav side-padding">
+      {{ with .PrevInSection }}
+      {{ .Render "li-next" }}
+      {{ end }}
+      {{ partial "home-card.html" . }}
+    </nav>
+    {{ partial "scripts.html" . }}
+  </body>
+</html>

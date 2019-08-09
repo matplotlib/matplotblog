@@ -1,0 +1,13 @@
+baseURL = "https://matplotblog.org/"
+languageCode = "en-us"
+title = "Matplotblog"
+theme = "aether"
+
+[params]
+brand = "Matplotblog"
+description = "The blog of Matplotlib"
+homeimg = "https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg"
+bgimg = "https://i.stack.imgur.com/R10V5.png"
+
+[taxonomies]
+  category = "categories"
