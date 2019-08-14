@@ -1,8 +1,8 @@
 body {
     font-family: "Helvetica Neue", Helvetica, "Lucida Grande", "Lucida sans unicode", Geneva, Verdana, sans-serif;
-    color: #141823;
+    color: #285479;
     font-size: 1.1em;
-    background-color: #ecedef;
+    background-color: #BDD1CC;
     margin: 0;
     padding: 0 0 2em 0;
     display: flex;
@@ -35,6 +35,7 @@ strong {
     text-decoration: none;
     z-index: 105;
     font-size: 0.8em;
+    color: #285479
 }
 .hamburger-menu {
     display: block;
@@ -61,7 +62,7 @@ strong {
     width: 33px;
     height: 4px;
     position: relative;
-    background-color: #141823;
+    background-color: #285479;
     border-radius: 3px;
     transform-origin: center;
     transition: transform 0.3s cubic-bezier(0.77,0.2,0.05,1.0),
@@ -91,7 +92,7 @@ strong {
     overflow-y: auto;
     margin: 0;
     padding: 3.5em 0 0 0;
-    background-color: #000;
+    background-color: #EE9816;
     opacity: 0;
     transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
 }
@@ -104,7 +105,7 @@ strong {
     text-transform: uppercase;
     font-size: 2em;
     line-height: 1.7;
-    color: white;
+    color: #285479;
 }
 .post {
     margin: 0 0 1em 0;
