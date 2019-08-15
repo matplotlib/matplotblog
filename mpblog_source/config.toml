@@ -10,7 +10,7 @@ head_img = "/mpl_logo.png"
 description = "The blog of Matplotlib"
 bgimg = "bg_tiles.png"
 link1 = "http://www.matplotlib.org"
-link1_description = "Matplotlib"
+link1_description = "About"
 
 [taxonomies]
   category = "categories"

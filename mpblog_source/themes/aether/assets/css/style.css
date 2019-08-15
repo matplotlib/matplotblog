@@ -132,7 +132,7 @@ strong {
 }
 .post-date {
     display: block;
-    color: #7a7b7c;
+    color: #EE9816;
     font-size: 0.8em;
     margin: 0;
 }
@@ -311,7 +311,7 @@ a:hover.blog-card {
     margin: 1.5em auto;
 }
 .muted-text {
-    color: #7a7b7c;
+    color: #EE9816;
 }
 .katex-display {
     margin: 1.5em 0;
