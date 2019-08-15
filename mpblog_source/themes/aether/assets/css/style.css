@@ -44,6 +44,10 @@ strong {
     -webkit-user-select: none;
     user-select: none;
 }
+.hamburger-menu ul {
+    list-style-type: none;
+}
+
 .hamburger-menu button {
     display: block;
     position: relative;
@@ -92,13 +96,13 @@ strong {
     overflow-y: auto;
     margin: 0;
     padding: 3.5em 0 0 0;
-    background-color: #EE9816;
+    background-color: #BDD1CC;
     opacity: 0;
     transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
 }
 .hamburger-menu-open .hamburger-menu-overlay {
     visibility: visible;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 .hamburger-menu-overlay-link {
     text-decoration: none;
@@ -106,6 +110,13 @@ strong {
     font-size: 2em;
     line-height: 1.7;
     color: #285479;
+    font-weight: bold;
+    transition: color 0.25s ease;
+}
+.hamburger-menu-overlay-link:hover {
+    color: #D15D48;
+    transition: color 0.25s ease;
+    text-decoration: none;
 }
 .post {
     margin: 0 0 1em 0;
@@ -225,10 +236,15 @@ strong {
 .card-title {
     margin: 0;
     line-height: 1.2;
+    color: #285479;
 }
 .card-text {
     margin: 1em 0;
     line-height: 1.5;
+    color: black;
+}
+a:hover.blog-card {
+    text-decoration: none;
 }
 .card-subtext {
     display: flex;
@@ -360,10 +376,15 @@ hr {
     clear: both;
 }
 a {
-    color: #141823;
+    color: #D15D48;
+    text-decoration: none;
+}
+a:hover {
+    color: #D15D48;
+    text-decoration: underline;
 }
 table {
-    color: #141823;
+    color: #D15D48;
     border-collapse: collapse;
     border-spacing: 0;
     margin: 1.5em 0;
@@ -438,6 +459,7 @@ footer {
     .card-text {
         font-size: 0.95em;
         margin: 1.2em 0;
+        color: black;
     }
     .card-subtext {
         font-size: 0.7em;
