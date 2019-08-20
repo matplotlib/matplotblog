@@ -5,7 +5,7 @@ description: "Matplotblog, the new blog of matplotlib, to showcase and share gre
 categories: ["editorial"]
 displayInMenu: false
 displayInList: true
-draft: true
+draft: false
 resources:
 - name: featuredImage
   src: "logo.jpg"

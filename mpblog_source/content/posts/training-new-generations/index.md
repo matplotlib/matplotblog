@@ -5,7 +5,7 @@ description: "This section will host a battery of tutorials to introduce new gen
 categories: ["tutorials"]
 displayInMenu: false
 displayInList: true
-draft: true
+draft: false
 resources:
 - name: featuredImage
   src: "training.jpg"
