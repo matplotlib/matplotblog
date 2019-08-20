@@ -2,9 +2,13 @@
   <h1 class="nav-header"><a href="{{ .Site.BaseURL }}" class="nav-text">
     {{- if isset $.Site.Params "brand"}}
       {{- $.Site.Params.brand -}}
-    {{ else }}
+    {{ end }}
+    {{ if isset $.Site.Params "head_img" }}
+      <img src="{{ $.Site.Params.head_img }}">
+    {{ end }}
+    {{ if isset $.Site.Params "show_title" }}
       {{- $.Site.Title -}}
-    {{ end -}}
+    {{ end }}
   </a></h1>
   <div class="hamburger-menu">
     <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
@@ -22,6 +26,15 @@
       {{ if eq .Site.Params.rssinmenu true -}}
       <li><a href="{{ "/index.xml" | absURL }}" class="hamburger-menu-overlay-link">rss</a></li>
       {{- end }}
+      {{ if isset $.Site.Params "link1" }}
+      <li><a href="{{ $.Site.Params.link1 }}" class="hamburger-menu-overlay-link" target="blank">{{ $.Site.Params.link1_description }}</a></li>
+      {{ end }}
+      {{ if isset $.Site.Params "link2" }}
+      <li><a href="{{ $.Site.Params.link2 }}" class="hamburger-menu-overlay-link" target="blank">{{ $.Site.Params.link2_description }}</a></li>
+      {{ end }}
+      {{ if isset $.Site.Params "link3" }}
+      <li><a href="{{ $.Site.Params.link3 }}" class="hamburger-menu-overlay-link" target="blank">{{ $.Site.Params.link3_description }}</a></li>
+      {{ end }}
     </ul>
   </div>
 </nav>
