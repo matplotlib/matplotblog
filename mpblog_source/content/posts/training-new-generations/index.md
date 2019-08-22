@@ -13,12 +13,11 @@ resources:
     description: "tutorials"
 ---
 
-Matplotlib tries to make easy things easy and hard things possible. With this open-source Python visualization library, you can generate plots, histograms, power spectra, bar charts, errorcharts, scatterplots, etc., with just a few lines of code. 
+Matplotlib tries to make easy things easy and hard things possible. With this open-source Python visualization library, you can generate plots, histograms, power spectra, bar charts, error charts, scatter plots, and so on - with just a few lines of code. 
 
 From time to time, we'd like to show our readers what can be done with matplotlib through a series of useful tutorials posted here to our blog. 
 
-We'd love to see what you can do with matplotlib as well. 
+We'd also love to read about what you can do with matplotlib as well. 
 
-The matplotlib project is located at https://github.com/matplotlib/matplotlib. 
-See https://matplotlib.org/devel/index.html for directions on how you can contribute. 
+You can submit blog articles for consideration by submitting a pull request on Github at https://github.com/matplotlib/matplotblog. 
 
