@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tutorials - Matplotblog</title>
-    <link>https://matplotblog.org/categories/tutorials/</link>
+    <link>matplotblog.github.io/categories/tutorials/</link>
     <description>Recent content in tutorials on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Aug 2019 22:40:35 -0400</lastBuildDate>
     
-        <atom:link href="https://matplotblog.org/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="matplotblog.github.io/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Contribute to Matplotlib</title>
-      <link>https://matplotblog.org/posts/training-new-generations/</link>
+      <link>matplotblog.github.io/posts/training-new-generations/</link>
       <pubDate>Wed, 14 Aug 2019 22:40:35 -0400</pubDate>
       
-      <guid>https://matplotblog.org/posts/training-new-generations/</guid>
+      <guid>matplotblog.github.io/posts/training-new-generations/</guid>
       <description>This blog will also host a battery of tutorials and articles to introduce new generations to matplotlib; and you can contribute too.</description>
     </item>
   </channel>
