@@ -1,4 +1,4 @@
-baseURL = "matplotlib.github.io/matplotblog"
+baseURL = "https://matplotlib.github.io/matplotblog"
 languageCode = "en-us"
 title = "Matplotblog"
 theme = "aether"
@@ -9,7 +9,7 @@ paginate = 3
 head_img = "/mpl_logo.png"
 description = "The blog of Matplotlib"
 bgimg = "bg_tiles.png"
-link1 = "http://www.matplotlib.org"
+link1 = "https://matplotlib.org"
 link1_description = "About"
 
 [taxonomies]
