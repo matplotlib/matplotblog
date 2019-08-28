@@ -3,41 +3,41 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>matplotblog.github.io/</loc>
+    <loc>matplotlib.github.io/matplotblog/</loc>
     <lastmod>2019-08-14T22:40:35-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>matplotblog.github.io/categories/</loc>
+    <loc>matplotlib.github.io/matplotblog/categories/</loc>
     <lastmod>2019-08-14T22:40:35-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>matplotblog.github.io/posts/training-new-generations/</loc>
+    <loc>matplotlib.github.io/matplotblog/posts/training-new-generations/</loc>
     <lastmod>2019-08-14T22:40:35-04:00</lastmod>
   </url>
   
   <url>
-    <loc>matplotblog.github.io/posts/</loc>
-    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>matplotblog.github.io/categories/tutorials/</loc>
+    <loc>matplotlib.github.io/matplotblog/posts/</loc>
     <lastmod>2019-08-14T22:40:35-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>matplotblog.github.io/posts/a-new-blog/</loc>
+    <loc>matplotlib.github.io/matplotblog/categories/tutorials/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>matplotlib.github.io/matplotblog/posts/a-new-blog/</loc>
     <lastmod>2019-08-07T22:49:35-04:00</lastmod>
   </url>
   
   <url>
-    <loc>matplotblog.github.io/categories/editorial/</loc>
+    <loc>matplotlib.github.io/matplotblog/categories/editorial/</loc>
     <lastmod>2019-08-07T22:49:35-04:00</lastmod>
     <priority>0</priority>
   </url>

@@ -1,20 +1,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>editorial - Matplotblog</title>
-    <link>matplotblog.github.io/categories/editorial/</link>
+    <link>matplotlib.github.io/matplotblog/categories/editorial/</link>
     <description>Recent content in editorial on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 07 Aug 2019 22:49:35 -0400</lastBuildDate>
     
-        <atom:link href="matplotblog.github.io/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="matplotlib.github.io/matplotblog/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>A New Blog</title>
-      <link>matplotblog.github.io/posts/a-new-blog/</link>
+      <link>matplotlib.github.io/matplotblog/posts/a-new-blog/</link>
       <pubDate>Wed, 07 Aug 2019 22:49:35 -0400</pubDate>
       
-      <guid>matplotblog.github.io/posts/a-new-blog/</guid>
+      <guid>matplotlib.github.io/matplotblog/posts/a-new-blog/</guid>
       <description>Matplotblog, the new blog of matplotlib, to showcase and share great visualization stories.</description>
     </item>
   </channel>

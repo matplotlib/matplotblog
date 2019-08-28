@@ -1,27 +1,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories - Matplotblog</title>
-    <link>matplotblog.github.io/categories/</link>
+    <link>matplotlib.github.io/matplotblog/categories/</link>
     <description>Recent content in Categories on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 14 Aug 2019 22:40:35 -0400</lastBuildDate>
     
-        <atom:link href="matplotblog.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="matplotlib.github.io/matplotblog/categories/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>tutorials</title>
-      <link>matplotblog.github.io/categories/tutorials/</link>
+      <link>matplotlib.github.io/matplotblog/categories/tutorials/</link>
       <pubDate>Wed, 14 Aug 2019 22:40:35 -0400</pubDate>
       
-      <guid>matplotblog.github.io/categories/tutorials/</guid>
+      <guid>matplotlib.github.io/matplotblog/categories/tutorials/</guid>
       <description></description>
     </item><item>
       <title>editorial</title>
-      <link>matplotblog.github.io/categories/editorial/</link>
+      <link>matplotlib.github.io/matplotblog/categories/editorial/</link>
       <pubDate>Wed, 07 Aug 2019 22:49:35 -0400</pubDate>
       
-      <guid>matplotblog.github.io/categories/editorial/</guid>
+      <guid>matplotlib.github.io/matplotblog/categories/editorial/</guid>
       <description></description>
     </item>
   </channel>
