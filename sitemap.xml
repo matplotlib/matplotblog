@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://matplotblog.org/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/categories/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/posts/training-new-generations/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/posts/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/categories/tutorials/</loc>
+    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/posts/a-new-blog/</loc>
+    <lastmod>2019-08-07T22:49:35-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotblog.org/categories/editorial/</loc>
+    <lastmod>2019-08-07T22:49:35-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
