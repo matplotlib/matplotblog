@@ -1,4 +1,4 @@
-baseURL = "https://matplotlib.github.io/matplotblog"
+baseURL = "https://matplotlib.github.io/matplotblog/"
 languageCode = "en-us"
 title = "Matplotblog"
 theme = "aether"
