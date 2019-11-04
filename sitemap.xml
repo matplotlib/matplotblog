@@ -4,43 +4,48 @@
   
   <url>
     <loc>https://matplotlib.org/matplotblog/</loc>
-    <lastmod>2019-09-01T21:37:03-04:00</lastmod>
+    <lastmod>2019-10-23T12:43:23-04:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/categories/</loc>
-    <lastmod>2019-09-01T21:37:03-04:00</lastmod>
+    <loc>https://matplotlib.org/matplotblog/categories/academia/</loc>
+    <lastmod>2019-10-23T12:43:23-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/posts/how-to-contribute/</loc>
-    <lastmod>2019-09-01T21:37:03-04:00</lastmod>
+    <loc>https://matplotlib.org/matplotblog/categories/</loc>
+    <lastmod>2019-10-23T12:43:23-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/posts/</loc>
-    <lastmod>2019-09-01T21:37:03-04:00</lastmod>
+    <lastmod>2019-10-23T12:43:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/using-matplotlib-to-advocate-for-postdocs/</loc>
+    <lastmod>2019-10-23T12:43:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/how-to-contribute/</loc>
+    <lastmod>2019-10-10T21:37:03-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/categories/tutorials/</loc>
-    <lastmod>2019-09-01T21:37:03-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matplotlib.org/matplotblog/posts/training-new-generations/</loc>
-    <lastmod>2019-08-14T22:40:35-04:00</lastmod>
+    <lastmod>2019-10-10T21:37:03-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/posts/a-new-blog/</loc>
-    <lastmod>2019-08-07T22:49:35-04:00</lastmod>
+    <lastmod>2019-10-07T22:49:35-04:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/categories/editorial/</loc>
-    <lastmod>2019-08-07T22:49:35-04:00</lastmod>
+    <lastmod>2019-10-07T22:49:35-04:00</lastmod>
   </url>
   
 </urlset>

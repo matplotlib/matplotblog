@@ -1,0 +1,21 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>academia - Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/academia/</link>
+    <description>Recent content in academia on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 23 Oct 2019 12:43:23 -0400</lastBuildDate>
+    
+        <atom:link href="https://matplotlib.org/matplotblog/categories/academia/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using Matplotlib to Advocate for Postdocs</title>
+      <link>https://matplotlib.org/matplotblog/posts/using-matplotlib-to-advocate-for-postdocs/</link>
+      <pubDate>Wed, 23 Oct 2019 12:43:23 -0400</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/using-matplotlib-to-advocate-for-postdocs/</guid>
+      <description>Advocating is all about communicating facts clearly. I used Matplotlib to show the financial struggles of postdocs in the Boston area.</description>
+    </item>
+  </channel>
+</rss>

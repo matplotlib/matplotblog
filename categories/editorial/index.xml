@@ -5,14 +5,14 @@
     <description>Recent content in editorial on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Aug 2019 22:49:35 -0400</lastBuildDate>
+    <lastBuildDate>Mon, 07 Oct 2019 22:49:35 -0400</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>A New Blog</title>
       <link>https://matplotlib.org/matplotblog/posts/a-new-blog/</link>
-      <pubDate>Wed, 07 Aug 2019 22:49:35 -0400</pubDate>
+      <pubDate>Mon, 07 Oct 2019 22:49:35 -0400</pubDate>
       
       <guid>https://matplotlib.org/matplotblog/posts/a-new-blog/</guid>
       <description>Matplotblog, the new blog of matplotlib, to showcase and share great visualization stories.</description>

@@ -5,28 +5,28 @@
     <description>Recent content on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Sep 2019 21:37:03 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 12:43:23 -0400</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Using Matplotlib to Advocate for Postdocs</title>
+      <link>https://matplotlib.org/matplotblog/posts/using-matplotlib-to-advocate-for-postdocs/</link>
+      <pubDate>Wed, 23 Oct 2019 12:43:23 -0400</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/using-matplotlib-to-advocate-for-postdocs/</guid>
+      <description>Advocating is all about communicating facts clearly. I used Matplotlib to show the financial struggles of postdocs in the Boston area.</description>
+    </item><item>
       <title>How to Contribute</title>
       <link>https://matplotlib.org/matplotblog/posts/how-to-contribute/</link>
-      <pubDate>Sun, 01 Sep 2019 21:37:03 -0400</pubDate>
+      <pubDate>Thu, 10 Oct 2019 21:37:03 -0400</pubDate>
       
       <guid>https://matplotlib.org/matplotblog/posts/how-to-contribute/</guid>
       <description>See how you can contribute to the matplotblog.</description>
     </item><item>
-      <title>Contribute to Matplotlib</title>
-      <link>https://matplotlib.org/matplotblog/posts/training-new-generations/</link>
-      <pubDate>Wed, 14 Aug 2019 22:40:35 -0400</pubDate>
-      
-      <guid>https://matplotlib.org/matplotblog/posts/training-new-generations/</guid>
-      <description>This blog will also host a battery of tutorials and articles to introduce new generations to matplotlib; and you can contribute too.</description>
-    </item><item>
       <title>A New Blog</title>
       <link>https://matplotlib.org/matplotblog/posts/a-new-blog/</link>
-      <pubDate>Wed, 07 Aug 2019 22:49:35 -0400</pubDate>
+      <pubDate>Mon, 07 Oct 2019 22:49:35 -0400</pubDate>
       
       <guid>https://matplotlib.org/matplotblog/posts/a-new-blog/</guid>
       <description>Matplotblog, the new blog of matplotlib, to showcase and share great visualization stories.</description>
