@@ -1,6 +1,6 @@
 ---
 title: "How to Contribute"
-date: 2019-09-01T21:37:03-04:00
+date: 2019-10-10T21:37:03-04:00
 draft: true
 description: "See how you can contribute to the matplotblog."
 categories: ["tutorials"]
