@@ -12,7 +12,7 @@
 
         </header>
         {{ with .Resources.GetMatch "featuredImage" }}
-          {{ if or (not ( isset .Params "showOnTop" )) (.Params.showOnTop) }}
+          {{ if or ( not ( isset .Params "showOnTop" )) ( eq .Params.showOnTop true ) }}
           <picture class="post-figure">
             {{ with $.Resources.GetMatch (replace (.Title) (path.Ext (.Title)) ".webp") -}}
             <source srcset="{{ .Permalink }}" type="image/webp">
