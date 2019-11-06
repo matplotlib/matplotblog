@@ -28,6 +28,7 @@
     
     
   </a></h1>
+  <a href="index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
   <div class="hamburger-menu">
     <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
       <span></span>
@@ -53,15 +54,17 @@
           <p class="post-date">Posted <time datetime="2019-10-10">Oct 10, 2019</time>
 	  <span class="post-author"> &mdash; By Davide Valeriani</span>
 	  </p>
-	  
+
         </header>
         
-        <picture class="post-figure">
           
+          <picture class="post-figure">
+            
+            
+            <source srcset="https://matplotlib.org/matplotblog/posts/how-to-contribute/contribute_huf128280faa31365bc11f40f42e4a9484_108837_800x0_resize_q75_lanczos.jpg">
+            <img src="https://matplotlib.org/matplotblog/posts/how-to-contribute/contribute_huf128280faa31365bc11f40f42e4a9484_108837_800x0_resize_q75_lanczos.jpg" >
+          </picture>
           
-          <source srcset="https://matplotlib.org/matplotblog/posts/how-to-contribute/contribute_huf128280faa31365bc11f40f42e4a9484_108837_800x0_resize_q75_lanczos.jpg">
-          <img src="https://matplotlib.org/matplotblog/posts/how-to-contribute/contribute_huf128280faa31365bc11f40f42e4a9484_108837_800x0_resize_q75_lanczos.jpg" >
-        </picture>
         
         <p>Matplotblog relies on your contributions to it. We want to showcase all the amazing projects that make use of Matplotlib. In this post, we will see which steps you have to follow to add a post to our blog.</p>
 
@@ -125,9 +128,12 @@ git checkout -b post-my-fancy-title
 <pre><code>resources:
 - name: featuredImage
   src: &quot;my-image.jpg&quot;
+  params:
+    description: &quot;my image description&quot;
+    showOnTop: true
 </code></pre>
 
-<p>Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add <em>my-image.jpg</em> to your post folder.</p>
+<p>Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add <em>my-image.jpg</em> to your post folder. The parameter <em>showOnTop</em> decides whether or not the image will also be shown at the top of your post.</p>
 
 <p>Now, you can write the main text of your post. We fully support <a href="https://markdown-guide.readthedocs.io/en/latest/basics.html">markdown</a>, so use it to format your post.</p>
 
