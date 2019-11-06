@@ -10,6 +10,8 @@ author: Davide Valeriani
 resources:
 - name: featuredImage
   src: "contribute.jpg"
+  params:
+    showOnTop: true
 ---
 
 Matplotblog relies on your contributions to it. We want to showcase all the amazing projects that make use of Matplotlib. In this post, we will see which steps you have to follow to add a post to our blog.
@@ -67,8 +69,11 @@ Add your name as author. Multiple authors are also possible, separate them by co
 resources:
 - name: featuredImage
   src: "my-image.jpg"
+  params:
+    description: "my image description"
+    showOnTop: true
 ```
-Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add *my-image.jpg* to your post folder.
+Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add *my-image.jpg* to your post folder. The parameter *showOnTop* decides whether or not the image will also be shown at the top of your post.
 
 Now, you can write the main text of your post. We fully support [markdown](https://markdown-guide.readthedocs.io/en/latest/basics.html), so use it to format your post.
 

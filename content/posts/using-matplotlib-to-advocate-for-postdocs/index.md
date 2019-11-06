@@ -10,6 +10,8 @@ categories: ["academia"]
 resources:
 - name: featuredImage
   src: research.jpg
+  params:
+    showOnTop: false
 ---
 
 Postdocs are the [workers of academia](https://en.wikipedia.org/wiki/Postdoctoral_researcher).
