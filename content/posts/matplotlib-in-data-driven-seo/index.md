@@ -1,7 +1,7 @@
 ---
 title: "Matplotlib in Data Driven SEO"
 date: 2019-12-04T17:23:24+01:00
-description: "At Whites Agency we analyze big unstuctured data to increases client's online visibility. We share our story of how we used Matplotlib to present the complicated data in a simple and reader-friendly way."
+description: "At Whites Agency we analyze big unstructured data to increases client's online visibility. We share our story of how we used Matplotlib to present the complicated data in a simple and reader-friendly way."
 categories: ["industry"]
 draft: false
 displayInMenu: false
@@ -10,22 +10,19 @@ author: Whites Agency
 
 resources:
 - name: featuredImage
-  src: "featureImage.png"
+  src: "featuredImage.png"
   params:
     showOnTop: false
 ---
 ![Other visualization projects at Whites Agency.](fig4.jpg)
 
-[Whites Agency](https://whites.agency/) is a digital marketing partner with a strong focus on Data-driven SEO. What makes us unique is our own technology & a team of self-driven specialists. Our data scientists are passionate about using AI solutions that maximize SEO success for the clients. We run many Big Data analyses which enables us to find the most accurate optimization opportunities leading to higher positions in Google. Some of the researches we've carried out so far concentrated on Google ranking factors in [eCommerce](https://whites.agency/blog/seo-analysis-in-ecommerce-with-the-use-of-big-data/), [football category](https://whites.agency/blog/a-70-increase-in-conversion-rate-within-a-month-due-to-data-driven-seo-a-case-study-of-the-football-website-sporticos/) and [clothing market](https://whites.agency/blog/what-everyone-in-the-fashion-industry-should-know-about-seo-in-new-zealand-big-data-analysis/). We also perform comparative analysis of large scale [website speed performance](https://whites.agency/blog/google-lighthouse-study-seo-ranking-factors-in-ecommerce-vs-news/). 
+Search Engine Optimization (SEO) is a process that aims to increase quantity and quality of website traffic by ensuring a website can be found in search engines for phrases that are relevant to what the site is offering. Google is the most popular search engine in the world and presence in top search results is invaluable for any online business since click rates drop exponentially with ranking position. Since the beginning, specialized entities have been decoding signals that influence position in search engine result page (SERP) focusing on e.g. number of outlinks, presence of keywords or content length. Developed practices typically resulted in better visibility, but needed to be constantly challenged because search engines introduce changes to their algorithms even every day. Since the rapid advancements in Big Data and machine learning finding significant ranking factors became increasingly more difficult. Thus, the whole SEO field required a shift where recommendations are backed up by large scale studies based on real data rather than old-fashioned practices. [Whites Agency](https://whites.agency/) focuses strongly on Data-Driven SEO. We run many Big Data analyses which give us insights into multiple optimization opportunities.
 
-[White Dog Technology](https://whites.agency/our-technology/) is our response to frequent changes in Google's algorithm and the development of AI solutions. Our work got recognized and therefore we are a beneficient of research and industrial grant that allows us to develop new functions of our technology. Moreover, we are the authors of White Crow Technology - an automated tool for researching and analyzing Google's paid campaigns. Our data-driven SEO based on real data rather than old-fashioned practices ensures an optimal decision-making process for the clients we work with.
-
-# Data Visualization in Python using matplotlib
-Majority of cases we are dealing with right now focus on data harvesting and analysis. In blogging, data presentation plays an important part and since the beginning, we needed a tool that would allow us to experiment with different forms of visualizations. Because our organization is Python driven, matplotlib was a straightforward choice for us. It is a mature project that offers flexibility and control. Among other features, matplotlib figures can be easily exported not only to raster graphic formats (png, jpg) but also to vector ones (SVG, PDF, EPS), creating high-quality images that can be embedded in HTML code, LaTeX or utilized by graphic designers. In one of our projects, matplotlib was a part of the Python processing pipeline that automatically generated pdf summaries from an HTML template for individual clients.  
+Majority of cases we are dealing with right now focus on data harvesting and analysis. Data presentation plays an important part and since the beginning, we needed a tool that would allow us to experiment with different forms of visualizations. Because our organization is Python driven, matplotlib was a straightforward choice for us. It is a mature project that offers flexibility and control. Among other features, matplotlib figures can be easily exported not only to raster graphic formats (png, jpg) but also to vector ones (svg, pdf, eps), creating high-quality images that can be embedded in HTML code, LaTeX or utilized by graphic designers. In one of our projects, matplotlib was a part of the Python processing pipeline that automatically generated pdf summaries from an HTML template for individual clients. Every data visualization project has the same core presented in the figure below, where data is loaded from the database, processed in pandas or PySpark and finally visualized with matplotlib.
 
 ![Data Visualization Pipeline at Whites Agency](fig1.png)
 
-We choose two cases that demonstrate how matplotlib is used in our organization. Every data visualization project has the same core presented in the figure above, where data is loaded from the database, processed in pandas or PySpark and finally visualized with matplotlib. In each case we set up a global style, which is the basis for all figures (overwritten if necessary):
+In what follows, we would like to share two insights from our studies. All figures were prepeared in matplotlib and in each case we set up a global style (overwritten if necessary):
 ```
 import matplotlib.pyplot as plt
 from cycler import cycler
@@ -49,13 +46,12 @@ plt.rcParams['xtick.labelsize'] = 13
 plt.rcParams['ytick.labelsize'] = 13
 plt.rcParams['lines.linewidth'] = 2.0
 ```
-## Case 1: Website Speed Performance
-Our R&D department analyzed a set of 10,000 potential customer intent phrases from ​​the “Electronics” (eCommerce) and “News” domains (5000 phrases each). Using our own White Dog technology, we scraped data from the Google ranking in a specific location (London, United Kingdom) both for mobile and desktop results.
-Based on those data, we distinguished TOP 20 results that appeared in SERPs. Then each page was audited with the [Google Lighthouse tool](https://developers.google.com/web/tools/lighthouse). Google Lighthouse is an open-source, automated tool for improving the quality of web pages. A single sample from our analysis which shows variations of *Time to First Byte* (TTFB) as a function of Google position (grouped in threes) is presented below. TTFB measures the time it takes for a user's browser to receive the first byte of page content. Regardless of the device, TTFB score is the lowest for websites that occurred in TOP 3 positions. The difference is significant, especially between TOP 3 and 4-6 results.
+# Case 1: Website Speed Performance
+Our R&D department analyzed a set of 10,000 potential customer intent phrases from ​​the *Electronics* (eCommerce) and *News* domains (5000 phrases each). They scraped data from the Google ranking in a specific location (London, United Kingdom) both for mobile and desktop results [full study available [here](https://whites.agency/blog/google-lighthouse-study-seo-ranking-factors-in-ecommerce-vs-news/)]. Based on those data, we distinguished TOP 20 results that appeared in SERPs. Next, each page was audited with the [Google Lighthouse tool](https://developers.google.com/web/tools/lighthouse). Google Lighthouse is an open-source, automated tool for improving the quality of web pages, that among other collects information about website loading time. A single sample from our analysis which shows variations of *Time to First Byte* (TTFB) as a function of Google position (grouped in threes) is presented below. TTFB measures the time it takes for a user's browser to receive the first byte of page content. Regardless of the device, TTFB score is the lowest for websites that occurred in TOP 3 positions. The difference is significant, especially between TOP 3 and 4-6 results. Therefore, Google favors websites that respond fast and therefore it is adviced to invest in website speed optimization. 
 
 ![Time to first byte from Lighthouse study performed at Whites Agency.](fig2.png)
 
-The figure above uses `fill_between` function from matplotlib library to draw colored shade that represents the 40-60th percentile range.  A simple line plot with circle markers denotes the median (50th percentile). X-axis labels were assigned manually. The whole style is wrapped into a custom function that allows us to reproduce the whole figure in a single line of code. A sample of our code is presented below: 
+The figure above uses `fill_between` function from matplotlib library to draw colored shade that represents the 40-60th percentile range.  A simple line plot with circle markers denotes the median (50th percentile). X-axis labels were assigned manually. The whole style is wrapped into a custom function that allows us to reproduce the whole figure in a single line of code. A sample is presented below: 
 
 ```
 import matplotlib.pyplot as plt
@@ -108,8 +104,8 @@ for ax in axx:
 fig.savefig("lighthouse.png", bbox_inches='tight', dpi=250)
 ```
 
-## Case 2: Google Ads ranking
-Our R&D department looked into paid campaigns (Ads) for more than 7600 queries focused around the travel category in Poland [Available only in [Polish](https://agencjawhites.pl/aktualnosci/ponad-1000-graczy-walczy-o-polskiego-turyste-w-wyszukiwarce-google/)] in Google Search. We scraped the first page in Google and analyzed the ads that were present. At the moment of writing this post, each result can have up to 4 ads at the top and up to 3 ads at the bottom. Each ad belongs to some domain and has a headline, description, and optional extensions. Below we present TOP 25 domains with the highest visibility on desktop computers. The Y-axis shows the name of a domain and the X-axis indicates how many times a domain appeared in an ad. We repeated the study 3 times and aggregated the counts. That is why the scale is much larger than 7600. In this project, the type of plot below allows us to summarize different brands' ads campaign strategies and their advertising market shares. For example, *itaka* and *wakacje* have the strongest presence both on mobile and desktop and most of their ads appear at the top. The *neckermann* positions itself are very high, but most of their ads appear at the bottom of search results. 
+# Case 2: Google Ads ranking
+Another example let us draw insights from Google's paid campaigns (Ads). Our R&D department scraped the first page in Google for more than 7600 queries and analyzed the ads that were present [study available only in [Polish](https://agencjawhites.pl/aktualnosci/ponad-1000-graczy-walczy-o-polskiego-turyste-w-wyszukiwarce-google/)]. The queries were narrowed down to *Travel* category. At the moment of writing this post, each SERP can have up to 4 ads at the top and up to 3 ads at the bottom. Each ad is associated with a domain and has a headline, description, and optional extensions. Below we present TOP 25 domains with the highest visibility on desktop computers. The Y-axis shows the name of a domain and the X-axis indicates how many ads is linked with particular domain, in total. We repeated the study 3 times and aggregated the counts that is why the scale is much larger than 7600. In this project, the type of plot below allows us to summarize different brands' ads campaign strategies and their advertising market shares. For example, *itaka* and *wakacje* have the strongest presence both on mobile and desktop and most of their ads appear at the top. The *neckermann* positions itself are very high, but most of their ads appear at the bottom of search results. 
 
 ![TOP 25 domains with the highest visibility on desktop computers.](fig3.png)
 
@@ -182,4 +178,4 @@ legend_elements = [
 ax.legend(handles=legend_elements, fontsize=15)
 ```
 # Summary
-The matplotlib library meets our needs in terms of visual capabilities and flexibility. It allows us to create standard plots in a single line of code, as well as experiment with different forms of graphs thanks to its lower level features. Thanks to opportunities offered by matplotlib we may present the complicated data in a simple and reader-friendly way. 
+This is just a sample from our studies and more can be found on our website. The matplotlib library meets our needs in terms of visual capabilities and flexibility. It allows us to create standard plots in a single line of code, as well as experiment with different forms of graphs thanks to its lower level features. Thanks to opportunities offered by matplotlib we may present the complicated data in a simple and reader-friendly way. 
