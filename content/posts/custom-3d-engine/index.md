@@ -243,14 +243,14 @@ Let's try now to fill the triangles ([bunny-6.py](bunny-6.py)):
 ![](bunny-6.png)
 
 As you can see, the result is "interesting" and totally wrong. The problem is
-that the PolyCollection will draw the triangle in the order they are given
+that the PolyCollection will draw the triangles in the order they are given
 while we would like to have them from back to front. This means we need to sort
 them according to their depth. The good news is that we already computed this
 information when we applied the MVP transformation. It is stored in the new z
-coordinates. However, these z values are vertices based while we need to store
-triangles. We'll thus take the mean "z" value as being representative of the
+coordinates. However, these z values are vertices based while we need to sort
+the triangles. We'll thus take the mean z value as being representative of the
 depth of a triangle. If triangles are relatively small and do not intersect,
-this will work beautifully:
+this works beautifully:
 
 ```
 T =  V[:,:,:2]
