@@ -2,7 +2,7 @@
 title: "Custom 3D engine in Matplotlib"
 date: 2019-12-18T09:05:32+01:00
 draft: false
-description: "Custom 3D engine in Matplotlib?"
+description: "3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll deisng a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we'll render the bunny without using the 3D axis."
 categories: ["tutorials", "3D"]
 author: Nicolas P. Rougier
 displayInList: true
