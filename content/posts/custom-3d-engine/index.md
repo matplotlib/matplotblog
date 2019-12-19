@@ -138,7 +138,7 @@ However, if you look at the two functions above, you'll realize they return 4x4
 matrices while our coordinates are 3d. How to use these matrices then ? The
 answer is [homogeneous
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates). To make
-along story short, homogeneous coordinates are best to deal with transformation
+a long story short, homogeneous coordinates are best to deal with transformation
 and projections in 3D. In our case, because we're dealing with vertices (and
 not vectors), we only need to add 1 as the fourth coordinates (w) to all our
 vertices. Then we can apply the perspective transformation using the dot
