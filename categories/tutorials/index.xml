@@ -5,11 +5,18 @@
     <description>Recent content in tutorials on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Nov 2019 09:21:28 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2019 09:05:32 +0100</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Custom 3D engine in Matplotlib</title>
+      <link>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</link>
+      <pubDate>Wed, 18 Dec 2019 09:05:32 +0100</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</guid>
+      <description>3D rendering is really easy once you&#39;ve understood a few concepts. To demonstrate that, we&#39;ll deisng a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we&#39;ll render the bunny without using the 3D axis.</description>
+    </item><item>
       <title>Creating the Warming Stripes in Matplotlib</title>
       <link>https://matplotlib.org/matplotblog/posts/warming-stripes/</link>
       <pubDate>Mon, 11 Nov 2019 09:21:28 +0100</pubDate>

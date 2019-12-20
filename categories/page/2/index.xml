@@ -5,11 +5,18 @@
     <description>Recent content in Categories on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 04 Dec 2019 17:23:24 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2019 09:05:32 +0100</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/categories/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>academia</title>
+      <link>https://matplotlib.org/matplotblog/categories/academia/</link>
+      <pubDate>Mon, 11 Nov 2019 09:21:28 +0100</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/categories/academia/</guid>
+      <description></description>
+    </item><item>
       <title>editorial</title>
       <link>https://matplotlib.org/matplotblog/categories/editorial/</link>
       <pubDate>Mon, 07 Oct 2019 22:49:35 -0400</pubDate>
