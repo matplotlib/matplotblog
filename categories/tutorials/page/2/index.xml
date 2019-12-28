@@ -1,0 +1,21 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorials - Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/tutorials/</link>
+    <description>Recent content in tutorials on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 24 Dec 2019 11:25:42 +0530</lastBuildDate>
+    
+        <atom:link href="https://matplotlib.org/matplotblog/categories/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>How to Contribute</title>
+      <link>https://matplotlib.org/matplotblog/posts/how-to-contribute/</link>
+      <pubDate>Thu, 10 Oct 2019 21:37:03 -0400</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/how-to-contribute/</guid>
+      <description>See how you can contribute to the matplotblog.</description>
+    </item>
+  </channel>
+</rss>

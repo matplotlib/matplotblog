@@ -4,8 +4,28 @@
   
   <url>
     <loc>https://matplotlib.org/matplotblog/</loc>
-    <lastmod>2019-12-18T09:05:32+01:00</lastmod>
+    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</loc>
+    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/categories/</loc>
+    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/</loc>
+    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/categories/tutorials/</loc>
+    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
   </url>
   
   <url>
@@ -14,22 +34,7 @@
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/categories/</loc>
-    <lastmod>2019-12-18T09:05:32+01:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</loc>
-    <lastmod>2019-12-18T09:05:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matplotlib.org/matplotblog/posts/</loc>
-    <lastmod>2019-12-18T09:05:32+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://matplotlib.org/matplotblog/categories/tutorials/</loc>
     <lastmod>2019-12-18T09:05:32+01:00</lastmod>
   </url>
   
