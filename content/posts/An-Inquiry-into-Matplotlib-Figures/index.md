@@ -25,6 +25,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 ```
 
+> A Top-Down runnable Jupyter Notebook with the exact contents of this blog can be found [here](https://gist.github.com/akashpalrecha/4652e98c9b2f3f1961637be001dc0239)
+
 > An interactive version of this guide can be accessed on [Google Colab](https://colab.research.google.com/drive/1SOgWPI9HckTQ0zm47Ma-gYCTucMccTxg)
 
 # A word before we get started...
@@ -361,7 +363,7 @@ fig
 
 
 
-![png](output_36_0.png =500)
+![png](output_36_0.png)
 
 
 
