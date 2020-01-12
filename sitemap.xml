@@ -1,30 +1,35 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>https://matplotlib.org/matplotblog/</loc>
-    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+    <lastmod>2020-01-12T13:35:34-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</loc>
-    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+    <loc>https://matplotlib.org/matplotblog/categories/</loc>
+    <lastmod>2020-01-12T13:35:34-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/categories/</loc>
-    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+    <loc>https://matplotlib.org/matplotblog/posts/create-a-tesla-cybertruck-that-drives/</loc>
+    <lastmod>2020-01-12T13:35:34-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/posts/</loc>
-    <lastmod>2019-12-24T11:25:42+05:30</lastmod>
+    <lastmod>2020-01-12T13:35:34-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/categories/tutorials/</loc>
+    <lastmod>2020-01-12T13:35:34-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</loc>
     <lastmod>2019-12-24T11:25:42+05:30</lastmod>
   </url>
   

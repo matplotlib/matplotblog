@@ -68,90 +68,45 @@
           
         
         <p>Matplotblog relies on your contributions to it. We want to showcase all the amazing projects that make use of Matplotlib. In this post, we will see which steps you have to follow to add a post to our blog.</p>
-
 <p>To manage your contributions, we will use <a href="https://yangsu.github.io/pull-request-tutorial/">Git pull requests</a>. So, if you have not done it already, you first need to clone <a href="https://github.com/matplotlib/matplotblog">our Git repository</a>, by typing the following in a terminal window:</p>
-
 <pre><code>git clone https://github.com/matplotlib/matplotblog.git
-</code></pre>
-
-<p>Then, you should create a new branch, which will contain your changes.</p>
-
+</code></pre><p>Then, you should create a new branch, which will contain your changes.</p>
 <pre><code>cd matplotblog
 git checkout -b post-my-fancy-title
-</code></pre>
-
-<p>The name of your branch should begin with <em>post-</em> followed by the short title of your blog post.</p>
-
+</code></pre><p>The name of your branch should begin with <em>post-</em> followed by the short title of your blog post.</p>
 <p>Then you should create a new blog post. We have used <a href="https://gohugo.io/">Hugo</a> to create the Matplotblog, so you will first need to <a href="https://gohugo.io/getting-started/quick-start/#step-1-install-hugo">install it</a>. To create a new post, decide a title (e.g., <em>my-fancy-title</em>) and type the following:</p>
-
 <pre><code>hugo new posts/my-fancy-title/index.md
-</code></pre>
-
-<p>This command will create a new folder under <em>folder_repository/posts/</em> called <em>my-fancy-title</em>. This will be your working directory for the post. If you want to add external content to your post (e.g., images), you will add it to this folder.</p>
-
+</code></pre><p>This command will create a new folder under <em>folder_repository/posts/</em> called <em>my-fancy-title</em>. This will be your working directory for the post. If you want to add external content to your post (e.g., images), you will add it to this folder.</p>
 <p>You can now open the file <em>index.md</em> in your post folder with your favorite text editor. You will see a header section delimited by &mdash;. Let us go through all the headings you can configure:</p>
-
 <pre><code>title: &quot;Your fancy title&quot;
-</code></pre>
-
-<p>This is the title of your post that will appear at the beginning of the page. Pick a catchy one.</p>
-
+</code></pre><p>This is the title of your post that will appear at the beginning of the page. Pick a catchy one.</p>
 <pre><code>date: 2019-09-01T21:37:03-04:00
-</code></pre>
-
-<p>The current date and time, you do not need to modify this.</p>
-
+</code></pre><p>The current date and time, you do not need to modify this.</p>
 <pre><code>draft: false
-</code></pre>
-
-<p>Specify that the post is not a draft and you want it to be published right away.</p>
-
+</code></pre><p>Specify that the post is not a draft and you want it to be published right away.</p>
 <pre><code>description: &quot;This is my first post contribution.&quot;
-</code></pre>
-
-<p>This is a long description of the topic of your post. Modify it according to the content.</p>
-
+</code></pre><p>This is a long description of the topic of your post. Modify it according to the content.</p>
 <pre><code>categories: [&quot;tutorials&quot;]
-</code></pre>
-
-<p>Pick the category you want your post to be added to. You can find the list of categories in the top right menu of matplotblog (except for Home and About).</p>
-
+</code></pre><p>Pick the category you want your post to be added to. You can find the list of categories in the top right menu of matplotblog (except for Home and About).</p>
 <pre><code>displayInList: true
-</code></pre>
-
-<p>Specify that you want your post to appear in the list of latest posts and in the list of posts of the specified category.</p>
-
+</code></pre><p>Specify that you want your post to appear in the list of latest posts and in the list of posts of the specified category.</p>
 <pre><code>author: Davide Valeriani
-</code></pre>
-
-<p>Add your name as author. Multiple authors are also possible, separate them by commas.</p>
-
+</code></pre><p>Add your name as author. Multiple authors are also possible, separate them by commas.</p>
 <pre><code>resources:
 - name: featuredImage
   src: &quot;my-image.jpg&quot;
   params:
     description: &quot;my image description&quot;
     showOnTop: true
-</code></pre>
-
-<p>Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add <em>my-image.jpg</em> to your post folder. The parameter <em>showOnTop</em> decides whether or not the image will also be shown at the top of your post.</p>
-
+</code></pre><p>Select an image to be associated to your post, which will appear aside the title in the homepage. Make sure to add <em>my-image.jpg</em> to your post folder. The parameter <em>showOnTop</em> decides whether or not the image will also be shown at the top of your post.</p>
 <p>Now, you can write the main text of your post. We fully support <a href="https://markdown-guide.readthedocs.io/en/latest/basics.html">markdown</a>, so use it to format your post.</p>
-
 <p>To preview your new post, open a terminal and type:</p>
-
 <pre><code>hugo server
-</code></pre>
-
-<p>Then open the browser and visit <a href="http://localhost:1313/matplotblog">http://localhost:1313/matplotblog</a> to make sure your post appears in the homepage. If you spot errors or something that you want to tune, go back to your index.md file and modify it.</p>
-
+</code></pre><p>Then open the browser and visit <a href="http://localhost:1313/matplotblog">http://localhost:1313/matplotblog</a> to make sure your post appears in the homepage. If you spot errors or something that you want to tune, go back to your index.md file and modify it.</p>
 <p>When your post is ready to go, you can commit and push the changes to your branch:</p>
-
 <pre><code>git commit -am &quot;Added new blog post&quot;
 git push
-</code></pre>
-
-<p>Finally, submit a pull request to have our admins review your contribution and merge it to the master repository. That is it folks!</p>
+</code></pre><p>Finally, submit a pull request to have our admins review your contribution and merge it to the master repository. That is it folks!</p>
 
       </article>
       
