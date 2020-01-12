@@ -14,11 +14,7 @@ resources:
     showOnTop: true
 ---
 
-# Create a Tesla Cybertruck that Drives
-
 My name is [Ted Petrou][0], founder of [Dunder Data][1], and in this tutorial you will learn how to create the new [Tesla Cybertruck][2] using matplotlib. I was inspired by the image below which was originally created by [Lynn Fisher][3] (without matplotlib).
-
-![Tesla Created by Lynn Fisher](tesla.png)
 
 [0]: https://wwww.twitter.com/tedpetrou
 [1]: https://www.dunderdata.com
@@ -352,5 +348,3 @@ animation.save('tesla_animate.mp4', fps=30, bitrate=3000)
 ## Continue Animating
 
 I encourage you to add more components to your Cybertruck animation to personalize the creation. I suggest encapsulating each addition with a function as done in this tutorial.
-
-
