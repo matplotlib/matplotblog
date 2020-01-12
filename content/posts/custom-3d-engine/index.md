@@ -2,7 +2,7 @@
 title: "Custom 3D engine in Matplotlib"
 date: 2019-12-18T09:05:32+01:00
 draft: false
-description: "3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll deisng a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we'll render the bunny without using the 3D axis."
+description: "3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll design a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we'll render the bunny without using the 3D axis."
 categories: ["tutorials", "3D"]
 author: Nicolas P. Rougier
 displayInList: true
@@ -214,10 +214,10 @@ We'll now decompose the transformations we want to apply in term of model
 we can compute a global MVP matrix that will do everything at once:
 
 ```
-model = xrotate(20) @ yrotate(45) 
+model = xrotate(20) @ yrotate(45)
 view  = translate(0,0,-3.5)
-proj  = perspective(25, 1, 1, 100) 
-MVP   = proj  @ view  @ model 
+proj  = perspective(25, 1, 1, 100)
+MVP   = proj  @ view  @ model
 ```
 
 and we now write:
