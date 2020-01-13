@@ -60,51 +60,67 @@
         
           
         
-        <p><img src="bunny.jpg" alt=""></p>
+        
+
+<p><img src="bunny.jpg" alt="" /></p>
+
 <p>Matplotlib has a really nice <a href="https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html">3D
 interface</a> with many
 capabilities (and some limitations) that is quite popular among users. Yet, 3D
 is still considered to be some kind of black magick for some users (or maybe
 for the majority of users). I would thus like to explain in this post that 3D
-rendering is really easy once you've understood a few concepts. To demonstrate
-that, we'll render the bunny above with 60 lines of Python and one matplotlib
+rendering is really easy once you&rsquo;ve understood a few concepts. To demonstrate
+that, we&rsquo;ll render the bunny above with 60 lines of Python and one matplotlib
 call. That is, without using the 3D axis.</p>
+
 <p><strong>Advertisement</strong>: This post comes from an upcoming open access book on
-scientific visualization using Python and Matplotlib. If you want to
-support my work and have an early access to the book, go to
-<a href="https://github.com/rougier/scientific-visualization-book">https://github.com/rougier/scientific-visualization-book</a>.</p>
+  scientific visualization using Python and Matplotlib. If you want to
+  support my work and have an early access to the book, go to
+  <a href="https://github.com/rougier/scientific-visualization-book">https://github.com/rougier/scientific-visualization-book</a>.</p>
+
 <h1 id="loading-the-bunny">Loading the bunny</h1>
-<p>First things first, we need to load our model. We'll use a <a href="bunny.obj">simplified
+
+<p>First things first, we need to load our model. We&rsquo;ll use a <a href="bunny.obj">simplified
 version</a> of the <a href="https://en.wikipedia.org/wiki/Stanford_bunny">Stanford
 bunny</a>. The file uses the
 <a href="https://en.wikipedia.org/wiki/Wavefront_.obj_file">wavefront format</a> which is
-one of the simplest format, so let's make a very simple (but error-prone)
+one of the simplest format, so let&rsquo;s make a very simple (but error-prone)
 loader that will just do the job for this post (and this model):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">V, F <span style="color:#f92672">=</span> [], []
-<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bunny.obj</span><span style="color:#e6db74">&#34;</span>) <span style="color:#66d9ef">as</span> f:
-   <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> f<span style="color:#f92672">.</span>readlines():
-       <span style="color:#66d9ef">if</span> line<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#</span><span style="color:#e6db74">&#39;</span>):
-           <span style="color:#66d9ef">continue</span>
-       values <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>split()
-       <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> values:
-           <span style="color:#66d9ef">continue</span>
-       <span style="color:#66d9ef">if</span> values[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">v</span><span style="color:#e6db74">&#39;</span>:
-           V<span style="color:#f92672">.</span>append([float(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> values[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]])
-       <span style="color:#66d9ef">elif</span> values[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;</span>:
-           F<span style="color:#f92672">.</span>append([int(x) <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> values[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">4</span>]])
-V, F <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(V), np<span style="color:#f92672">.</span>array(F)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</code></pre></div><p><code>V</code> is now a set of vertices (3D points if you prefer) and <code>F</code> is a set of
+
+<pre><code class="language-Python">V, F = [], []
+with open(&quot;bunny.obj&quot;) as f:
+   for line in f.readlines():
+       if line.startswith('#'):
+           continue
+       values = line.split()
+       if not values:
+           continue
+       if values[0] == 'v':
+           V.append([float(x) for x in values[1:4]])
+       elif values[0] == 'f':
+           F.append([int(x) for x in values[1:4]])
+V, F = np.array(V), np.array(F)-1
+</code></pre>
+
+<p><code>V</code> is now a set of vertices (3D points if you prefer) and <code>F</code> is a set of
 faces (= triangles). Each triangle is described by 3 indices relatively to the
-vertices array. Now, let's normalize the vertices such that the overall bunny
+vertices array. Now, let&rsquo;s normalize the vertices such that the overall bunny
 fits the unit box:</p>
+
 <pre><code>V = (V-(V.max(0)+V.min(0))/2)/max(V.max(0)-V.min(0))
-</code></pre><p>Now, we can have a first look at the model by getting only the x,y coordinates of the vertices and get rid of the z coordinate. To do this we can use the powerful
+</code></pre>
+
+<p>Now, we can have a first look at the model by getting only the x,y coordinates of the vertices and get rid of the z coordinate. To do this we can use the powerful
 <a href="https://matplotlib.org/3.1.1/api/collections_api.html#matplotlib.collections.PolyCollection">PolyCollection</a>
 object that allow to render efficiently a collection of non-regular
 polygons. Since, we want to render a bunch of triangles, this is a perfect
-match. So let's first extract the triangles and get rid of the <code>z</code> coordinate:</p>
+match. So let&rsquo;s first extract the triangles and get rid of the <code>z</code> coordinate:</p>
+
 <pre><code>T = V[F][...,:2]
-</code></pre><p>And we can now render it:</p>
+</code></pre>
+
+<p>And we can now render it:</p>
+
 <pre><code>fig = plt.figure(figsize=(6,6))
 ax = fig.add_axes([0,0,1,1], xlim=[-1,+1], ylim=[-1,+1],
                   aspect=1, frameon=False)
@@ -112,13 +128,20 @@ collection = PolyCollection(T, closed=True, linewidth=0.1,
                             facecolor=&quot;None&quot;, edgecolor=&quot;black&quot;)
 ax.add_collection(collection)
 plt.show()
-</code></pre><p>You should obtain something like this (<a href="bunny-1.py">bunny-1.py</a>):</p>
-<p><img src="bunny-1.png" alt=""></p>
+</code></pre>
+
+<p>You should obtain something like this (<a href="bunny-1.py">bunny-1.py</a>):</p>
+
+<p><img src="bunny-1.png" alt="" /></p>
+
 <h1 id="perspective-projection">Perspective Projection</h1>
-<p>The rendering we've just made is actually an <a href="https://en.wikipedia.org/wiki/Orthographic_projection">orthographic
+
+<p>The rendering we&rsquo;ve just made is actually an <a href="https://en.wikipedia.org/wiki/Orthographic_projection">orthographic
 projection</a> while the
 top bunny uses a <a href="https://en.wikipedia.org/wiki/3D_projection#Perspective_projection">perspective projection</a>:</p>
-<p><img src="projections.png" alt=""></p>
+
+<p><img src="projections.png" alt="" /></p>
+
 <p>In both cases, the proper way of defining a projection is first to define a
 viewing volume, that is, the volume in the 3d space we want to render on the
 scree. To do that, we need to consider 6 clipping planes (left, right, top,
@@ -127,8 +150,10 @@ camera. If we define a camera position and a viewing direction, each plane can
 be described by a single scalar. Once we have this viewing volume, we can
 project onto the screen using either the orthographic or the perspective
 projection.</p>
+
 <p>Fortunately for us, these projections are quite well known and can be expressed
 using 4x4 matrices:</p>
+
 <pre><code>def frustum(left, right, bottom, top, znear, zfar):
     M = np.zeros((4, 4), dtype=np.float32)
     M[0, 0] = +2.0 * znear / (right - left)
@@ -144,42 +169,60 @@ def perspective(fovy, aspect, znear, zfar):
     h = np.tan(0.5*radians(fovy)) * znear
     w = h * aspect
     return frustum(-w, w, -h, h, znear, zfar)
-</code></pre><p>For the perspective projection, we also need to specify the aperture angle that
+</code></pre>
+
+<p>For the perspective projection, we also need to specify the aperture angle that
 (more or less) sets the size of the near plane relatively to the far
-plane. Consequently, for high apertures, you'll get a lot of &ldquo;deformations&rdquo;.</p>
-<p>However, if you look at the two functions above, you'll realize they return 4x4
+plane. Consequently, for high apertures, you&rsquo;ll get a lot of &ldquo;deformations&rdquo;.</p>
+
+<p>However, if you look at the two functions above, you&rsquo;ll realize they return 4x4
 matrices while our coordinates are 3d. How to use these matrices then ? The
 answer is <a href="https://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous
 coordinates</a>. To make
 a long story short, homogeneous coordinates are best to deal with transformation
-and projections in 3D. In our case, because we're dealing with vertices (and
+and projections in 3D. In our case, because we&rsquo;re dealing with vertices (and
 not vectors), we only need to add 1 as the fourth coordinates (w) to all our
 vertices. Then we can apply the perspective transformation using the dot
 product.</p>
+
 <pre><code>V = np.c_[V, np.ones(len(V))] @ perspective(25,1,1,100).T
-</code></pre><p>Last step, we need to re-normalize the homogeneous coordinates. This means we
+</code></pre>
+
+<p>Last step, we need to re-normalize the homogeneous coordinates. This means we
 divide each transformed vertices with the last component (w) such as to always
 have w=1 for each vertices.</p>
+
 <pre><code>V /= V[:,3].reshape(-1,1)
-</code></pre><p>Now we can display the result again (<a href="bunny-2.py">bunny-2.py</a>):</p>
-<p><img src="bunny-2.png" alt=""></p>
-<p>Oh, weird result. What's wrong? What is wrong is that the camera is actually
+</code></pre>
+
+<p>Now we can display the result again (<a href="bunny-2.py">bunny-2.py</a>):</p>
+
+<p><img src="bunny-2.png" alt="" /></p>
+
+<p>Oh, weird result. What&rsquo;s wrong? What is wrong is that the camera is actually
 inside the bunny. To have a proper rendering, we need to move the bunny away
-from the camera or move the camera away from the bunny. Let's do the later. The
+from the camera or move the camera away from the bunny. Let&rsquo;s do the later. The
 camera is currently positioned at (0,0,0) and looking up in the z direction
 (because of the frustum transformation). We thus need to move the camera away a
 little bit in the z negative direction and <strong>before the perspective
 transformation</strong>:</p>
+
 <pre><code>V = V - (0,0,3.5)
 V = np.c_[V, np.ones(len(V))] @ perspective(25,1,1,100).T
 V /= V[:,3].reshape(-1,1)
-</code></pre><p>An now you should obtain (<a href="bunny-3.py">bunny-3.py</a>):</p>
-<p><img src="bunny-3.png" alt=""></p>
+</code></pre>
+
+<p>An now you should obtain (<a href="bunny-3.py">bunny-3.py</a>):</p>
+
+<p><img src="bunny-3.png" alt="" /></p>
+
 <h1 id="model-view-projection-mvp">Model, view, projection (MVP)</h1>
+
 <p>It might be not obvious, but the last rendering is actually a perspective
-transformation. To make it more obvious, we'll rotate the bunny around. To do
+transformation. To make it more obvious, we&rsquo;ll rotate the bunny around. To do
 that, we need some rotation matrices (4x4) and we can as well define the
 translation matrix in the meantime:</p>
+
 <pre><code>def translate(x, y, z):
     return np.array([[1, 0, 0, x],
                      [0, 1, 0, y],
@@ -201,51 +244,77 @@ def yrotate(theta):
                       [ 0, 1, 0, 0],
                       [-s, 0, c, 0],
                       [ 0, 0, 0, 1]], dtype=float)
-</code></pre><p>We'll now decompose the transformations we want to apply in term of model
+</code></pre>
+
+<p>We&rsquo;ll now decompose the transformations we want to apply in term of model
 (local transformations), view (global transformations) and projection such that
 we can compute a global MVP matrix that will do everything at once:</p>
+
 <pre><code>model = xrotate(20) @ yrotate(45)
 view  = translate(0,0,-3.5)
 proj  = perspective(25, 1, 1, 100)
 MVP   = proj  @ view  @ model
-</code></pre><p>and we now write:</p>
+</code></pre>
+
+<p>and we now write:</p>
+
 <pre><code>V = np.c_[V, np.ones(len(V))] @ MVP.T
 V /= V[:,3].reshape(-1,1)
-</code></pre><p>You should obtain (<a href="bunny-4.py">bunny-4.py</a>):</p>
-<p><img src="bunny-4.png" alt=""></p>
-<p>Let's now play a bit with the aperture such that you can see the difference.
+</code></pre>
+
+<p>You should obtain (<a href="bunny-4.py">bunny-4.py</a>):</p>
+
+<p><img src="bunny-4.png" alt="" /></p>
+
+<p>Let&rsquo;s now play a bit with the aperture such that you can see the difference.
 Note that we also have to adapt the distance to the camera in order for the bunnies to have the same apparent size (<a href="bunny-5.py">bunny-5.py</a>):</p>
-<p><img src="bunny-5.png" alt=""></p>
+
+<p><img src="bunny-5.png" alt="" /></p>
+
 <h1 id="depth-sorting">Depth sorting</h1>
-<p>Let's try now to fill the triangles (<a href="bunny-6.py">bunny-6.py</a>):</p>
-<p><img src="bunny-6.png" alt=""></p>
+
+<p>Let&rsquo;s try now to fill the triangles (<a href="bunny-6.py">bunny-6.py</a>):</p>
+
+<p><img src="bunny-6.png" alt="" /></p>
+
 <p>As you can see, the result is &ldquo;interesting&rdquo; and totally wrong. The problem is
 that the PolyCollection will draw the triangles in the order they are given
 while we would like to have them from back to front. This means we need to sort
 them according to their depth. The good news is that we already computed this
 information when we applied the MVP transformation. It is stored in the new z
 coordinates. However, these z values are vertices based while we need to sort
-the triangles. We'll thus take the mean z value as being representative of the
+the triangles. We&rsquo;ll thus take the mean z value as being representative of the
 depth of a triangle. If triangles are relatively small and do not intersect,
 this works beautifully:</p>
+
 <pre><code>T =  V[:,:,:2]
 Z = -V[:,:,2].mean(axis=1)
 I = np.argsort(Z)
 T = T[I,:]
-</code></pre><p>And now everything is rendered right (<a href="bunny-7.py">bunny-7.py</a>):</p>
-<p><img src="bunny-7.png" alt=""></p>
-<p>Let's add some colors using the depth buffer. We'll color each triangle
+</code></pre>
+
+<p>And now everything is rendered right (<a href="bunny-7.py">bunny-7.py</a>):</p>
+
+<p><img src="bunny-7.png" alt="" /></p>
+
+<p>Let&rsquo;s add some colors using the depth buffer. We&rsquo;ll color each triangle
 according to it depth. The beauty of the PolyCollection object is that you can
-specify the color of each of the triangle using a numpy array, so let's just do
+specify the color of each of the triangle using a numpy array, so let&rsquo;s just do
 that:</p>
+
 <pre><code>zmin, zmax = Z.min(), Z.max()
 Z = (Z-zmin)/(zmax-zmin)
 C = plt.get_cmap(&quot;magma&quot;)(Z)
 I = np.argsort(Z)
 T, C = T[I,:], C[I,:]
-</code></pre><p>And now everything is rendered right (<a href="bunny-8.py">bunny-8.py</a>):</p>
-<p><img src="bunny-8.png" alt=""></p>
+</code></pre>
+
+<p>And now everything is rendered right (<a href="bunny-8.py">bunny-8.py</a>):</p>
+
+<p><img src="bunny-8.png" alt="" /></p>
+
 <p>The final script is 57 lines (but hardly readable):</p>
+
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
@@ -303,13 +372,16 @@ ax = fig.add_axes([0,0,1,1], xlim=[-1,+1], ylim=[-1,+1], aspect=1, frameon=False
 collection = PolyCollection(T, closed=True, linewidth=0.1, facecolor=C, edgecolor=&quot;black&quot;)
 ax.add_collection(collection)
 plt.show()
-</code></pre><p>Now it's your turn to play. Starting from this simple script, you can achieve
+</code></pre>
+
+<p>Now it&rsquo;s your turn to play. Starting from this simple script, you can achieve
 interesting results:</p>
-<p><img src="checkered-sphere.png" alt="">
-<img src="platonic-solids.png" alt="">
-<img src="surf.png" alt="">
-<img src="bar.png" alt="">
-<img src="contour.png" alt=""></p>
+
+<p><img src="checkered-sphere.png" alt="" />
+<img src="platonic-solids.png" alt="" />
+<img src="surf.png" alt="" />
+<img src="bar.png" alt="" />
+<img src="contour.png" alt="" /></p>
 
       </article>
       
