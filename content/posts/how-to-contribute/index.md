@@ -83,9 +83,10 @@ hugo server
 ```
 Then open the browser and visit [http://localhost:1313/matplotblog](http://localhost:1313/matplotblog) to make sure your post appears in the homepage. If you spot errors or something that you want to tune, go back to your index.md file and modify it.
 
-When your post is ready to go, you can commit and push the changes to your branch:
+When your post is ready to go, you can add it to the repository, commit and push the changes to your branch:
 ```
-git commit -am "Added new blog post"
+git add content/posts/my-fancy-title
+git commit -m "Added new blog post"
 git push
 ```
 
