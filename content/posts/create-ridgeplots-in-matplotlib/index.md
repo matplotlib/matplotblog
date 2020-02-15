@@ -87,10 +87,6 @@ ax1 = fig.add_subplot(gs[1:,0])
 ax2 = fig.add_subplot(gs[0:,1:])
 
 ax_objs = [ax,ax1,ax2]
-
-n = ["",1,2]
-
-ax_objs = [ax,ax1,ax2]
 n = ["",1,2]
 
 i = 0
