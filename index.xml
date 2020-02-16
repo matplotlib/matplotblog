@@ -5,31 +5,17 @@
     <description>Recent content on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 12 Jan 2020 13:35:34 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 15 Feb 2020 09:50:16 +0100</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Create a Tesla Cybertruck That Drives</title>
-      <link>https://matplotlib.org/matplotblog/posts/create-a-tesla-cybertruck-that-drives/</link>
-      <pubDate>Sun, 12 Jan 2020 13:35:34 -0500</pubDate>
+      <title>Posts</title>
+      <link>https://matplotlib.org/matplotblog/posts/</link>
+      <pubDate>Sat, 15 Feb 2020 09:50:16 +0100</pubDate>
       
-      <guid>https://matplotlib.org/matplotblog/posts/create-a-tesla-cybertruck-that-drives/</guid>
-      <description>Learn how to create a Tesla Cybertruck with matplotlib that drives via animation.</description>
-    </item><item>
-      <title>An Inquiry Into Matplotlib&#39;s Figures</title>
-      <link>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</link>
-      <pubDate>Tue, 24 Dec 2019 11:25:42 +0530</pubDate>
-      
-      <guid>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</guid>
-      <description>This guide dives deep into the inner workings of Matplotlib&#39;s Figures, Axes, subplots and the very amazing GridSpec!</description>
-    </item><item>
-      <title>Custom 3D engine in Matplotlib</title>
-      <link>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</link>
-      <pubDate>Wed, 18 Dec 2019 09:05:32 +0100</pubDate>
-      
-      <guid>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</guid>
-      <description>3D rendering is really easy once you&#39;ve understood a few concepts. To demonstrate that, we&#39;ll design a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we&#39;ll render the bunny without using the 3D axis.</description>
+      <guid>https://matplotlib.org/matplotblog/posts/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>
