@@ -1,6 +1,6 @@
 ---
 title: "Mpl for Making Diagrams"
-date: 2020-02-16T17:57:07-05:00
+date: 2020-02-19T12:57:07-05:00
 draft: false
 description: "How to use Matplotlib to make diagrams."
 categories: ["tutorials"]
@@ -27,7 +27,7 @@ to be good at plotting data.
 The default layout for Matplotlib works great for a lot of things,
 but sometimes you want to exert
 more control. Sometimes you want to treat your figure window as
-a blank canvas and create diagrams 
+a blank canvas and create diagrams
 to communicate your ideas. Here, we will walk through the process
 for setting this up. Most of these tricks are detailed in
 [this cheat sheet for laying out plots](https://e2eml.school/matplotlib_framing.html).
@@ -40,9 +40,9 @@ import numpy as np
 
 The first step is to choose the size of your canvas.
 
-(Just a heads up, I love the metaphor 
+(Just a heads up, I love the metaphor
 of the canvas, so that’s how I am using the term here.
-The Canvas object is a very specific 
+The Canvas object is a very specific
 thing in the Matplotlib code base. That's not what I'm referring to.)
 
 I’m planning to make a diagram that is 16 centimeters wide
@@ -133,7 +133,7 @@ of any variety within our 16 x 9 garden walls.
 
 Then when you're done, the last step is to save the figure out as a
 `.png` file. In this format it can be imported to and added to whatever
-document or presentation you're working on 
+document or presentation you're working on
 
 ```python
 fig.savefig("blank_diagram.png", dpi=300)
@@ -152,12 +152,12 @@ def blank_diagram(fig_width=16, fig_height=9,
     ax.set_xlim(0, fig_width)
     ax.set_ylim(0, fig_height)
     ax.set_facecolor(bg_color)
-    
+
     ax.tick_params(bottom=False, top=False,
                    left=False, right=False)
     ax.tick_params(labelbottom=False, labeltop=False,
                    labelleft=False, labelright=False)
-    
+
     ax.spines["top"].set_color(color)
     ax.spines["bottom"].set_color(color)
     ax.spines["left"].set_color(color)
@@ -166,7 +166,7 @@ def blank_diagram(fig_width=16, fig_height=9,
     ax.spines["bottom"].set_linewidth(4)
     ax.spines["left"].set_linewidth(4)
     ax.spines["right"].set_linewidth(4)
-    
+
     return fig, ax
 ```
 
@@ -221,7 +221,7 @@ ax.annotate(
     (centers[1][0] - radii, centers[1][1]),
     (centers[0][0] + radii, centers[0][1]),
     arrowprops=dict(arrowstyle = "-|>"),
-) 
+)
 ax.annotate(
     "",
     (centers[2][0] - radii, centers[2][1]),
