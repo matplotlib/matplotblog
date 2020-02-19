@@ -5,11 +5,18 @@
     <description>Recent content in Posts on Matplotblog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Feb 2020 09:50:16 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 19 Feb 2020 12:57:07 -0500</lastBuildDate>
     
         <atom:link href="https://matplotlib.org/matplotblog/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Mpl for Making Diagrams</title>
+      <link>https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/</link>
+      <pubDate>Wed, 19 Feb 2020 12:57:07 -0500</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/</guid>
+      <description>How to use Matplotlib to make diagrams.</description>
+    </item><item>
       <title>Create Ridgeplots in Matplotlib</title>
       <link>https://matplotlib.org/matplotblog/posts/create-ridgeplots-in-matplotlib/</link>
       <pubDate>Sat, 15 Feb 2020 09:50:16 +0100</pubDate>
@@ -23,13 +30,6 @@
       
       <guid>https://matplotlib.org/matplotblog/posts/create-a-tesla-cybertruck-that-drives/</guid>
       <description>Learn how to create a Tesla Cybertruck with matplotlib that drives via animation.</description>
-    </item><item>
-      <title>An Inquiry Into Matplotlib&#39;s Figures</title>
-      <link>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</link>
-      <pubDate>Tue, 24 Dec 2019 11:25:42 +0530</pubDate>
-      
-      <guid>https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/</guid>
-      <description>This guide dives deep into the inner workings of Matplotlib&#39;s Figures, Axes, subplots and the very amazing GridSpec!</description>
     </item>
   </channel>
 </rss>

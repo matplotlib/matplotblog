@@ -68,7 +68,7 @@
           
         
         <p>My name is <a href="https://wwww.twitter.com/tedpetrou">Ted Petrou</a>, founder of <a href="https://www.dunderdata.com">Dunder Data</a>, and in this tutorial you will learn how to create the new <a href="https://www.tesla.com/cybertruck">Tesla Cybertruck</a> using matplotlib. I was inspired by the image below which was originally created by <a href="https://twitter.com/lynnandtonic/status/1197989912970067969?lang=en">Lynn Fisher</a> (without matplotlib).</p>
-<p>Before going into detail, let's jump to the results. Here is the completed recreation of the Tesla Cybertruck that drives off the screen.</p>
+<p>Before going into detail, let&rsquo;s jump to the results. Here is the completed recreation of the Tesla Cybertruck that drives off the screen.</p>
 
   <video width="700" height="500" controls>
   <source src="tesla_animate.mp4" type="video/mp4">
@@ -136,7 +136,7 @@ create_body()
 fig
 </code></pre></div><p><img src="output_6_0.png" alt="png"></p>
 <h4 id="tires">Tires</h4>
-<p>I used three <code>Circle</code> patches for each of the tires. You must provide the center and radius. For the innermost circles (the &ldquo;spokes&rdquo;), I've set the <code>zorder</code> to 99. The <code>zorder</code> determines the order of how plotting objects are layered on top of each other. The higher the number, the higher up on the stack of layers the object will be plotted. During the next step, we will draw some rectangles through the tires and they need to be plotted underneath these spokes.</p>
+<p>I used three <code>Circle</code> patches for each of the tires. You must provide the center and radius. For the innermost circles (the &ldquo;spokes&rdquo;), I&rsquo;ve set the <code>zorder</code> to 99. The <code>zorder</code> determines the order of how plotting objects are layered on top of each other. The higher the number, the higher up on the stack of layers the object will be plotted. During the next step, we will draw some rectangles through the tires and they need to be plotted underneath these spokes.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_tires</span>():
     ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>axes[<span style="color:#ae81ff">0</span>]
     left_tire <span style="color:#f92672">=</span> Circle((<span style="color:#f92672">.</span><span style="color:#ae81ff">724</span>, <span style="color:#f92672">.</span><span style="color:#ae81ff">39</span>), radius<span style="color:#f92672">=</span><span style="color:#f92672">.</span><span style="color:#ae81ff">075</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#202328</span><span style="color:#e6db74">&#34;</span>)
@@ -161,7 +161,7 @@ create_tires()
 fig
 </code></pre></div><p><img src="output_8_0.png" alt="png"></p>
 <h4 id="axels">Axels</h4>
-<p>I used the <code>Rectangle</code> patch to represent the two &lsquo;axels&rsquo; (this isn't the correct term, but you'll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower <code>zorder</code>.</p>
+<p>I used the <code>Rectangle</code> patch to represent the two &lsquo;axels&rsquo; (this isn&rsquo;t the correct term, but you&rsquo;ll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower <code>zorder</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_axels</span>():
     ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>axes[<span style="color:#ae81ff">0</span>]
     left_left_axel <span style="color:#f92672">=</span> Rectangle((<span style="color:#f92672">.</span><span style="color:#ae81ff">687</span>, <span style="color:#f92672">.</span><span style="color:#ae81ff">427</span>), width<span style="color:#f92672">=</span><span style="color:#f92672">.</span><span style="color:#ae81ff">104</span>, height<span style="color:#f92672">=</span><span style="color:#f92672">.</span><span style="color:#ae81ff">005</span>, angle<span style="color:#f92672">=</span><span style="color:#ae81ff">315</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#202328</span><span style="color:#e6db74">&#39;</span>)
@@ -256,7 +256,7 @@ create_headlight_cloud()
 fig
 </code></pre></div><p><img src="output_16_0.png" alt="png"></p>
 <h3 id="creating-a-function-to-draw-the-car">Creating a Function to Draw the Car</h3>
-<p>All of our work from above can be placed in a single function that draws the car. This will be used when initializing our animation. Notice, that the first line of the function clears the Figure, which removes our Axes. If we don't clear the Figure, then we will keep adding more and more Axes each time this function is called. Since this is our final product, we set <code>draft</code> to <code>False</code>.</p>
+<p>All of our work from above can be placed in a single function that draws the car. This will be used when initializing our animation. Notice, that the first line of the function clears the Figure, which removes our Axes. If we don&rsquo;t clear the Figure, then we will keep adding more and more Axes each time this function is called. Since this is our final product, we set <code>draft</code> to <code>False</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw_car</span>():
     fig<span style="color:#f92672">.</span>clear()
     create_axes(draft<span style="color:#f92672">=</span>False)

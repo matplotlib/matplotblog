@@ -4,27 +4,32 @@
   
   <url>
     <loc>https://matplotlib.org/matplotblog/</loc>
-    <lastmod>2020-02-15T09:50:16+01:00</lastmod>
+    <lastmod>2020-02-19T12:57:07-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/categories/</loc>
-    <lastmod>2020-02-15T09:50:16+01:00</lastmod>
+    <lastmod>2020-02-19T12:57:07-05:00</lastmod>
   </url>
   
   <url>
-    <loc>https://matplotlib.org/matplotblog/posts/create-ridgeplots-in-matplotlib/</loc>
-    <lastmod>2020-02-15T09:50:16+01:00</lastmod>
+    <loc>https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/</loc>
+    <lastmod>2020-02-19T12:57:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/posts/</loc>
-    <lastmod>2020-02-15T09:50:16+01:00</lastmod>
+    <lastmod>2020-02-19T12:57:07-05:00</lastmod>
   </url>
   
   <url>
     <loc>https://matplotlib.org/matplotblog/categories/tutorials/</loc>
+    <lastmod>2020-02-19T12:57:07-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://matplotlib.org/matplotblog/posts/create-ridgeplots-in-matplotlib/</loc>
     <lastmod>2020-02-15T09:50:16+01:00</lastmod>
   </url>
   
