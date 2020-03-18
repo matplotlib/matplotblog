@@ -9,7 +9,7 @@ displayInList: true
 ---
 
 
-We are happy to announce that we have hired Elliott Sales de Andrade ([qulogic](https://github.com/qulogic))
+We are happy to announce that we have hired Elliott Sales de Andrade ([QuLogic](https://github.com/QuLogic))
 as the [Matplotlib Software Research Engineering
 Fellow](https://github.com/matplotlib/CZI_2019-07_mpl) supported by
 the [Chan Zuckerberg Initiative Essential Open Source Software for
@@ -32,7 +32,7 @@ science through reproducible workflows and more accessible libraries.
 
 As has been discussed in
 [detail](https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/)
-[](http://ford)[elsewhere](https://numfocus.org/programs/sustainability)
+[elsewhere](https://numfocus.org/programs/sustainability)
 (including in the CZI EOSS [program
 announcement](https://chanzuckerberg.com/rfa/essential-open-source-software-for-science/))
 much of the critical software that science and industry are built on
