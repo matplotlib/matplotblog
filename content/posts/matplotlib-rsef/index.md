@@ -1,7 +1,7 @@
 ---
 title: "Elliott Sales de Andrade hired as Matplotlib Software Research Engineering Fellow"
 date: 2020-03-17T19:51-04:00
-draft: True
+draft: false
 description: "We have hired Elliott Sales de Andrade as the Matplotlib Software Research Engineering Fellow supported by the Chan Zuckerberg Initiative Essential Open Source Software for Science"
 categories: ["News"]
 author: Thomas A Caswell, Hannah Aizenman, Elliott Sales de Andrade
@@ -12,7 +12,7 @@ displayInList: true
 As has been discussed in detail in Nadia Eghbal's [Roads and Bridges](https://www.fordfoundation.org/work/learning/research-reports/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure/), the CZI EOSS [program
 announcement](https://chanzuckerberg.com/rfa/essential-open-source-software-for-science/), and in the NumFocus [sustainability program goals](https://numfocus.org/programs/sustainability), much of the critical software that science and industry are built on
 is maintained by a primarily volunteer community. While this has worked, it is not sustainable in the long term for the health of many
-projects or their contributors. 
+projects or their contributors.
 
 We are happy to announce that we have hired Elliott Sales de Andrade ([QuLogic](https://github.com/QuLogic))
 as the [Matplotlib Software Research Engineering
@@ -31,7 +31,7 @@ upstream of Matplotlib, including
 [ObsPy](https://obspy.org/), and [NumPy](https://numpy.org/). Outside
 of Python, Elliott is a developer on the [Pidgin
 project](https://pidgin.im/) and a packager for [Fedora
-Linux](https://getfedora.org/).  In his work on Matplotlib, he is interested in advancing 
+Linux](https://getfedora.org/).  In his work on Matplotlib, he is interested in advancing
 science through reproducible workflows and more accessible libraries.
 
 We are already seeing a reduction in the backlog of open issues and
