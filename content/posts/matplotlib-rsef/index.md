@@ -1,6 +1,6 @@
 ---
 title: "Elliott Sales de Andrade hired as Matplotlib Software Research Engineering Fellow"
-date: 2020-03-17T19:51-04:00
+date: 2020-03-20T15:51:00-04:00
 draft: false
 description: "We have hired Elliott Sales de Andrade as the Matplotlib Software Research Engineering Fellow supported by the Chan Zuckerberg Initiative Essential Open Source Software for Science"
 categories: ["News"]
