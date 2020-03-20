@@ -37,7 +37,7 @@
     <ul id="menu" class="hamburger-menu-overlay">
       <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
       <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
       
       
       <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
@@ -80,7 +80,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as grid_spec
 </code></pre><h3 id="data-a-iddataa">Data <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
-<p>I&rsquo;ll be using some mock data I created. You can grab the dataset from GitHub <a href="https://github.com/petermckeever/mock-data/blob/master/datasets/mock-european-test-results.csv">here</a> if you want to play along. The data looks at aptitude test scores broken down by country, age, and sex.</p>
+<p>I'll be using some mock data I created. You can grab the dataset from GitHub <a href="https://github.com/petermckeever/mock-data/blob/master/datasets/mock-european-test-results.csv">here</a> if you want to play along. The data looks at aptitude test scores broken down by country, age, and sex.</p>
 <pre><code>data = pd.read_csv(&quot;mock-european-test-results.csv&quot;)
 </code></pre><table>
 <thead>
@@ -131,9 +131,9 @@ import matplotlib.gridspec as grid_spec
 </tbody>
 </table>
 <h3 id="gridspec-a-idgs1a">GridSpec <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
-<p>GridSpec is a matplotlib module that allows us easy creation of subplots. We can control the number of subplots, the positions, the height, width, and spacing between each. As a basic example, let&rsquo;s create a quick template. The key parameters we&rsquo;ll be focusing on are <code>nrows</code>, <code>ncols</code>, and <code>width_ratios</code>.</p>
+<p>GridSpec is a matplotlib module that allows us easy creation of subplots. We can control the number of subplots, the positions, the height, width, and spacing between each. As a basic example, let's create a quick template. The key parameters we'll be focusing on are <code>nrows</code>, <code>ncols</code>, and <code>width_ratios</code>.</p>
 <p><code>nrows</code>and <code>ncols</code> divide our figure into areas we can add axes to. <code>width_ratios</code>controls the width of each of our columns. If we create something like <code>GridSpec(2,2,width_ratios=[2,1])</code>, we are subsetting our figure into 2 rows, 2 columns, and setting our width ratio to 2:1, i.e., that the first column will take up two times the width of the figure.</p>
-<p>What&rsquo;s great about GridSpec is that now we have created those subsets, we are not <em>bound</em> to them, as we will see below.</p>
+<p>What's great about GridSpec is that now we have created those subsets, we are not <em>bound</em> to them, as we will see below.</p>
 <p><strong>Note</strong>: I am using my own theme, so plots will look different. Creating custom themes is outside the scope of this tutorial (but I may write one in the future).</p>
 <pre><code>gs = (grid_spec.GridSpec(2,2,width_ratios=[2,1]))
 
@@ -155,12 +155,12 @@ for ax_obj in ax_objs:
 
 plt.show()
 </code></pre><p><img src="basic_template.png" alt=""></p>
-<p>I won&rsquo;t get into more detail about what everything does here. If you are interested in learning more about figures, axes, and gridspec, Akash Palrecha has <a href="https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/">written a very nice guide here</a>.</p>
+<p>I won't get into more detail about what everything does here. If you are interested in learning more about figures, axes, and gridspec, Akash Palrecha has <a href="https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/">written a very nice guide here</a>.</p>
 <h3 id="kernel-density-estimation-a-idkdea">Kernel Density Estimation <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
-<p>We have a couple of options here. The easiest by far is to stick with the pipes built into pandas. All that&rsquo;s needed is to select the column and add <code>plot.kde</code>. This defaults to a Scott bandwidth method, but you can choose a Silverman method, or add your own. Let&rsquo;s use GridSpec again to plot the distribution for each country. First we&rsquo;ll grab the unique country names and create a list of colors.</p>
+<p>We have a couple of options here. The easiest by far is to stick with the pipes built into pandas. All that's needed is to select the column and add <code>plot.kde</code>. This defaults to a Scott bandwidth method, but you can choose a Silverman method, or add your own. Let's use GridSpec again to plot the distribution for each country. First we'll grab the unique country names and create a list of colors.</p>
 <pre><code>countries = [x for x in np.unique(data.country)]
 colors = ['#0000ff', '#3300cc', '#660099', '#990066', '#cc0033', '#ff0000']
-</code></pre><p>Next we&rsquo;ll loop through each country and color to plot our data. Unlike the above we will not explicitly declare how many rows we want to plot. The reason for this is to make our code more dynamic. If we set a specific number of rows and specific number of axes objects, we&rsquo;re creating inefficient code. This is a bit of an aside, but when creating visualizations, you should always aim to reduce and reuse. By reduce, we specifically mean lessening the number of variables we are declaring and the unnecessary code associated with that. We are plotting data for six countries, what happens if we get data for 20 countries? That&rsquo;s a lot of additional code. Related, by not explicitly declaring those variables we make our code adaptable and ready to be scripted to automatically create new plots when new data of the same kind becomes available.</p>
+</code></pre><p>Next we'll loop through each country and color to plot our data. Unlike the above we will not explicitly declare how many rows we want to plot. The reason for this is to make our code more dynamic. If we set a specific number of rows and specific number of axes objects, we're creating inefficient code. This is a bit of an aside, but when creating visualizations, you should always aim to reduce and reuse. By reduce, we specifically mean lessening the number of variables we are declaring and the unnecessary code associated with that. We are plotting data for six countries, what happens if we get data for 20 countries? That's a lot of additional code. Related, by not explicitly declaring those variables we make our code adaptable and ready to be scripted to automatically create new plots when new data of the same kind becomes available.</p>
 <pre><code>gs = (grid_spec.GridSpec(len(countries),1))
 
 fig = plt.figure(figsize=(8,6))
@@ -195,7 +195,7 @@ for country in countries:
 plt.tight_layout()
 plt.show()
 </code></pre><p><img src="grid_spec_distro.png" alt=""></p>
-<p>We&rsquo;re not quite at ridge plots yet, but let&rsquo;s look at what&rsquo;s going on here. You&rsquo;ll notice instead of setting an explicit number of rows, we&rsquo;ve set it to the length of our countries list - <code>gs = (grid_spec.GridSpec(len(countries),1))</code>. This gives us flexibility for future plotting with the ability to plot more or less countries without needing to adjust the code.</p>
+<p>We're not quite at ridge plots yet, but let's look at what's going on here. You'll notice instead of setting an explicit number of rows, we've set it to the length of our countries list - <code>gs = (grid_spec.GridSpec(len(countries),1))</code>. This gives us flexibility for future plotting with the ability to plot more or less countries without needing to adjust the code.</p>
 <p>Just after the for loop we create each axes object: <code>ax_objs.append(fig.add_subplot(gs[i:i+1, 0:]))</code>. Before the loop we declared <code>i = 0</code>. Here we are saying create axes object from row 0 to 1, the next time the loop runs it creates an axes object from row 1 to 2, then 2 to 3, 3 to 4, and so on.</p>
 <p>Following this we can use <code>ax_objs[-1]</code> to access the last created axes object to use as our plotting area.</p>
 <p>Next, we create the kde plot. We declare this as a variable so we can retrieve the x and y values to use in the <code>fill_between</code> that follows.</p>
@@ -225,7 +225,7 @@ country = country.replace(&quot; &quot;,&quot;\n&quot;)
 ax_objs[-1].text(-0.02,0,country,fontweight=&quot;bold&quot;,fontsize=14,ha=&quot;center&quot;)
 
 </code></pre><p><img src="grid_spec_distro_overlap_2.png" alt=""></p>
-<p>As an alternative to the above, we can use the <code>KernelDensity</code> module from <code>sklearn.neighbors</code> to create our distribution. This gives us a bit more control over our bandwidth. The method here is taken from Jake VanderPlas&rsquo;s fantastic <em>Python Data Science Handbook</em>, you can read his full excerpt <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.13-kernel-density-estimation.html">here</a>. We can reuse most of the above code, but need to make a couple of changes. Rather than repeat myself, I&rsquo;ll add the full snippet here and you can see the changes and minor additions (added title, label to xaxis).</p>
+<p>As an alternative to the above, we can use the <code>KernelDensity</code> module from <code>sklearn.neighbors</code> to create our distribution. This gives us a bit more control over our bandwidth. The method here is taken from Jake VanderPlas's fantastic <em>Python Data Science Handbook</em>, you can read his full excerpt <a href="https://jakevdp.github.io/PythonDataScienceHandbook/05.13-kernel-density-estimation.html">here</a>. We can reuse most of the above code, but need to make a couple of changes. Rather than repeat myself, I'll add the full snippet here and you can see the changes and minor additions (added title, label to xaxis).</p>
 <h3 id="complete-plot-snippet-a-idsnippeta">Complete Plot Snippet <!-- raw HTML omitted --><!-- raw HTML omitted --></h3>
 <pre><code>countries = [x for x in np.unique(data.country)]
 colors = ['#0000ff', '#3300cc', '#660099', '#990066', '#cc0033', '#ff0000']
@@ -287,10 +287,10 @@ fig.text(0.07,0.85,&quot;Distribution of Aptitude Test Results from 18 – 24 ye
 plt.tight_layout()
 plt.show()
 </code></pre><p><img src="grid_spec_distro_overlap_3.png" alt=""></p>
-<p>I&rsquo;ll finish this off with a little project to put the above code into practice. The data provided also contains information on whether the test taker was male or female. Using the above code as a template, see how you get on creating something like this:</p>
+<p>I'll finish this off with a little project to put the above code into practice. The data provided also contains information on whether the test taker was male or female. Using the above code as a template, see how you get on creating something like this:</p>
 <p><img src="split_ridges.png" alt=""></p>
 <p>For those more ambitious, this could be turned into a split violin plot with males on one side and females on the other. Is there a way to combine the ridge and violin plot?</p>
-<p>I&rsquo;d love to see what people come back with so if you do create something, send it to me on twitter <a href="http://twitter.com/petermckeever">here</a>!</p>
+<p>I'd love to see what people come back with so if you do create something, send it to me on twitter <a href="http://twitter.com/petermckeever">here</a>!</p>
 
       </article>
       
