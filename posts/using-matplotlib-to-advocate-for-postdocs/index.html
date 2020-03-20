@@ -1,126 +1,36 @@
-<html lang="en-us" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Using Matplotlib to Advocate for Postdocs &middot; Matplotblog</title>
-  <meta name="description" content="Advocating is all about communicating facts clearly. I used Matplotlib to show the financial struggles of postdocs in the Boston area." />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  
-  
-  
-  
-  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
-    }
-  </style>
-</head>
-
-  <body class="single-body">
-    <nav class="nav-bar side-padding">
-  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
-    
-      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
-    
-    
-  </a></h1>
-  <a href="index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
-  <div class="hamburger-menu">
-    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="menu" class="hamburger-menu-overlay">
-      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
-      
-      
-      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
-      
-      
-      
-    </ul>
-  </div>
-</nav>
-
-    <main class="content side-text-padding">
-      <article class="post dropcase">
-        <header class="post-header">
-        	<h1 class="post-title">Using Matplotlib to Advocate for Postdocs</h1>
-          <p class="post-date">Posted <time datetime="2019-10-23">Oct 23, 2019</time>
-	  <span class="post-author"> &mdash; By Davide Valeriani</span>
-	  </p>
-
-        </header>
-        
-          
-        
-        <p>Postdocs are the <a href="https://en.wikipedia.org/wiki/Postdoctoral_researcher">workers of academia</a>.
+<html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Using Matplotlib to Advocate for Postdocs &#183; Matplotblog</title><meta name=description content="Advocating is all about communicating facts clearly. I used Matplotlib to show the financial struggles of postdocs in the Boston area."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Using Matplotlib to Advocate for Postdocs</h1><p class=post-date>Posted <time datetime=2019-10-23>Oct 23, 2019</time>
+<span class=post-author>&mdash; By Davide Valeriani</span></p></header><p>Postdocs are the <a href=https://en.wikipedia.org/wiki/Postdoctoral_researcher>workers of academia</a>.
 They are the main players beyond the majority of scientific papers published in
 journals and conferences. Yet, their effort is often not recognized in terms of
-salary and benefits.</p>
-<p>A few years ago, the NIH has established stipend levels for undergraduate,
+salary and benefits.</p><p>A few years ago, the NIH has established stipend levels for undergraduate,
 predoctoral and postdoctoral trainees and fellows, the so-called NIH guidelines.
 Many universities and research institutes currently adopt these guidelines for
-deciding how much to pay postdocs.</p>
-<p>One of the key problem of the NIH guidelines is that they are established at a
+deciding how much to pay postdocs.</p><p>One of the key problem of the NIH guidelines is that they are established at a
 national level. This means that a postdoc in Buffalo is paid the same than a postdoc in Boston,
-despite <a href="https://www.mentalfloss.com/article/85668/11-most-affordable-cities-us">Buffalo is one of the most affordable city to live in the USA</a>,
-while <a href="https://www.investopedia.com/articles/personal-finance/080916/top-10-most-expensive-cities-us.asp">Boston is one of the most expensive</a>.
+despite <a href=https://www.mentalfloss.com/article/85668/11-most-affordable-cities-us>Buffalo is one of the most affordable city to live in the USA</a>,
+while <a href=https://www.investopedia.com/articles/personal-finance/080916/top-10-most-expensive-cities-us.asp>Boston is one of the most expensive</a>.
 Every year, the NIH releases new guidelines, where the stipends are slightly
 increased. <strong>Do these adjustments help a postdoc in the Boston area
-take home a bit more money?</strong></p>
-<p>I have used <a href="https://matplotlib.org">Matplotlib</a> to plot the NIH stipend levels
+take home a bit more money?</strong></p><p>I have used <a href=https://matplotlib.org>Matplotlib</a> to plot the NIH stipend levels
 (y axis) for each year of postdoctoral experience (x axis) for the past 4 years
 of NIH guidelines (color). I have also looked at the inflation of years 2017&ndash;2019
 and increased the salaries of the previous year by that percentage (dashed lines).
-<img src="gross_salary.png" alt="Postdoc salary in the past 4 years."></p>
-<p>The data revealed that the salaries of 2017 were just increased by the
+<img src=gross_salary.png alt="Postdoc salary in the past 4 years."></p><p>The data revealed that the salaries of 2017 were just increased by the
 inflation rate for the most senior postdocs, while junior postdocs (up to 1 year
 of experience) received an increase more than 2.5 times of the inflation. In
 2018, all salaries were just adjusted to the inflation. In 2019, the increase was
 slightly higher than the inflation level. So, overall, every year the NIH makes
-sure that the postdoc salaries are, at least, adjusted to the inflation. Great!</p>
-<p>As mentioned earlier, there are cities in the US that are more expensive than
+sure that the postdoc salaries are, at least, adjusted to the inflation. Great!</p><p>As mentioned earlier, there are cities in the US that are more expensive than
 others, for example Boston. To partially account for such differences when
 looking at the postdoc salaries, I subtracted from each salary the average rent
 for a one-bedroom apartment in Boston.
 Of course, it also increases every year, but, unfortunately for postdocs, <strong>rent
 increases way more than the inflation</strong>. The results are below.
-<img src="gross_salary_minus_rent.png" alt="Postdoc salary in the past 4 years minus the average rent in Boston."></p>
-<p>It turns out that the best year for postdocs with at least one year of experience
+<img src=gross_salary_minus_rent.png alt="Postdoc salary in the past 4 years minus the average rent in Boston."></p><p>It turns out that the best year for postdocs with at least one year of experience
 was actually 2016. In the subsequent years, the real estate has eaten larger and
 larger portions of the postdoc salary, resulting in 2019-paid postdocs taking home
-<strong>20% less money</strong> than 2016-paid postdocs with the same experience.</p>
-<p>In the end, life is financially harder and harder for postdocs in the Boston area.
+<strong>20% less money</strong> than 2016-paid postdocs with the same experience.</p><p>In the end, life is financially harder and harder for postdocs in the Boston area.
 These data should be taken into account by research institutes and universities,
 which have the freedom of topping up postdocs&rsquo; salaries to reflect the real cost
-of living of different cities.</p>
-<p>You can download the Jupyter notebook [here](Postdoc salary Analysis.ipynb).</p>
-
-      </article>
-      
-    </main>
-    <nav class="end-nav side-padding">
-      
-      
-      
-      
-    </nav>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-  
-  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-  </body>
-</html>
+of living of different cities.</p><p>You can download the Jupyter notebook [here](Postdoc salary Analysis.ipynb).</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
