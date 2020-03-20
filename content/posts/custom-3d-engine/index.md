@@ -325,7 +325,7 @@ with open("bunny.obj") as f:
         elif values[0] == 'f' :   F.append([int(x) for x in values[1:4]])
 V, F = np.array(V), np.array(F)-1
 V = (V-(V.max(0)+V.min(0))/2) / max(V.max(0)-V.min(0))
-MVP = xrotate(20) @ yrotate(45) @ translate(0,0,-3.5) @ perspective(25,1,1,100)  
+MVP = perspective(25,1,1,100) @ translate(0,0,-3.5) @ xrotate(20) @ yrotate(45)
 V = np.c_[V, np.ones(len(V))]  @ MVP.T
 V /= V[:,3].reshape(-1,1)
 V = V[F]
