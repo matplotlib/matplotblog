@@ -69,7 +69,7 @@ to the edge of the Figure.
 
 The `add_axes()` function lets us specify exactly where to place
 our new Axes and how big to make it. It accepts a tuple of the format
-`(left, bottom, width height)`. The coordinate frame of the Figure
+`(left, bottom, width, height)`. The coordinate frame of the Figure
 is always (0, 0) at the bottom left corner and (1, 1) at the upper right,
 no matter what size of Figure you are working with. Positions, widths,
 and heights all become fractions of the total width and height of the Figure.
