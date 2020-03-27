@@ -2,7 +2,7 @@
 title: "Create a Tesla Cybertruck That Drives"
 date: 2020-01-12T13:35:34-05:00
 draft: false
-description: "Learn how to create a Tesla Cybertruck with matplotlib that drives via animation."
+description: "Learn how to create a Tesla Cybertruck with Matplotlib that drives via animation."
 categories: ["tutorials"]
 displayInList: true
 author: Ted Petrou
@@ -14,7 +14,7 @@ resources:
     showOnTop: true
 ---
 
-My name is [Ted Petrou][0], founder of [Dunder Data][1], and in this tutorial you will learn how to create the new [Tesla Cybertruck][2] using matplotlib. I was inspired by the image below which was originally created by [Lynn Fisher][3] (without matplotlib).
+My name is [Ted Petrou][0], founder of [Dunder Data][1], and in this tutorial you will learn how to create the new [Tesla Cybertruck][2] using Matplotlib. I was inspired by the image below which was originally created by [Lynn Fisher][3] (without Matplotlib).
 
 [0]: https://wwww.twitter.com/tedpetrou
 [1]: https://www.dunderdata.com
@@ -38,11 +38,11 @@ A tutorial now follows containing all the steps that creates a Tesla Cybertruck 
 * Color gradients
 * Animation
 
-Understanding these topics should give you enough to start animating your own figures in matplotlib. This tutorial is not suited for those with no matplotlib experience. You need to understand the relationship between the Figure and Axes and how to use the object-oriented interface of matplotlib.
+Understanding these topics should give you enough to start animating your own figures in Matplotlib. This tutorial is not suited for those with no Matplotlib experience. You need to understand the relationship between the Figure and Axes and how to use the object-oriented interface of Matplotlib.
 
 ### Figure and Axes setup
 
-We first create a matplotlib Figure without any Axes (the plotting surface). The function `create_axes` adds an Axes to the Figure, sets the x-limits to be twice the y-limits (to match the ratio of the figure dimensions (16 x 8)), fills in the background with two different dark colors using `fill_between`, and adds grid lines to make it easier to plot the objects in the exact place you desire. Set the `draft` parameter to `False` when you want to remove the grid lines, tick marks, and tick labels.
+We first create a Matplotlib Figure without any Axes (the plotting surface). The function `create_axes` adds an Axes to the Figure, sets the x-limits to be twice the y-limits (to match the ratio of the figure dimensions (16 x 8)), fills in the background with two different dark colors using `fill_between`, and adds grid lines to make it easier to plot the objects in the exact place you desire. Set the `draft` parameter to `False` when you want to remove the grid lines, tick marks, and tick labels.
 
 ```python
 import numpy as np
@@ -68,9 +68,9 @@ fig
 
 ![png](output_4_0.png)
 
-### Shapes in matplotlib
+### Shapes in Matplotlib
 
-Most of the Cybertruck is composed of shapes (patches in matplotlib terminology) - circles, rectangles, and polygons. These shapes are available in the patches matplotlib module. After importing, we instantiate single instances of these patches and then call the `add_patch` method to add the patch to the Axes.
+Most of the Cybertruck is composed of shapes (patches in Matplotlib terminology) - circles, rectangles, and polygons. These shapes are available in the patches Matplotlib module. After importing, we instantiate single instances of these patches and then call the `add_patch` method to add the patch to the Axes.
 
 For the Cybertruck, I used three patches, `Polygon`, `Rectangle`, and `Circle`. They each have different parameters available in their constructor. I first constructed the body of the car as four polygons. Two other polygons were used for the rims. Each polygon is provided a list of x, y coordinates where the corner points are located. Matplotlib connects all the points in the order given and fills it in with the provided color.
 
@@ -162,7 +162,7 @@ fig
 
 #### Other details
 
-The front bumper, head light, tail light, door and window lines are added below. I used regular matplotlib lines for some of these. Those lines are not patches and get added directly to the Axes without any other additional method.
+The front bumper, head light, tail light, door and window lines are added below. I used regular Matplotlib lines for some of these. Those lines are not patches and get added directly to the Axes without any other additional method.
 
 ```python
 def create_other_details():
@@ -283,11 +283,11 @@ fig
 
 ## Animation
 
-Animation in matplotlib is fairly straightforward. You must create a function that updates the position of the objects in your figure for each frame. This function is called repeatedly for each frame.
+Animation in Matplotlib is fairly straightforward. You must create a function that updates the position of the objects in your figure for each frame. This function is called repeatedly for each frame.
 
 In the `update` function below, we loop through each patch, line, and image in our Axes and reduce the x-value of each plotted object by .015. This has the effect of moving the truck to the left. The trickiest part was changing the x and y values for the rectangular tire 'axels' so that it appeared that the tires were rotating. Some basic trigonometry helps calculate this.
 
-Implicitly, matplotlib passes the update function the frame number as an integer as the first argument. We accept this input as the parameter `frame_number`. We only use it in one place, and that is to do nothing during the first frame.
+Implicitly, Matplotlib passes the update function the frame number as an integer as the first argument. We accept this input as the parameter `frame_number`. We only use it in one place, and that is to do nothing during the first frame.
 
 Finally, the `FuncAnimation` class from the animation module is used to construct the animation. We provide it our original Figure, the function to update the Figure (`update`), a function to initialize the Figure (`draw_car`), the total number of frames, and any extra arguments used during update (`fargs`).
 

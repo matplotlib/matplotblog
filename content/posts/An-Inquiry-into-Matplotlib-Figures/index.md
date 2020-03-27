@@ -35,7 +35,7 @@ Although a beginner can follow along with this guide, it is primarily meant for 
 
 Essentially, if you know how to take 2 `numpy` arrays and plot them (using an appropriate type of graph) on 2 different axes in a single figure and give it basic styling, you're good to go for the purposes of this guide.
 
-If you feel you need some introduction to basic matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html
+If you feel you need some introduction to basic Matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html
 
 From here on, I will be assuming that you have gained sufficient knowledge to follow along this guide.
 
@@ -44,9 +44,9 @@ Also, in order to save everyone's time, I will keep my explanations short, terse
 The primary driver in this whole exercise will be code and not text, and I encourage you to spin up a Jupyter notebook and type in and try out everything yourself to make the best use of this resource.
 
 ## What this guide *is* and what it is *not*:
-This is not a guide about how to beautifully plot different kinds of data using matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can. 
+This is not a guide about how to beautifully plot different kinds of data using Matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can. 
 
-This article attempts to explain the workings of some of the foundations of any plot you create using matplotlib.
+This article attempts to explain the workings of some of the foundations of any plot you create using Matplotlib.
 We will mostly refrain from focusing on what data we are plotting and instead focus on the anatomy of our plots.
 
 # Setting up
@@ -111,7 +111,7 @@ yc = np.cos(xc ** 2)
 
 # Exploration
 
-The usual way to create a plot using matplotlib goes somewhat like this:
+The usual way to create a plot using Matplotlib goes somewhat like this:
 
 
 ```python
@@ -133,7 +133,7 @@ Our goal today is to take apart the previous snippet of code and understand all 
 
 If  you're a beginner like I was before writing this guide, let me assure you: this is all very simple stuff.
 
-Going into [`plt.subplots`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots) documentation (hit `Shift+Tab+Tab` in a Jupyter notebook) reveals some of the other matplotlib internals that it uses in order to give us the `Figure` and it's `Axes`. 
+Going into [`plt.subplots`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots) documentation (hit `Shift+Tab+Tab` in a Jupyter notebook) reveals some of the other Matplotlib internals that it uses in order to give us the `Figure` and it's `Axes`. 
 
 These include :<br>
 1. `plt.subplot`
@@ -147,7 +147,7 @@ Let's try and figure out what these functions / classes do.
 
 # What is a `Figure`? And what are `Axes`?
 
-A [`Figure`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure) in matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.
+A [`Figure`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure) in Matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.
 
 You can define a figure like so (both statements are equivalent):
 ```python
@@ -178,7 +178,7 @@ A `Figure` simply holds a given number of `Axes` at any point of time
 
 We will go into some of these design decisions in a few moments'
 
-# Recreating `plt.subplots` with basic matplotlib functionality
+# Recreating `plt.subplots` with basic Matplotlib functionality
 We will try and recreate the below plot using Matplotlib primitives as a way to understand them better. We'll try and be a slightly creative by deviating a bit though.
 
 
@@ -198,7 +198,7 @@ fig.suptitle("2x2 Grid")
 ![png](output_20_1.png)
 
 
-# Let's create our first plot using matplotlib primitives:
+# Let's create our first plot using Matplotlib primitives:
 
 
 ```python

@@ -2,7 +2,7 @@
 title: "Custom 3D engine in Matplotlib"
 date: 2019-12-18T09:05:32+01:00
 draft: false
-description: "3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll design a simple custom 3D engine that with 60 lines of Python and one matplotlib call. That is, we'll render the bunny without using the 3D axis."
+description: "3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll design a simple custom 3D engine that with 60 lines of Python and one Matplotlib call. That is, we'll render the bunny without using the 3D axis."
 categories: ["tutorials", "3D"]
 author: Nicolas P. Rougier
 displayInList: true
@@ -22,7 +22,7 @@ capabilities (and some limitations) that is quite popular among users. Yet, 3D
 is still considered to be some kind of black magick for some users (or maybe
 for the majority of users). I would thus like to explain in this post that 3D
 rendering is really easy once you've understood a few concepts. To demonstrate
-that, we'll render the bunny above with 60 lines of Python and one matplotlib
+that, we'll render the bunny above with 60 lines of Python and one Matplotlib
 call. That is, without using the 3D axis.
 
 **Advertisement**: This post comes from an upcoming open access book on

@@ -2,7 +2,7 @@
 title: "Creating the Warming Stripes in Matplotlib"
 date: 2019-11-11T09:21:28+01:00
 draft: false
-description: "Ed Hawkins made this impressively simple plot to show how global temperatures have risen since 1880. Here is how to recreate it using matplotlib."
+description: "Ed Hawkins made this impressively simple plot to show how global temperatures have risen since 1880. Here is how to recreate it using Matplotlib."
 categories: ["tutorials", "academia"]
 displayInList: true
 author: Maximilian Nöthe
@@ -23,7 +23,7 @@ Introduced by Prof. Ed Hawkins they show the temperatures either for
 the global average or for your region as colored bars from blue to red for the last 170 years, available at [#ShowYourStripes](https://showyourstripes.info).
 
 The stripes have since become the logo of the [Scientists for Future](https://scientistsforfuture.org).
-Here is how you can recreate this yourself using matplotlib.
+Here is how you can recreate this yourself using Matplotlib.
 
 We are going to use the [HadCRUT4](https://www.metoffice.gov.uk/hadobs/hadcrut4/index.html) dataset, published by the Met Office.
 It uses combined sea and land surface temperatures.
