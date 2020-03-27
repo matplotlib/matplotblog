@@ -137,24 +137,24 @@ fig
 
 ![png](output_8_0.png)
 
-#### Axels
+#### Axles
 
-I used the `Rectangle` patch to represent the two 'axels' (this isn't the correct term, but you'll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower `zorder`.
+I used the `Rectangle` patch to represent the two 'axles' (this isn't the correct term, but you'll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower `zorder`.
 
 ```python
-def create_axels():
+def create_axles():
     ax = fig.axes[0]
-    left_left_axel = Rectangle((.687, .427), width=.104, height=.005, angle=315, color='#202328')
-    left_right_axel = Rectangle((.761, .427), width=.104, height=.005, angle=225, color='#202328')
-    right_left_axel = Rectangle((1.367, .427), width=.104, height=.005, angle=315, color='#202328')
-    right_right_axel = Rectangle((1.441, .427), width=.104, height=.005, angle=225, color='#202328')
+    left_left_axle = Rectangle((.687, .427), width=.104, height=.005, angle=315, color='#202328')
+    left_right_axle = Rectangle((.761, .427), width=.104, height=.005, angle=225, color='#202328')
+    right_left_axle = Rectangle((1.367, .427), width=.104, height=.005, angle=315, color='#202328')
+    right_right_axle = Rectangle((1.441, .427), width=.104, height=.005, angle=225, color='#202328')
 
-    ax.add_patch(left_left_axel)
-    ax.add_patch(left_right_axel)
-    ax.add_patch(right_left_axel)
-    ax.add_patch(right_right_axel)
+    ax.add_patch(left_left_axle)
+    ax.add_patch(left_right_axle)
+    ax.add_patch(right_left_axle)
+    ax.add_patch(right_right_axle)
 
-create_axels()
+create_axles()
 fig
 ```
 
@@ -212,7 +212,7 @@ fig
 
 The head light beam has a distinct color gradient that dissipates into the night sky. This is challenging to complete. I found an [excellent answer on Stack Overflow from user Joe Kington][0] on how to do this. We begin by using the `imshow` function which creates images from 3-dimensional arrays. Our image will simply be a rectangle of colors.
 
-We create a 1 x 100 x 4 array that represents 1 row by 100 columns of points of RGBA (red, green, blue, alpha) values. Every point is given the same red, green, and blue values of (0, 1, 1) which represents the color 'aqua'. The alpha value represents opacity and ranges between 0 and 1 with 0 being completely transparent (invisible) and 1 being opaque. We would like the opacity to decrease as the light extends further from the head light (that is further to the left). The numpy `linspace` function is used to create an array of 100 numbers increasing linearly from 0 to 1. This array will be set as the alpha values.
+We create a 1 x 100 x 4 array that represents 1 row by 100 columns of points of RGBA (red, green, blue, alpha) values. Every point is given the same red, green, and blue values of (0, 1, 1) which represents the color 'aqua'. The alpha value represents opacity and ranges between 0 and 1 with 0 being completely transparent (invisible) and 1 being opaque. We would like the opacity to decrease as the light extends further from the head light (that is further to the left). The NumPy `linspace` function is used to create an array of 100 numbers increasing linearly from 0 to 1. This array will be set as the alpha values.
 
 The `extent` parameter defines the rectangular region where the image will be shown. The four values correspond to xmin, xmax, ymin, and ymax. The 100 alpha values will be mapped to this region beginning from the left. The array of alphas begins at 0, which means that the very left of this rectangular region will be transparent. The opacity will increase moving to the right-side of the rectangle where it eventually reaches 1.
 
@@ -270,7 +270,7 @@ def draw_car():
     create_axes(draft=False)
     create_body()
     create_tires()
-    create_axels()
+    create_axles()
     create_other_details()
     create_headlight_beam()
     create_headlight_beam()
@@ -285,7 +285,7 @@ fig
 
 Animation in Matplotlib is fairly straightforward. You must create a function that updates the position of the objects in your figure for each frame. This function is called repeatedly for each frame.
 
-In the `update` function below, we loop through each patch, line, and image in our Axes and reduce the x-value of each plotted object by .015. This has the effect of moving the truck to the left. The trickiest part was changing the x and y values for the rectangular tire 'axels' so that it appeared that the tires were rotating. Some basic trigonometry helps calculate this.
+In the `update` function below, we loop through each patch, line, and image in our Axes and reduce the x-value of each plotted object by .015. This has the effect of moving the truck to the left. The trickiest part was changing the x and y values for the rectangular tire 'axles' so that it appeared that the tires were rotating. Some basic trigonometry helps calculate this.
 
 Implicitly, Matplotlib passes the update function the frame number as an integer as the first argument. We accept this input as the parameter `frame_number`. We only use it in one place, and that is to do nothing during the first frame.
 

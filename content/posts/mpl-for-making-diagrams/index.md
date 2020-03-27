@@ -1,5 +1,5 @@
 ---
-title: "Mpl for Making Diagrams"
+title: "Matplotlib for Making Diagrams"
 date: 2020-02-19T12:57:07-05:00
 draft: false
 description: "How to use Matplotlib to make diagrams."
@@ -41,11 +41,11 @@ import numpy as np
 The first step is to choose the size of your canvas.
 
 (Just a heads up, I love the metaphor
-of the canvas, so that’s how I am using the term here.
+of the canvas, so that's how I am using the term here.
 The Canvas object is a very specific
 thing in the Matplotlib code base. That's not what I'm referring to.)
 
-I’m planning to make a diagram that is 16 centimeters wide
+I'm planning to make a diagram that is 16 centimeters wide
 and 9 centimeters high.
 This will fit comfortably on a piece of A4 or US Letter paper
 and will be almost twice as wide as it is high.
@@ -191,10 +191,10 @@ fig, ax = blank_diagram()
 centers = [(3.5, 6.5), (8, 6.5), (12.5, 6.5), (8, 2.5)]
 radii = 1.5
 texts = [
-    "\n".join(["My roomate", "is a Philistine", "and a boor"]),
-    "\n".join(["My roomate", "ate the last", "of the", "cold cereal"]),
+    "\n".join(["My roommate", "is a Philistine", "and a boor"]),
+    "\n".join(["My roommate", "ate the last", "of the", "cold cereal"]),
     "\n".join(["I am really", "really hungy"]),
-    "\n".join(["I'm annoyed", "at my roomate"]),
+    "\n".join(["I'm annoyed", "at my roommate"]),
 ]
 
 # Draw circles with text in the center

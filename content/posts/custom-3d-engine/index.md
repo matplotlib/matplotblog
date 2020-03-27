@@ -19,7 +19,7 @@ resources:
 Matplotlib has a really nice [3D
 interface](https://matplotlib.org/mpl_toolkits/mplot3d/tutorial.html) with many
 capabilities (and some limitations) that is quite popular among users. Yet, 3D
-is still considered to be some kind of black magick for some users (or maybe
+is still considered to be some kind of black magic for some users (or maybe
 for the majority of users). I would thus like to explain in this post that 3D
 rendering is really easy once you've understood a few concepts. To demonstrate
 that, we'll render the bunny above with 60 lines of Python and one Matplotlib
@@ -101,8 +101,8 @@ top bunny uses a [perspective projection](https://en.wikipedia.org/wiki/3D_proje
 ![](projections.png)
 
 In both cases, the proper way of defining a projection is first to define a
-viewing volume, that is, the volume in the 3d space we want to render on the
-scree. To do that, we need to consider 6 clipping planes (left, right, top,
+viewing volume, that is, the volume in the 3D space we want to render on the
+screen. To do that, we need to consider 6 clipping planes (left, right, top,
 bottom, far, near) that enclose the viewing volume (frustum) relatively to the
 camera. If we define a camera position and a viewing direction, each plane can
 be described by a single scalar. Once we have this viewing volume, we can
@@ -135,12 +135,12 @@ For the perspective projection, we also need to specify the aperture angle that
 plane. Consequently, for high apertures, you'll get a lot of "deformations".
 
 However, if you look at the two functions above, you'll realize they return 4x4
-matrices while our coordinates are 3d. How to use these matrices then ? The
+matrices while our coordinates are 3D. How to use these matrices then ? The
 answer is [homogeneous
 coordinates](https://en.wikipedia.org/wiki/Homogeneous_coordinates). To make
 a long story short, homogeneous coordinates are best to deal with transformation
 and projections in 3D. In our case, because we're dealing with vertices (and
-not vectors), we only need to add 1 as the fourth coordinates (w) to all our
+not vectors), we only need to add 1 as the fourth coordinate (`w`) to all our
 vertices. Then we can apply the perspective transformation using the dot
 product.
 
@@ -149,8 +149,8 @@ V = np.c_[V, np.ones(len(V))] @ perspective(25,1,1,100).T
 ```
 
 Last step, we need to re-normalize the homogeneous coordinates. This means we
-divide each transformed vertices with the last component (w) such as to always
-have w=1 for each vertices.
+divide each transformed vertices with the last component (`w`) such as to
+always have `w`=1 for each vertices.
 
 ```
 V /= V[:,3].reshape(-1,1)
@@ -265,7 +265,7 @@ And now everything is rendered right ([bunny-7.py](bunny-7.py)):
 
 Let's add some colors using the depth buffer. We'll color each triangle
 according to it depth. The beauty of the PolyCollection object is that you can
-specify the color of each of the triangle using a numpy array, so let's just do
+specify the color of each of the triangle using a NumPy array, so let's just do
 that:
 
 ```
