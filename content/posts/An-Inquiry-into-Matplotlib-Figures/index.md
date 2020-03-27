@@ -33,20 +33,20 @@ import matplotlib as mpl
 ---
 Although a beginner can follow along with this guide, it is primarily meant for people who have at least a basic knowledge of how Matplotlib's plotting functionality works.
 
-Essentially, if you know how to take 2 `numpy` arrays and plot them (using an appropriate type of graph) on 2 different axes in a single figure and give it basic styling, you're good to go for the purposes of this guide.
+Essentially, if you know how to take 2 NumPy arrays and plot them (using an appropriate type of graph) on 2 different axes in a single figure and give it basic styling, you're good to go for the purposes of this guide.
 
-If you feel you need some introduction to basic matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html
+If you feel you need some introduction to basic Matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html
 
 From here on, I will be assuming that you have gained sufficient knowledge to follow along this guide.
 
-Also, in order to save everyone's time, I will keep my explanations short, terse and very much to the point, and sometimes leave it for the reader to interpret things (because that's what I've done throughtout this guide for myself anyway).
+Also, in order to save everyone's time, I will keep my explanations short, terse and very much to the point, and sometimes leave it for the reader to interpret things (because that's what I've done throughout this guide for myself anyway).
 
 The primary driver in this whole exercise will be code and not text, and I encourage you to spin up a Jupyter notebook and type in and try out everything yourself to make the best use of this resource.
 
 ## What this guide *is* and what it is *not*:
-This is not a guide about how to beautifully plot different kinds of data using matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can. 
+This is not a guide about how to beautifully plot different kinds of data using Matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can. 
 
-This article attempts to explain the workings of some of the foundations of any plot you create using matplotlib.
+This article attempts to explain the workings of some of the foundations of any plot you create using Matplotlib.
 We will mostly refrain from focusing on what data we are plotting and instead focus on the anatomy of our plots.
 
 # Setting up
@@ -111,7 +111,7 @@ yc = np.cos(xc ** 2)
 
 # Exploration
 
-The usual way to create a plot using matplotlib goes somewhat like this:
+The usual way to create a plot using Matplotlib goes somewhat like this:
 
 
 ```python
@@ -131,9 +131,9 @@ plt.show()
 
 Our goal today is to take apart the previous snippet of code and understand all of the underlying building blocks well enough so that we can use them separately and in a much more powerful way.
 
-If  you're a beginner like I was before writing this guide, let me assure you: this is all very simple stuff.
+If you're a beginner like I was before writing this guide, let me assure you: this is all very simple stuff.
 
-Going into [`plt.subplots`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots) documentation (hit `Shift+Tab+Tab` in a Jupyter notebook) reveals some of the other matplotlib internals that it uses in order to give us the `Figure` and it's `Axes`. 
+Going into [`plt.subplots`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots) documentation (hit `Shift+Tab+Tab` in a Jupyter notebook) reveals some of the other Matplotlib internals that it uses in order to give us the `Figure` and it's `Axes`. 
 
 These include :<br>
 1. `plt.subplot`
@@ -147,7 +147,7 @@ Let's try and figure out what these functions / classes do.
 
 # What is a `Figure`? And what are `Axes`?
 
-A [`Figure`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure) in matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.
+A [`Figure`](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure) in Matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.
 
 You can define a figure like so (both statements are equivalent):
 ```python
@@ -178,7 +178,7 @@ A `Figure` simply holds a given number of `Axes` at any point of time
 
 We will go into some of these design decisions in a few moments'
 
-# Recreating `plt.subplots` with basic matplotlib functionality
+# Recreating `plt.subplots` with basic Matplotlib functionality
 We will try and recreate the below plot using Matplotlib primitives as a way to understand them better. We'll try and be a slightly creative by deviating a bit though.
 
 
@@ -198,7 +198,7 @@ fig.suptitle("2x2 Grid")
 ![png](output_20_1.png)
 
 
-# Let's create our first plot using matplotlib primitives:
+# Let's create our first plot using Matplotlib primitives:
 
 
 ```python
@@ -583,7 +583,7 @@ Here's a bullet point summary of what this means:
 
 This ability to create different grid variations that `GridSpec` provides is probably the reason for that anomaly we saw a while ago (printing different Addresses).
 
-It creates new objects everytime you index into it because it will be very troublesome to store all permutations of `SubplotSpec` objects into one group in memory (try and count permutations for a `GridSpec` of 10x10 and you'll know why)
+It creates new objects every time you index into it because it will be very troublesome to store all permutations of `SubplotSpec` objects into one group in memory (try and count permutations for a `GridSpec` of 10x10 and you'll know why)
 
 ---
 ## Now let's finally create `plt.subplots(2,2)` once again using GridSpec
@@ -611,12 +611,7 @@ Here's a few things I think you should go ahead and explore:
 1. Multiple `GridSpec` objects for the Same Figure.
 2. Deleting and adding `Axes` effectively and meaningfully.
 3. All the methods available for `mpl.figure.Figure` and `mpl.axes.Axes` allowing us to manipulate their properties.
-4. Kaggle Learn's Data vizualization course is a great place to learn effective plotting using Python
+4. Kaggle Learn's Data visualization course is a great place to learn effective plotting using Python
 5. Armed with knowledge, you will be able to use other plotting libraries such as `seaborn`, `plotly`, `pandas` and `altair` with much more flexibility (you can pass an `Axes` object to all their plotting functions). I encourage you to explore these libraries too.
 
 This is the first time I've written any technical guide for the internet, it may not be as clean as tutorials generally are. But, I'm open to all the constructive criticism that you may have for me (drop me an email on akashpalrecha@gmail.com)
-
-
-```python
-
-```

@@ -2,7 +2,7 @@
 title: "Create a Tesla Cybertruck That Drives"
 date: 2020-01-12T13:35:34-05:00
 draft: false
-description: "Learn how to create a Tesla Cybertruck with matplotlib that drives via animation."
+description: "Learn how to create a Tesla Cybertruck with Matplotlib that drives via animation."
 categories: ["tutorials"]
 displayInList: true
 author: Ted Petrou
@@ -14,7 +14,7 @@ resources:
     showOnTop: true
 ---
 
-My name is [Ted Petrou][0], founder of [Dunder Data][1], and in this tutorial you will learn how to create the new [Tesla Cybertruck][2] using matplotlib. I was inspired by the image below which was originally created by [Lynn Fisher][3] (without matplotlib).
+My name is [Ted Petrou][0], founder of [Dunder Data][1], and in this tutorial you will learn how to create the new [Tesla Cybertruck][2] using Matplotlib. I was inspired by the image below which was originally created by [Lynn Fisher][3] (without Matplotlib).
 
 [0]: https://wwww.twitter.com/tedpetrou
 [1]: https://www.dunderdata.com
@@ -38,11 +38,11 @@ A tutorial now follows containing all the steps that creates a Tesla Cybertruck 
 * Color gradients
 * Animation
 
-Understanding these topics should give you enough to start animating your own figures in matplotlib. This tutorial is not suited for those with no matplotlib experience. You need to understand the relationship between the Figure and Axes and how to use the object-oriented interface of matplotlib.
+Understanding these topics should give you enough to start animating your own figures in Matplotlib. This tutorial is not suited for those with no Matplotlib experience. You need to understand the relationship between the Figure and Axes and how to use the object-oriented interface of Matplotlib.
 
 ### Figure and Axes setup
 
-We first create a matplotlib Figure without any Axes (the plotting surface). The function `create_axes` adds an Axes to the Figure, sets the x-limits to be twice the y-limits (to match the ratio of the figure dimensions (16 x 8)), fills in the background with two different dark colors using `fill_between`, and adds grid lines to make it easier to plot the objects in the exact place you desire. Set the `draft` parameter to `False` when you want to remove the grid lines, tick marks, and tick labels.
+We first create a Matplotlib Figure without any Axes (the plotting surface). The function `create_axes` adds an Axes to the Figure, sets the x-limits to be twice the y-limits (to match the ratio of the figure dimensions (16 x 8)), fills in the background with two different dark colors using `fill_between`, and adds grid lines to make it easier to plot the objects in the exact place you desire. Set the `draft` parameter to `False` when you want to remove the grid lines, tick marks, and tick labels.
 
 ```python
 import numpy as np
@@ -68,9 +68,9 @@ fig
 
 ![png](output_4_0.png)
 
-### Shapes in matplotlib
+### Shapes in Matplotlib
 
-Most of the Cybertruck is composed of shapes (patches in matplotlib terminology) - circles, rectangles, and polygons. These shapes are available in the patches matplotlib module. After importing, we instantiate single instances of these patches and then call the `add_patch` method to add the patch to the Axes.
+Most of the Cybertruck is composed of shapes (patches in Matplotlib terminology) - circles, rectangles, and polygons. These shapes are available in the patches Matplotlib module. After importing, we instantiate single instances of these patches and then call the `add_patch` method to add the patch to the Axes.
 
 For the Cybertruck, I used three patches, `Polygon`, `Rectangle`, and `Circle`. They each have different parameters available in their constructor. I first constructed the body of the car as four polygons. Two other polygons were used for the rims. Each polygon is provided a list of x, y coordinates where the corner points are located. Matplotlib connects all the points in the order given and fills it in with the provided color.
 
@@ -137,24 +137,24 @@ fig
 
 ![png](output_8_0.png)
 
-#### Axels
+#### Axles
 
-I used the `Rectangle` patch to represent the two 'axels' (this isn't the correct term, but you'll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower `zorder`.
+I used the `Rectangle` patch to represent the two 'axles' (this isn't the correct term, but you'll see what I mean) going through the tires. You must provide a coordinate for the lower left corner, a width, and a height. You can also provide it an angle (in degrees) to control its orientation. Notice that they go under the spokes plotted from above. This is due to their lower `zorder`.
 
 ```python
-def create_axels():
+def create_axles():
     ax = fig.axes[0]
-    left_left_axel = Rectangle((.687, .427), width=.104, height=.005, angle=315, color='#202328')
-    left_right_axel = Rectangle((.761, .427), width=.104, height=.005, angle=225, color='#202328')
-    right_left_axel = Rectangle((1.367, .427), width=.104, height=.005, angle=315, color='#202328')
-    right_right_axel = Rectangle((1.441, .427), width=.104, height=.005, angle=225, color='#202328')
+    left_left_axle = Rectangle((.687, .427), width=.104, height=.005, angle=315, color='#202328')
+    left_right_axle = Rectangle((.761, .427), width=.104, height=.005, angle=225, color='#202328')
+    right_left_axle = Rectangle((1.367, .427), width=.104, height=.005, angle=315, color='#202328')
+    right_right_axle = Rectangle((1.441, .427), width=.104, height=.005, angle=225, color='#202328')
 
-    ax.add_patch(left_left_axel)
-    ax.add_patch(left_right_axel)
-    ax.add_patch(right_left_axel)
-    ax.add_patch(right_right_axel)
+    ax.add_patch(left_left_axle)
+    ax.add_patch(left_right_axle)
+    ax.add_patch(right_left_axle)
+    ax.add_patch(right_right_axle)
 
-create_axels()
+create_axles()
 fig
 ```
 
@@ -162,7 +162,7 @@ fig
 
 #### Other details
 
-The front bumper, head light, tail light, door and window lines are added below. I used regular matplotlib lines for some of these. Those lines are not patches and get added directly to the Axes without any other additional method.
+The front bumper, head light, tail light, door and window lines are added below. I used regular Matplotlib lines for some of these. Those lines are not patches and get added directly to the Axes without any other additional method.
 
 ```python
 def create_other_details():
@@ -212,7 +212,7 @@ fig
 
 The head light beam has a distinct color gradient that dissipates into the night sky. This is challenging to complete. I found an [excellent answer on Stack Overflow from user Joe Kington][0] on how to do this. We begin by using the `imshow` function which creates images from 3-dimensional arrays. Our image will simply be a rectangle of colors.
 
-We create a 1 x 100 x 4 array that represents 1 row by 100 columns of points of RGBA (red, green, blue, alpha) values. Every point is given the same red, green, and blue values of (0, 1, 1) which represents the color 'aqua'. The alpha value represents opacity and ranges between 0 and 1 with 0 being completely transparent (invisible) and 1 being opaque. We would like the opacity to decrease as the light extends further from the head light (that is further to the left). The numpy `linspace` function is used to create an array of 100 numbers increasing linearly from 0 to 1. This array will be set as the alpha values.
+We create a 1 x 100 x 4 array that represents 1 row by 100 columns of points of RGBA (red, green, blue, alpha) values. Every point is given the same red, green, and blue values of (0, 1, 1) which represents the color 'aqua'. The alpha value represents opacity and ranges between 0 and 1 with 0 being completely transparent (invisible) and 1 being opaque. We would like the opacity to decrease as the light extends further from the head light (that is further to the left). The NumPy `linspace` function is used to create an array of 100 numbers increasing linearly from 0 to 1. This array will be set as the alpha values.
 
 The `extent` parameter defines the rectangular region where the image will be shown. The four values correspond to xmin, xmax, ymin, and ymax. The 100 alpha values will be mapped to this region beginning from the left. The array of alphas begins at 0, which means that the very left of this rectangular region will be transparent. The opacity will increase moving to the right-side of the rectangle where it eventually reaches 1.
 
@@ -270,7 +270,7 @@ def draw_car():
     create_axes(draft=False)
     create_body()
     create_tires()
-    create_axels()
+    create_axles()
     create_other_details()
     create_headlight_beam()
     create_headlight_beam()
@@ -283,11 +283,11 @@ fig
 
 ## Animation
 
-Animation in matplotlib is fairly straightforward. You must create a function that updates the position of the objects in your figure for each frame. This function is called repeatedly for each frame.
+Animation in Matplotlib is fairly straightforward. You must create a function that updates the position of the objects in your figure for each frame. This function is called repeatedly for each frame.
 
-In the `update` function below, we loop through each patch, line, and image in our Axes and reduce the x-value of each plotted object by .015. This has the effect of moving the truck to the left. The trickiest part was changing the x and y values for the rectangular tire 'axels' so that it appeared that the tires were rotating. Some basic trigonometry helps calculate this.
+In the `update` function below, we loop through each patch, line, and image in our Axes and reduce the x-value of each plotted object by .015. This has the effect of moving the truck to the left. The trickiest part was changing the x and y values for the rectangular tire 'axles' so that it appeared that the tires were rotating. Some basic trigonometry helps calculate this.
 
-Implicitly, matplotlib passes the update function the frame number as an integer as the first argument. We accept this input as the parameter `frame_number`. We only use it in one place, and that is to do nothing during the first frame.
+Implicitly, Matplotlib passes the update function the frame number as an integer as the first argument. We accept this input as the parameter `frame_number`. We only use it in one place, and that is to do nothing during the first frame.
 
 Finally, the `FuncAnimation` class from the animation module is used to construct the animation. We provide it our original Figure, the function to update the Figure (`update`), a function to initialize the Figure (`draw_car`), the total number of frames, and any extra arguments used during update (`fargs`).
 

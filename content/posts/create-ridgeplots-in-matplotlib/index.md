@@ -2,7 +2,7 @@
 title: "Create Ridgeplots in Matplotlib"
 date: 2020-02-15T09:50:16+01:00
 draft: false
-description: "This post details how to leverage gridspec to create ridgeplots in matplotlib"
+description: "This post details how to leverage gridspec to create ridgeplots in Matplotlib"
 categories: ["tutorials"]
 displayInList: true
 author: Peter McKeever
@@ -67,7 +67,7 @@ data = pd.read_csv("mock-european-test-results.csv")
 
 
 ### GridSpec <a id="gs1"></a>
-GridSpec is a matplotlib module that allows us easy creation of subplots. We can control the number of subplots, the positions, the height, width, and spacing between each. As a basic example, let's create a quick template. The key parameters we'll be focusing on are `nrows`, `ncols`, and `width_ratios`.
+GridSpec is a Matplotlib module that allows us easy creation of subplots. We can control the number of subplots, the positions, the height, width, and spacing between each. As a basic example, let's create a quick template. The key parameters we'll be focusing on are `nrows`, `ncols`, and `width_ratios`.
 
 `nrows`and `ncols` divide our figure into areas we can add axes to. `width_ratios`controls the width of each of our columns. If we create something like `GridSpec(2,2,width_ratios=[2,1])`, we are subsetting our figure into 2 rows, 2 columns, and setting our width ratio to 2:1, i.e., that the first column will take up two times the width of the figure.
 
