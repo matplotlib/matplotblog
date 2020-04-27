@@ -10,7 +10,8 @@
       {{- $.Site.Title -}}
     {{ end }}
   </a></h1>
-  <a href="/matplotblog/index.xml"><img src="/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+
+  <a href="{{ "index.xml" | absURL }}"><img src="/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
   <div class="hamburger-menu">
     <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
       <span></span>
