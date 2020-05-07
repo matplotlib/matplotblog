@@ -14,7 +14,7 @@ resources:
     showOnTop: true
 ---
 
-The other day I was homeschooling my kids, and they asked me: "Daddy, can you draw us all possible non-isomorphic graphs of 3 nodes"? Or maybe I asked them that? Either way, we happily draw all possible graphs of 3 nodes, but already for 4 nodes it got hard, and for 5 nodes - [plain impossible](https://www.graphclasses.org/smallgraphs.html#nodes5)!
+The other day I was homeschooling my kids, and they asked me: "Daddy, can you draw us all possible non-isomorphic graphs of 3 nodes"? Or maybe I asked them that? Either way, we happily drew all possible graphs of 3 nodes, but already for 4 nodes it got hard, and for 5 nodes - [plain impossible](https://www.graphclasses.org/smallgraphs.html#nodes5)!
 
 So I thought: let me try to write a brute-force program to do it! I spent a few hours sketching some smart dynamic programming solution to generate these graphs, and went nowhere, as apparently the [problem is quite hard](http://www.cs.columbia.edu/~cs4205/files/CM9.pdf). I gave up, and decided to go with a naive approach:
 
@@ -24,7 +24,7 @@ So I thought: let me try to write a brute-force program to do it! I spent a few 
 This strategy seemed more reasonable, but writing a "graph-comparator" still felt like a cumbersome task, and more importantly, this part would itself be slow, as I'd still have to go through a whole tree of options for every graph comparison. So after some more head-scratching, I decided to simplify it even further, and use the fact that these days the memory is cheap:
 
 1. Generate all possible graphs (some of them totally isomorphic, meaning that they would look as a repetition if plotted on a figure)
-2. For each graph, generate its "description" (like an [adjacency matrix](https://en.wikipedia.org/wiki/Adjacency_matrix), or an edge list), and check if a graph with this description is already on the list. If yes, skip it, we got its portrait already!
+2. For each graph, generate its "description" (like an [adjacency matrix](https://en.wikipedia.org/wiki/Adjacency_matrix), of an edge list), and check if a graph with this description is already on the list. If yes, skip it, we got its portrait already!
 3. If however the graph is unique, include it in the picture, and also generate all possible "descriptions" of it, up to node permutation, and add them to the hash table. To make sure no other graph of this particular shape would ever be included in our pretty picture again.
 
 For the first task, I went with the edge list, which made the task identical to [generating all binary numbers](https://www.geeksforgeeks.org/generate-all-the-binary-strings-of-n-bits/) of length \\(\\frac{N(N-1)}{2}\\) with a recursive function, except instead of writing zeroes you skip edges, and instead of writing ones, you include them. Below is the function that does the trick, and has an additional bonus of listing all edges in a neat orderly way. For every edge \\(i \rightarrow j\\) we can be sure that \\(i\\) is lower than \\(j\\), and also that edges are sorted as words in a dictionary. Which is good, as it restricts the set of possible descriptions a bit, which will simplify our life later.
