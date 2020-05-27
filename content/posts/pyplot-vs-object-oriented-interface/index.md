@@ -7,9 +7,9 @@ author: Tejas Sanap
 displayInList: true
 resources:
 - name: featuredImage
-  src: "distance-and-velocity-different-axes-finished.png"
+  src: "figure/distance-and-velocity-different-axes-finished.png"
   params:
-    description: "Finsished graph"
+    description: "Finished graph"
     showOnTop: true
 ---
 
