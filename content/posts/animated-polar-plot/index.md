@@ -12,11 +12,11 @@ resources:
   params:    
     showOnTop: false
 ---
-The **ocean** is a key component of the Earth climate system. It thus needs a continuous real-time monitoring to help scientists better understand its dynamic and predict its evolution. All around the world, oceanographers have managed to join their efforts and set up a [Global Ocean Observing System](https://www.goosocean.org) among which [**Argo**](http://www.argo.ucsd.edu/) is a key component. Argo is a global network of nearly 4000 autonomous probes or floats measuring pressure, temperature and salinity from the surface to 2000m depth every 10 days. The localisation of these floats is nearly random between the 60th parallels (see live coverage [here](http://collab.umr-lops.fr/app/divaa/)). All data are collected by satellite in real-time, processed by several data centers and finally merged in a single dataset (collecting more than 2 millions of vertical profiles data) made freely available to anyone. 
+The **ocean** is a key component of the Earth climate system. It thus needs a continuous real-time monitoring to help scientists better understand its dynamic and predict its evolution. All around the world, oceanographers have managed to join their efforts and set up a [Global Ocean Observing System](https://www.goosocean.org) among which [**Argo**](http://www.argo.ucsd.edu/) is a key component. Argo is a global network of nearly 4000 autonomous probes or floats measuring pressure, temperature and salinity from the surface to 2000m depth every 10 days. The localisation of these floats is nearly random between the 60th parallels (see live coverage [here](http://collab.umr-lops.fr/app/divaa/)). All data are collected by satellite in real-time, processed by several data centers and finally merged in a single dataset (collecting more than 2 millions of vertical profiles data) made freely available to anyone.
 
-In this particular case, we want to plot temperature (surface and 1000m deep) data measured by those floats, for the period 2010-2020 and for the Mediterranean sea. We want this plot to be circular and animated, now you start to get the title of this post : **Animated polar plot**
+In this particular case, we want to plot temperature (surface and 1000m deep) data measured by those floats, for the period 2010-2020 and for the Mediterranean sea. We want this plot to be circular and animated, now you start to get the title of this post: **Animated polar plot**.
 
-First we need some data to work with. To retrieve our temperature values from argo float, we use [**Argopy**](https://argopy.readthedocs.io) wich is a python library that aims to ease Argo data access, manipulation and visualisation for standard users as well as Argo experts and operators. Argopy returns [xarray](http://xarray.pydata.org) dataset objects, wich make our analysis much easier.
+First we need some data to work with. To retrieve our temperature values from Argo, we use [**Argopy**](https://argopy.readthedocs.io), which is a Python library that aims to ease Argo data access, manipulation and visualization for standard users, as well as Argo experts and operators. Argopy returns [xarray](http://xarray.pydata.org) dataset objects, which make our analysis much easier.
 ```python
 import pandas as pd
 import numpy as np
@@ -29,7 +29,7 @@ df2 = argo_loader.region([-1.2,29.,28.,46.,975.,1025.,'2009-12','2020-01']).to_x
 #
 ```
 
-Here we create some arrays we'll use for plotting, we set up a date array and extract day of the year and year itself that will be usefull. Then to build our temperature array, we use xarray very usefull methods : `where()` and `mean()`. Then we build a pandas Dataframe, because it's prettier !
+Here we create some arrays we'll use for plotting, we set up a date array and extract day of the year and year itself that will be usefull. Then to build our temperature array, we use xarray very usefull methods : `where()` and `mean()`. Then we build a pandas Dataframe, because it's prettier!
 ```python
 # Weekly date array
 daterange=np.arange('2010-01-01','2020-01-03',dtype='datetime64[7D]') 
@@ -81,7 +81,7 @@ outer=30
 ocean_color = ["#ff7f50","#004752"]
 ```
 
-Then we want to make our axes like we want, for that we build a function `dress_axes` that will be called during the animation process. Here we plot some bars with an offset (combination of `bottom` and `ylim` after). Those bars are actually our background, and the offset allows us to plot a legend in the middle of the plot.
+Now we want to make our axes like we want, for that we build a function `dress_axes` that will be called during the animation process. Here we plot some bars with an offset (combination of `bottom` and `ylim` after). Those bars are actually our background, and the offset allows us to plot a legend in the middle of the plot.
 ```python
 def dress_axes(ax):
     ax.set_facecolor('w')
@@ -119,20 +119,20 @@ plt.show()
 ![axesFrame](axes_empty.png)
 
 
-Then it's finally time to plot our data. Since we want to animated the plot, we'll build a function that will be called in `FuncAnimation` later on. Since the state of the plot changes on every time stamp, we have to redress the axes for each frame, easy with our `dress_axes` function. Then we plot our temperature data using basic `plot()` : Thin lines for historical measurements and a thicker ones for the current year.
+Then it's finally time to plot our data. Since we want to animated the plot, we'll build a function that will be called in `FuncAnimation` later on. Since the state of the plot changes on every time stamp, we have to redress the axes for each frame, easy with our `dress_axes` function. Then we plot our temperature data using basic `plot()`: thin lines for historical measurements, thicker lines for the current year.
 ```python
 def draw_data(i):       
     # Clear
     ax.cla()
     # Redressing axes
     dress_axes(ax)
-    # Limit between thin lines and thick line, this is current date minus 51 weeks basically. 
-    # why 51 and not 52 ? That create a small gap before the current date, wich is prettier
+    # Limit between thin lines and thick line, this is current date minus 51 weeks basically.
+    # why 51 and not 52 ? That create a small gap before the current date, which is prettier
     i0=np.max([i-51,0])
-        
+
     ax.plot(date_angle[i0:i+1], ndf['tsurf'][i0:i+1],'-',color=ocean_color[0],alpha=1.0,linewidth=5)     
     ax.plot(date_angle[0:i+1], ndf['tsurf'][0:i+1],'-',color=ocean_color[0],linewidth=0.7)     
-    
+
     ax.plot(date_angle[i0:i+1], ndf['t1000'][i0:i+1],'-',color=ocean_color[1],alpha=1.0,linewidth=5)     
     ax.plot(date_angle[0:i+1], ndf['t1000'][0:i+1],'-',color=ocean_color[1],linewidth=0.7)     
 
