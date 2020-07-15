@@ -7,21 +7,21 @@ categories: ["tutorials"]
 displayInList: true
 author: Eitan Lees
 resources:
-- name: CAthumb
+- name: featuredImage
   src: "ca-thumb.png"
   params:
     description: "Rule 110"
-    showOnTop: true
+    showOnTop: false
 ---
 
-[Cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton) are discrete models, typically on a grid, which evolve in time. Each grid cell has a finite state, such as 0 or 1, which is updated based on a certain set of rules. A specific cell uses information of the surrounding cells, called it's _neighborhood_, to determine what changes should be made. In general cellular automata can be defined in any number of dimensions. A famous two dimensional example is [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in which cells "live" and "die", sometimes producing beautiful patterns. 
+[Cellular automata](https://en.wikipedia.org/wiki/Cellular_automaton) are discrete models, typically on a grid, which evolve in time. Each grid cell has a finite state, such as 0 or 1, which is updated based on a certain set of rules. A specific cell uses information of the surrounding cells, called it's _neighborhood_, to determine what changes should be made. In general cellular automata can be defined in any number of dimensions. A famous two dimensional example is [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in which cells "live" and "die", sometimes producing beautiful patterns.
 
 
 In this post we will be looking at a one dimensional example known as [elementary cellular automaton](https://en.wikipedia.org/wiki/Elementary_cellular_automaton), popularized by [Stephen Wolfram](https://en.wikipedia.org/wiki/Stephen_Wolfram) in the 1980s.
 
 ![](./ca-bar.png)
 
-Imagine a row of cells, arranged side by side, each of which is colored black or white. We label black cells 1 and white cells 0, resulting in an array of bits. As an example lets consider a random array of 20 bits. 
+Imagine a row of cells, arranged side by side, each of which is colored black or white. We label black cells 1 and white cells 0, resulting in an array of bits. As an example lets consider a random array of 20 bits.
 
 
 ```python
@@ -36,10 +36,10 @@ print(data)
     [0 1 0 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 1 0]
 
 
-To update the state of our cellular automaton we will need to define a set of rules. 
+To update the state of our cellular automaton we will need to define a set of rules.
 A given cell \\(C\\) only knows about the state of it's left and right neighbors, labeled \\(L\\) and \\(R\\) respectively. We can define a function or rule, \\(f(L, C, R)\\), which maps the cell state to either 0 or 1.
 
-Since our input cells are binary values there are \\(2^3=8\\) possible inputs into the function. 
+Since our input cells are binary values there are \\(2^3=8\\) possible inputs into the function.
 
 
 ```python
@@ -57,7 +57,7 @@ for i in range(8):
     111
 
 
-For each input triplet, we can assign 0 or 1 to the output. The output of \\(f\\) is the value which will replace the current cell \\(C\\) in the next time step. In total there are \\(2^{2^3} = 2^8 = 256\\) possible rules for updating a cell. Stephen Wolfram introduced a naming convention, now known as the [Wolfram Code](https://en.wikipedia.org/wiki/Wolfram_code), for the update rules in which each rule is represented by an 8 bit binary number. 
+For each input triplet, we can assign 0 or 1 to the output. The output of \\(f\\) is the value which will replace the current cell \\(C\\) in the next time step. In total there are \\(2^{2^3} = 2^8 = 256\\) possible rules for updating a cell. Stephen Wolfram introduced a naming convention, now known as the [Wolfram Code](https://en.wikipedia.org/wiki/Wolfram_code), for the update rules in which each rule is represented by an 8 bit binary number.
 
 For example "Rule 30" could be constructed by first converting to binary and then building an array for each bit
 
@@ -91,7 +91,7 @@ for i in range(8):
     input:111, index:0, output 0
 
 
-We can define a function which maps the input cell information with the associated rule index. Essentially we are converting the binary input to decimal and adjusting the index range. 
+We can define a function which maps the input cell information with the associated rule index. Essentially we are converting the binary input to decimal and adjusting the index range.
 
 
 ```python
@@ -120,8 +120,8 @@ Finally, we can use Numpy to create a data structure containing all the triplets
 
 ```python
 all_triplets = np.stack([
-    np.roll(data, 1), 
-    data, 
+    np.roll(data, 1),
+    data,
     np.roll(data, -1)]
 )
 new_data = rule[np.apply_along_axis(rule_index, 0, all_triplets)]
@@ -131,7 +131,7 @@ print(new_data)
     [1 1 1 0 1 1 1 0 1 1 1 0 0 1 1 0 1 0 0 1]
 
 
-That is the process for a single update of our cellular automata. 
+That is the process for a single update of our cellular automata.
 
 To do many updates and record the state over time, we will create a function.
 
@@ -214,9 +214,9 @@ def plot_CA_class(rule_list, class_label):
         ax.set_title(f'Rule {rule_list[i]}')
         ax.matshow(data)
         ax.axis(False)
-        
+
     fig.suptitle(class_label, fontsize=16)
-    
+
     return fig, ax
 ```
 
@@ -272,7 +272,7 @@ _ = plot_CA_class([54, 62, 110], 'Class Four')
 
 Amazingly, the interacting structures which emerge from rule 110 has been shown to be capable of [universal computation](https://en.wikipedia.org/wiki/Turing_machine).
 
-In all the examples above a random initial state was used, but another interesting case is when a single 1 is initialized with all other values set to zero. 
+In all the examples above a random initial state was used, but another interesting case is when a single 1 is initialized with all other values set to zero.
 
 
 ```python
@@ -289,6 +289,6 @@ ax.axis(False);
 ![png](output_31_0.png)
 
 
-For certain rules, the emergent structures interact in chaotic and interesting ways. 
+For certain rules, the emergent structures interact in chaotic and interesting ways.
 
 I hope you enjoyed this brief look into the world of elementary cellular automata, and are inspired to make some pretty pictures of your own.
