@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>GSoC Coding Phase 3 Blog 1 &middot; Matplotblog</title>
-  <meta name="description" content="Progress Report for the first half of the Google Summer of Code 2020 Phase 3 for the Baseline Images Problem" />
+  <title>GSoC 2020 Work Product - Baseline Images Problem &middot; Matplotblog</title>
+  <meta name="description" content="Final Work Product Report for the Google Summer of Code 2020 for the Baseline Images Problem" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   
@@ -53,20 +53,28 @@
     <main class="content side-text-padding">
       <article class="post dropcase">
         <header class="post-header">
-        	<h1 class="post-title">GSoC Coding Phase 3 Blog 1</h1>
-          <p class="post-date">Posted <time datetime="2020-08-08">Aug 8, 2020</time>
+        	<h1 class="post-title">GSoC 2020 Work Product - Baseline Images Problem</h1>
+          <p class="post-date">Posted <time datetime="2020-08-16">Aug 16, 2020</time>
 	  <span class="post-author"> &mdash; By Sidharth Bansal</span>
 	  </p>
 
         </header>
         
-        <p>Google Summer of Code 2020's second evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the last evaluation. This post discusses about the progress so far in the first two weeks of the third coding period from 26 July to 9 August 2020.</p>
-<h2 id="completion-of-the-modification-logic-for-the-matplotlib_baseline_images-package">Completion of the modification logic for the matplotlib_baseline_images package</h2>
-<p>We successfully created the <code>matplotlib_baseline_image_generation</code> command line flag for baseline image generation for <code>matplotlib</code> and <code>mpl_toolkits</code> in the previous months. It was generating the matplotlib and the matplotlib toolkit baseline images successfully. Now, we modified the existing flow to generate any missing baseline images, which would be fetched from the <code>master</code> branch on doing <code>git pull</code> or <code>git checkout -b feature_branch</code>.</p>
-<p>We initially thought of creating a command line flag <code>generate_baseline_images_for_test &quot;test_a,test_b&quot;</code>, but later on analysis of the approach, we came to the conclusion that the developer will not know about the test names to be given along with the flag. So, we tried to generate the missing images by <code>generate_missing</code> without the test names. This worked successfully.</p>
-<h2 id="adopting-reusability-and-do-not-repeat-yourself-dry-principles">Adopting reusability and Do not Repeat Yourself (DRY) Principles</h2>
-<p>Later, we refactored the <code>matplot_baseline_image_generation</code> and <code>generate_missing</code> command line flags to single command line flag <code>matplotlib_baseline_image_generation</code> as the logic was similar for both of them. Now, the image generation on the time of fresh install of matplotlib and the generation of missing baseline images works with the <code>python3 -pytest lib/matplotlib matplotlib_baseline_image_generation</code> for the <code>lib/matplotlib</code> folder and <code>python3 -pytest lib/mpl_toolkits matplotlib_baseline_image_generation</code> for the <code>lib/mpl_toolkits</code> folder.</p>
-<h2 id="writing-the-documentation">Writing the documentation</h2>
+        <p>Google Summer of Code 2020 is completed. Hurray!! This post discusses about the progress so far in the three months of the coding period from 1 June to 24 August 2020 regarding the project <code>Baseline Images Problem</code> under <code>matplotlib</code> organisation under the umbrella of <code>NumFOCUS</code> organization.</p>
+<h2 id="project-details">Project Details:</h2>
+<p>This project helps with the difficulty in adding/modifying tests which require a baseline image. Baseline images are problematic because</p>
+<ul>
+<li>Baseline images cause the repo size to grow rather quickly.</li>
+<li>Baseline images force matplotlib contributors to pin to a somewhat old version of FreeType because nearly every release of FreeType causes tiny rasterization changes that would entail regenerating all baseline images (and thus cause even more repo size growth).</li>
+</ul>
+<p>So, the idea is to not store the baseline images in the repository, instead to create them from the existing tests.</p>
+<h2 id="creation-of-the-matplotlib_baseline_images-package">Creation of the matplotlib_baseline_images package</h2>
+<p>We had created the <code>matplotlib_baseline_images</code> package. This package is involved in the sub-wheels directory so that more packages can be added in the same directory, if needed in future. The <code>matplotlib_baseline_images</code> package contain baseline images for both <code>matplotlib</code> and <code>mpl_toolkits</code>.
+The package can be installed by using <code>python3 -mpip install matplotlib_baseline_images</code>.</p>
+<h2 id="creation-of-the-matplotlib-baseline-image-generation-flag">Creation of the matplotlib baseline image generation flag</h2>
+<p>We successfully created the <code>generate_missing</code> command line flag for baseline image generation for <code>matplotlib</code> and <code>mpl_toolkits</code> in the previous months. It was generating the <code>matplotlib</code> and the <code>mpl_toolkits</code> baseline images initially. Now, we have also modified the existing flow to generate any missing baseline images, which would be fetched from the <code>master</code> branch on doing <code>git pull</code> or <code>git checkout -b feature_branch</code>.</p>
+<p>Now, the image generation on the time of fresh install of matplotlib and the generation of missing baseline images works with the <code>python3 -pytest lib/matplotlib matplotlib_baseline_image_generation</code> for the <code>lib/matplotlib</code> folder and <code>python3 -pytest lib/mpl_toolkits matplotlib_baseline_image_generation</code> for the <code>lib/mpl_toolkits</code> folder.</p>
+<h2 id="documentation">Documentation</h2>
 <p>We have written documentation explaining the following scenarios:</p>
 <ol>
 <li>How to generate the baseline images on a fresh install of matplotlib?</li>
@@ -74,11 +82,21 @@
 <li>How to install the <code>matplotlib_baseline_images_package</code> to be used for testing by the developer?</li>
 <li>How to intentionally change an image?</li>
 </ol>
-<h2 id="refactoring-and-improving-the-code-quality-before-merging">Refactoring and improving the code quality before merging</h2>
-<p>Right now, we are trying to refactor the code and maintain git clean history. The <a href="https://github.com/matplotlib/matplotlib/pull/17793">current PR</a> is under review. I am working on the suggested changes. We are trying to merge this :)</p>
-<h2 id="daily-meet-ups">Daily Meet-ups</h2>
-<p>Monday to Thursday meeting initiated at <a href="https://everytimezone.com/">11:00pm IST</a> via Zoom. Meeting notes are present at HackMD.</p>
-<p>I am grateful to be part of such a great community. Project is really interesting and challenging :) Thanks Thomas, Antony and Hannah for helping me so far.</p>
+<h2 id="links-to-the-work-done">Links to the work done</h2>
+<ul>
+<li><a href="https://storage.googleapis.com/summerofcode-prod.appspot.com/gsoc/core_project/doc/6456687923298304_1585668871_MatPlotLib_GSoc_Proposal__Baseline_Images_Problem.pdf?Expires=1597725704&amp;GoogleAccessId=summerofcode-prod%40appspot.gserviceaccount.com&amp;Signature=xyvO7MmMbNmW3BFz8J3JXUovI3xfZLBll4UPWZqZvHbOfPAu6PAK9enC4vXBCTwgH%2BXQ%2FxU57P3K1G0MAXvtAI7Wq0zhEfpZNXOPUQnipqRkkGdJYLLiFkIV93R6M83Z04Z%2BxyX3pepIPPaHTTNkXoxkXVyG2bx5jwtBnTTmCn1peOURPmsjOkdSp5w57vkTxzlGal5li%2FaV4sseGP8kzGtQ2YxljfZXura0WX5uA7bcNumdqMXUJ2eeqTxOwucUh8uOj6b%2BLn21d3py2KA%2FyxBuaBF8rwdqZM%2ByEeuNJ8aPAoR5kUS%2FUq7kjCyOIfuwb8%2F84TafLa91oGd4wMFNKA%3D%3D">Proposal</a></li>
+<li><a href="https://github.com/matplotlib/matplotlib/issues/16447">Issue</a></li>
+<li><a href="https://github.com/matplotlib/matplotlib/pull/17793">Pull Request</a></li>
+<li><a href="https://matplotlib.org/matplotblog/categories/gsoc/">Blog Posts</a></li>
+</ul>
+<h2 id="mentors">Mentors</h2>
+<ul>
+<li>Thomas A Caswell</li>
+<li>Hannah</li>
+<li>Antony Lee</li>
+</ul>
+<p>I am grateful to be part of such a great community. Project is really interesting and challenging :)</p>
+<p>Thanks Thomas, Antony and Hannah for helping me to complete this project.</p>
 
       </article>
       

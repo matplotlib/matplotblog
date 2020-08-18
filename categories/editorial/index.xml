@@ -1,2 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>editorial on Matplotblog</title><link>https://matplotlib.org/matplotblog/categories/editorial/</link><description>Recent content in editorial on Matplotblog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 07 Oct 2019 22:49:35 -0400</lastBuildDate><atom:link href="https://matplotlib.org/matplotblog/categories/editorial/index.xml" rel="self" type="application/rss+xml"/><item><title>A New Blog</title><link>https://matplotlib.org/matplotblog/posts/a-new-blog/</link><pubDate>Mon, 07 Oct 2019 22:49:35 -0400</pubDate><guid>https://matplotlib.org/matplotblog/posts/a-new-blog/</guid><description>Matplotlib is an open-source Python visualization library. As such, there are a multitude of contributors and users that assist in improving Matplotlib and expanding its reach every day. They have helped it to become what it is and help show the world what is possible with a (relatively) little Python code.
-To further help Matplotlib users make impressive visualizations and to ultimately tell impactful stories with their data, we have created this blog.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>editorial on Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/editorial/</link>
+    <description>Recent content in editorial on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 07 Oct 2019 22:49:35 -0400</lastBuildDate>
+    
+	<atom:link href="https://matplotlib.org/matplotblog/categories/editorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A New Blog</title>
+      <link>https://matplotlib.org/matplotblog/posts/a-new-blog/</link>
+      <pubDate>Mon, 07 Oct 2019 22:49:35 -0400</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/a-new-blog/</guid>
+      <description>Matplotlib is an open-source Python visualization library. As such, there are a multitude of contributors and users that assist in improving Matplotlib and expanding its reach every day. They have helped it to become what it is and help show the world what is possible with a (relatively) little Python code.
+To further help Matplotlib users make impressive visualizations and to ultimately tell impactful stories with their data, we have created this blog.</description>
+    </item>
+    
+  </channel>
+</rss>

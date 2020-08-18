@@ -1,68 +1,163 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Creating the Warming Stripes in Matplotlib &#183; Matplotblog</title><meta name=description content="Ed Hawkins made this impressively simple plot to show how global temperatures have risen since 1880. Here is how to recreate it using Matplotlib."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
-<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Creating the Warming Stripes in Matplotlib</h1><p class=post-date>Posted <time datetime=2019-11-11>Nov 11, 2019</time>
-<span class=post-author>&mdash; By Maximilian Nöthe</span></p></header><p><img src=warming-stripes.png alt="Warming Stripes"></p><p>Earth's temperatures are rising and nothing shows this in a simpler,
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Creating the Warming Stripes in Matplotlib &middot; Matplotblog</title>
+  <meta name="description" content="Ed Hawkins made this impressively simple plot to show how global temperatures have risen since 1880. Here is how to recreate it using Matplotlib." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  
+  
+  
+  
+  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
+    }
+  </style>
+</head>
+
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
+    
+      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
+    
+    
+  </a></h1>
+
+  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+  <div class="hamburger-menu">
+    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menu" class="hamburger-menu-overlay">
+      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      
+      
+      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">Creating the Warming Stripes in Matplotlib</h1>
+          <p class="post-date">Posted <time datetime="2019-11-11">Nov 11, 2019</time>
+	  <span class="post-author"> &mdash; By Maximilian Nöthe</span>
+	  </p>
+
+        </header>
+        
+          
+        
+        <p><img src="warming-stripes.png" alt="Warming Stripes"></p>
+<p>Earth's temperatures are rising and nothing shows this in a simpler,
 more approachable graphic than the “Warming Stripes”.
 Introduced by Prof. Ed Hawkins they show the temperatures either for
-the global average or for your region as colored bars from blue to red for the last 170 years, available at <a href=https://showyourstripes.info>#ShowYourStripes</a>.</p><p>The stripes have since become the logo of the <a href=https://scientistsforfuture.org>Scientists for Future</a>.
-Here is how you can recreate this yourself using Matplotlib.</p><p>We are going to use the <a href=https://www.metoffice.gov.uk/hadobs/hadcrut4/index.html>HadCRUT4</a> dataset, published by the Met Office.
+the global average or for your region as colored bars from blue to red for the last 170 years, available at <a href="https://showyourstripes.info">#ShowYourStripes</a>.</p>
+<p>The stripes have since become the logo of the <a href="https://scientistsforfuture.org">Scientists for Future</a>.
+Here is how you can recreate this yourself using Matplotlib.</p>
+<p>We are going to use the <a href="https://www.metoffice.gov.uk/hadobs/hadcrut4/index.html">HadCRUT4</a> dataset, published by the Met Office.
 It uses combined sea and land surface temperatures.
-The dataset used for the warming stripes is the annual global average.</p><p>First, let's import everything we are going to use.
+The dataset used for the warming stripes is the annual global average.</p>
+<p>First, let's import everything we are going to use.
 The plot will consist of a bar for each year, colored using a custom
-color map.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
-<span style=color:#f92672>from</span> matplotlib.patches <span style=color:#f92672>import</span> Rectangle
-<span style=color:#f92672>from</span> matplotlib.collections <span style=color:#f92672>import</span> PatchCollection
-<span style=color:#f92672>from</span> matplotlib.colors <span style=color:#f92672>import</span> ListedColormap
-<span style=color:#f92672>import</span> pandas <span style=color:#f92672>as</span> pd
+color map.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">from</span> matplotlib.patches <span style="color:#f92672">import</span> Rectangle
+<span style="color:#f92672">from</span> matplotlib.collections <span style="color:#f92672">import</span> PatchCollection
+<span style="color:#f92672">from</span> matplotlib.colors <span style="color:#f92672">import</span> ListedColormap
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
 </code></pre></div><p>Then we define our time limits, our reference period for
-the neutral color and the range around it for maximum saturation.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>FIRST <span style=color:#f92672>=</span> <span style=color:#ae81ff>1850</span>
-LAST <span style=color:#f92672>=</span> <span style=color:#ae81ff>2018</span>  <span style=color:#75715e># inclusive</span>
+the neutral color and the range around it for maximum saturation.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">FIRST <span style="color:#f92672">=</span> <span style="color:#ae81ff">1850</span>
+LAST <span style="color:#f92672">=</span> <span style="color:#ae81ff">2018</span>  <span style="color:#75715e"># inclusive</span>
 
-<span style=color:#75715e># Reference period for the center of the color scale</span>
-FIRST_REFERENCE <span style=color:#f92672>=</span> <span style=color:#ae81ff>1971</span>
-LAST_REFERENCE <span style=color:#f92672>=</span> <span style=color:#ae81ff>2000</span>
-LIM <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.7</span> <span style=color:#75715e># degrees</span>
-</code></pre></div><p>Here we use pandas to read the fixed width text file, only the
+<span style="color:#75715e"># Reference period for the center of the color scale</span>
+FIRST_REFERENCE <span style="color:#f92672">=</span> <span style="color:#ae81ff">1971</span>
+LAST_REFERENCE <span style="color:#f92672">=</span> <span style="color:#ae81ff">2000</span>
+LIM <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.7</span> <span style="color:#75715e"># degrees</span>
+</code></pre></div><p>Here we use pandas to read the fixed width text file, only the 
 first two columns, which are the year and the deviation from the
-mean from 1961 to 1990.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># data from</span>
-<span style=color:#75715e># https://www.metoffice.gov.uk/hadobs/hadcrut4/data/current/time_series/HadCRUT.4.6.0.0.annual_ns_avg.txt</span>
-df <span style=color:#f92672>=</span> pd<span style=color:#f92672>.</span>read_fwf(
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>HadCRUT.4.6.0.0.annual_ns_avg.txt</span><span style=color:#e6db74>&#39;</span>,
-    index_col<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
-    usecols<span style=color:#f92672>=</span>(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>),
-    names<span style=color:#f92672>=</span>[<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>year</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>anomaly</span><span style=color:#e6db74>&#39;</span>],
-    header<span style=color:#f92672>=</span>None,
+mean from 1961 to 1990.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># data from</span>
+<span style="color:#75715e"># https://www.metoffice.gov.uk/hadobs/hadcrut4/data/current/time_series/HadCRUT.4.6.0.0.annual_ns_avg.txt</span>
+df <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>read_fwf(
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">HadCRUT.4.6.0.0.annual_ns_avg.txt</span><span style="color:#e6db74">&#39;</span>,
+    index_col<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
+    usecols<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>),
+    names<span style="color:#f92672">=</span>[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">year</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">anomaly</span><span style="color:#e6db74">&#39;</span>],
+    header<span style="color:#f92672">=</span>None,
 )
 
-anomaly <span style=color:#f92672>=</span> df<span style=color:#f92672>.</span>loc[FIRST:LAST, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>anomaly</span><span style=color:#e6db74>&#39;</span>]<span style=color:#f92672>.</span>dropna()
-reference <span style=color:#f92672>=</span> anomaly<span style=color:#f92672>.</span>loc[FIRST_REFERENCE:LAST_REFERENCE]<span style=color:#f92672>.</span>mean()
+anomaly <span style="color:#f92672">=</span> df<span style="color:#f92672">.</span>loc[FIRST:LAST, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">anomaly</span><span style="color:#e6db74">&#39;</span>]<span style="color:#f92672">.</span>dropna()
+reference <span style="color:#f92672">=</span> anomaly<span style="color:#f92672">.</span>loc[FIRST_REFERENCE:LAST_REFERENCE]<span style="color:#f92672">.</span>mean()
 </code></pre></div><p>This is our custom colormap, we could also use one of
-the <a href=https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html>colormaps</a> that come with <code>matplotlib</code>, e.g. <code>coolwarm</code> or <code>RdBu</code>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># the colors in this colormap come from http://colorbrewer2.org</span>
-<span style=color:#75715e># the 8 more saturated colors from the 9 blues / 9 reds</span>
-cmap <span style=color:#f92672>=</span> ListedColormap([
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#08306b</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#08519c</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#2171b5</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#4292c6</span><span style=color:#e6db74>&#39;</span>,
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#6baed6</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#9ecae1</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#c6dbef</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#deebf7</span><span style=color:#e6db74>&#39;</span>,
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#fee0d2</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#fcbba1</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#fc9272</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#fb6a4a</span><span style=color:#e6db74>&#39;</span>,
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#ef3b2c</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#cb181d</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#a50f15</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#67000d</span><span style=color:#e6db74>&#39;</span>,
+the <a href="https://matplotlib.org/3.1.0/tutorials/colors/colormaps.html">colormaps</a> that come with <code>matplotlib</code>, e.g. <code>coolwarm</code> or <code>RdBu</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># the colors in this colormap come from http://colorbrewer2.org</span>
+<span style="color:#75715e"># the 8 more saturated colors from the 9 blues / 9 reds</span>
+cmap <span style="color:#f92672">=</span> ListedColormap([
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#08306b</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#08519c</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#2171b5</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#4292c6</span><span style="color:#e6db74">&#39;</span>,
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#6baed6</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#9ecae1</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#c6dbef</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#deebf7</span><span style="color:#e6db74">&#39;</span>,
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#fee0d2</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#fcbba1</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#fc9272</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#fb6a4a</span><span style="color:#e6db74">&#39;</span>,
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#ef3b2c</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#cb181d</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#a50f15</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#67000d</span><span style="color:#e6db74">&#39;</span>,
 ])
 </code></pre></div><p>We create a figure with a single axes object that fills the full area
-of the figure and does not have any axis ticks or labels.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>1</span>))
+of the figure and does not have any axis ticks or labels.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">1</span>))
 
-ax <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_axes([<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>])
-ax<span style=color:#f92672>.</span>set_axis_off()
+ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_axes([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>])
+ax<span style="color:#f92672">.</span>set_axis_off()
 </code></pre></div><p>Finally, we create bars for each year, assign the
-data, colormap and color limits and add it to the axes.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># create a collection with a rectangle for each year</span>
-col <span style=color:#f92672>=</span> PatchCollection([
-    Rectangle((y, <span style=color:#ae81ff>0</span>), <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>)
-    <span style=color:#66d9ef>for</span> y <span style=color:#f92672>in</span> range(FIRST, LAST <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>)
+data, colormap and color limits and add it to the axes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># create a collection with a rectangle for each year</span>
+col <span style="color:#f92672">=</span> PatchCollection([
+    Rectangle((y, <span style="color:#ae81ff">0</span>), <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
+    <span style="color:#66d9ef">for</span> y <span style="color:#f92672">in</span> range(FIRST, LAST <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
 ])
 
-<span style=color:#75715e># set data, colormap and color limits</span>
-col<span style=color:#f92672>.</span>set_array(anomaly)
-col<span style=color:#f92672>.</span>set_cmap(cmap)
-col<span style=color:#f92672>.</span>set_clim(reference <span style=color:#f92672>-</span> LIM, reference <span style=color:#f92672>+</span> LIM)
-ax<span style=color:#f92672>.</span>add_collection(col)
-</code></pre></div><p>Make sure the axes limits are correct and save the figure.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax<span style=color:#f92672>.</span>set_ylim(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>)
-ax<span style=color:#f92672>.</span>set_xlim(FIRST, LAST <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>)
+<span style="color:#75715e"># set data, colormap and color limits</span>
+col<span style="color:#f92672">.</span>set_array(anomaly)
+col<span style="color:#f92672">.</span>set_cmap(cmap)
+col<span style="color:#f92672">.</span>set_clim(reference <span style="color:#f92672">-</span> LIM, reference <span style="color:#f92672">+</span> LIM)
+ax<span style="color:#f92672">.</span>add_collection(col)
+</code></pre></div><p>Make sure the axes limits are correct and save the figure.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+ax<span style="color:#f92672">.</span>set_xlim(FIRST, LAST <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
 
-fig<span style=color:#f92672>.</span>savefig(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>warming-stripes.png</span><span style=color:#e6db74>&#39;</span>)
-</code></pre></div><p><img src=warming-stripes.png alt="Warming Stripes"></p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
+fig<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">warming-stripes.png</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><p><img src="warming-stripes.png" alt="Warming Stripes"></p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      
+      
+      
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  
+  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>

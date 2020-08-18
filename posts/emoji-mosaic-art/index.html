@@ -1,85 +1,255 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Emoji Mosaic Art &#183; Matplotblog</title><meta name=description content="Applied image manipulation to create procedural art."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
-<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Emoji Mosaic Art</h1><p class=post-date>Posted <time datetime=2020-05-24>May 24, 2020</time>
-<span class=post-author>&mdash; By Abhishek Sharma</span></p></header><picture class=post-figure>
-<source srcset=https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/final_image_100_hu12c6ffb6a34a687f56176d24d6a819e9_1493075_800x0_resize_lanczos_2.png><img src=https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/final_image_100_hu12c6ffb6a34a687f56176d24d6a819e9_1493075_800x0_resize_lanczos_2.png alt="Final mosaic"></picture><p>A while back, I came across this cool <a href=https://github.com/willdady/emosaic>repository</a> to create emoji-art from images. I wanted to use it to transform my mundane Facebook profile picture to something more snazzy. The only trouble? It was written in Rust.</p><p>So instead of going through the process of installing Rust, I decided to take the easy route and spin up some code to do the same in Python using <a href=https://matplotlib.org/>matplotlib</a>.</p><p><del>Because that's what anyone sane would do, right?</del></p><p>In this post, I'll try to explain my process as we attempt to recreate similar mosaics as this one below. I've aimed this post at people who've worked with <em>some</em> sort of image data before; but really, anyone can follow along.</p><p><img src=./warhol.png alt="alt text" title="Emosaic by Will Dady"></p><h2 id=packages>Packages</h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
-<span style=color:#f92672>from</span> tqdm <span style=color:#f92672>import</span> tqdm
-<span style=color:#f92672>from</span> scipy <span style=color:#f92672>import</span> spatial
-<span style=color:#f92672>from</span> matplotlib <span style=color:#f92672>import</span> cm
-<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
-<span style=color:#f92672>import</span> matplotlib
-<span style=color:#f92672>import</span> scipy
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Emoji Mosaic Art &middot; Matplotblog</title>
+  <meta name="description" content="Applied image manipulation to create procedural art." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  
+  
+  
+  
+  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
+    }
+  </style>
+</head>
+
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
+    
+      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
+    
+    
+  </a></h1>
+
+  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+  <div class="hamburger-menu">
+    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menu" class="hamburger-menu-overlay">
+      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      
+      
+      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">Emoji Mosaic Art</h1>
+          <p class="post-date">Posted <time datetime="2020-05-24">May 24, 2020</time>
+	  <span class="post-author"> &mdash; By Abhishek Sharma</span>
+	  </p>
+
+        </header>
+        
+          
+          <picture class="post-figure">
+            
+            
+            <source srcset="https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/final_image_100_hu12c6ffb6a34a687f56176d24d6a819e9_1493075_800x0_resize_lanczos_2.png">
+            <img src="https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/final_image_100_hu12c6ffb6a34a687f56176d24d6a819e9_1493075_800x0_resize_lanczos_2.png" alt="Final mosaic">
+          </picture>
+          
+        
+        <p>A while back, I came across this cool <a href="https://github.com/willdady/emosaic">repository</a> to create emoji-art from images. I wanted to use it to transform my mundane Facebook profile picture to something more snazzy. The only trouble? It was written in Rust.</p>
+<p>So instead of going through the process of installing Rust, I decided to take the easy route and spin up some code to do the same in Python using <a href="https://matplotlib.org/">matplotlib</a>.</p>
+<p><del>Because that's what anyone sane would do, right?</del></p>
+<p>In this post, I'll try to explain my process as we attempt to recreate similar mosaics as this one below. I've aimed this post at people who've worked with <em>some</em> sort of image data before; but really, anyone can follow along.</p>
+<p><img src="./warhol.png" alt="alt text" title="Emosaic by Will Dady"></p>
+<h2 id="packages">Packages</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">from</span> tqdm <span style="color:#f92672">import</span> tqdm
+<span style="color:#f92672">from</span> scipy <span style="color:#f92672">import</span> spatial
+<span style="color:#f92672">from</span> matplotlib <span style="color:#f92672">import</span> cm
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> matplotlib
+<span style="color:#f92672">import</span> scipy
 
 
-<span style=color:#66d9ef>print</span>(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Matplotlib:{matplotlib.__version__}</span><span style=color:#e6db74>&#34;</span>)
-<span style=color:#66d9ef>print</span>(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Numpy:{np.__version__}</span><span style=color:#e6db74>&#34;</span>)
-<span style=color:#66d9ef>print</span>(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Scipy: {scipy.__version__}</span><span style=color:#e6db74>&#34;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Matplotlib:{matplotlib.__version__}</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Numpy:{np.__version__}</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Scipy: {scipy.__version__}</span><span style="color:#e6db74">&#34;</span>)
 
-<span style=color:#75715e>## Matplotlib: &#39;3.2.1&#39;</span>
-<span style=color:#75715e>## Numpy: &#39;1.18.1&#39;</span>
-<span style=color:#75715e>## Scipy: &#39;1.4.1&#39;</span>
-</code></pre></div><p>Let's read in our image:</p><pre><code>img = plt.imread(r&quot;naomi_32.png&quot;, 1)
+<span style="color:#75715e">## Matplotlib: &#39;3.2.1&#39;</span>
+<span style="color:#75715e">## Numpy: &#39;1.18.1&#39;</span>
+<span style="color:#75715e">## Scipy: &#39;1.4.1&#39;</span>
+</code></pre></div><p>Let's read in our image:</p>
+<pre><code>img = plt.imread(r&quot;naomi_32.png&quot;, 1)
 dim = img.shape[0] ##we'll need this later
 plt.imshow(img)
-</code></pre><p><img src=./save_100.png alt="Naomi Watts Cannes 2014" title="Licensed under Creative Commons attributed to Georges Biard"></p><p><strong>Note</strong>: <em>The image displayed above is 100x100 but we'll use a 32x32 from here on since that's gonna suffice all our needs.</em></p><p>So really, what <em>is</em> an image? To numpy and matplotlib (and for almost every image processing library out there), it is, essentially, just a matrix (say A), where every individual pixel (p) is an element of A. If it's a grayscale image, every pixel (p) is just a single number (or a scalar) - in the range [0,1] if float, or [0,255] if integer. If it's not grayscale - like in our case - every pixel is a vector of either dimension 3 - <strong>Red</strong> (R), <strong>Green</strong> (G), and <strong>Blue</strong> (B), or dimension 4 - RGBA (A stands for <strong>Alpha</strong>, which is basically transparency).</p><p>If anything is unclear so far, I'd strongly suggest going through a post like <a href=https://matplotlib.org/3.1.1/tutorials/introductory/images.html>this</a> or <a href=http://scipy-lectures.org/advanced/image_processing/>this</a>. Knowing that an image can be represented as a matrix (or a <code>numpy array</code>) greatly helps us as almost every transformation of the image can be represented in terms of matrix maths.</p><p>To prove my point, let's look at <code>img</code> a little.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>
-<span style=color:#75715e>## Let&#39;s check the type of img</span>
-<span style=color:#66d9ef>print</span>(type(img))
-<span style=color:#75715e># &lt;class &#39;numpy.ndarray&#39;&gt;</span>
+</code></pre><p><img src="./save_100.png" alt="Naomi Watts Cannes 2014" title="Licensed under Creative Commons attributed to Georges Biard"></p>
+<p><strong>Note</strong>: <em>The image displayed above is 100x100 but we'll use a 32x32 from here on since that's gonna suffice all our needs.</em></p>
+<p>So really, what <em>is</em> an image? To numpy and matplotlib (and for almost every image processing library out there), it is, essentially, just a matrix (say A), where every individual pixel (p) is an element of A. If it's a grayscale image, every pixel (p) is just a single number (or a scalar) - in the range [0,1] if float, or [0,255] if integer. If it's not grayscale - like in our case - every pixel is a vector of either dimension 3 - <strong>Red</strong> (R), <strong>Green</strong> (G), and <strong>Blue</strong> (B), or dimension 4 - RGBA (A stands for <strong>Alpha</strong>, which is basically transparency).</p>
+<p>If anything is unclear so far, I'd strongly suggest going through a post like <a href="https://matplotlib.org/3.1.1/tutorials/introductory/images.html">this</a> or <a href="http://scipy-lectures.org/advanced/image_processing/">this</a>. Knowing that an image can be represented as a matrix (or a <code>numpy array</code>) greatly helps us as almost every transformation of the image can be represented in terms of matrix maths.</p>
+<p>To prove my point, let's look at <code>img</code> a little.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#75715e">## Let&#39;s check the type of img</span>
+<span style="color:#66d9ef">print</span>(type(img))
+<span style="color:#75715e"># &lt;class &#39;numpy.ndarray&#39;&gt;</span>
 
-<span style=color:#75715e>## The shape of the array img</span>
-<span style=color:#66d9ef>print</span>(img<span style=color:#f92672>.</span>shape)
-<span style=color:#75715e># (32, 32, 4)</span>
+<span style="color:#75715e">## The shape of the array img</span>
+<span style="color:#66d9ef">print</span>(img<span style="color:#f92672">.</span>shape)
+<span style="color:#75715e"># (32, 32, 4)</span>
 
-<span style=color:#75715e>## The value of the first pixel of img</span>
-<span style=color:#66d9ef>print</span>(img[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>0</span>])
-<span style=color:#75715e># [128 144 117 255]</span>
+<span style="color:#75715e">## The value of the first pixel of img</span>
+<span style="color:#66d9ef">print</span>(img[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>])
+<span style="color:#75715e"># [128 144 117 255]</span>
 
-<span style=color:#75715e>## Let&#39;s view the color of the first pixel</span>
-fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots()
-color<span style=color:#f92672>=</span>img[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>0</span>]<span style=color:#f92672>/</span><span style=color:#ae81ff>255.0</span> <span style=color:#75715e>##RGBA only accepts values in the 0-1 range</span>
-ax<span style=color:#f92672>.</span>fill([<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>], [<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>], color<span style=color:#f92672>=</span>color)
-</code></pre></div><p>That should give you a square filled with the color of the first pixel of <code>img</code>.</p><p><img src=./first_pixel.png alt=img[0][0] title="The first pixel of the image we read in"></p><h2 id=methodology>Methodology</h2><p>We want to go from a plain image to an image full of emojis - or in other words, <strong>an image of images</strong>. Essentially, we're going to replace all pixels with emojis. However, to ensure that our new emoji-image looks like the original image and not just random smiley faces, the trick is to make sure that <em>every pixel is replaced my an emoji which has similar color to that pixel</em>. That's what gives the result the look of a mosaic.</p><p>&lsquo;Similar&rsquo; really just means that the <strong>mean</strong> (median is also worth trying) color of the emoji should be close to the pixel it replaces.</p><p>So how do you find the mean color of an entire image? Easy. We just take all the RGBA arrays and average the Rs together, and then the Gs together, and then the Bs together, and then the As together (the As, by the way, are just all 1 in our case, so the mean is also going to be 1). Here's that idea expressed formally:</p><p>\[ (r, g, b){\mu}=\left(\frac{\left(r{1}+r_{2}+\ldots+r_{N}\right)}{N}, \frac{\left(g_{1}+g_{2}+\ldots+g_{N}\right)}{N}, \frac{\left(b_{1}+b_{2}+\ldots+b_{N}\right)}{N}\right) \]</p><p>The resulting color would be single array of RGBA values: \[ [r_{\mu}, g_{\mu}, b_{\mu}, 1] \]</p><p>So now our steps become somewhat like this:</p><p><strong>Part I</strong> - Get emoji matches</p><ol><li>Find a bunch of emojis.</li><li>Find the mean of the emojis.</li><li>For each pixel in the image, find the emoji closest to it (wrt color), and replace pixel with that emoji (say, E).</li></ol><p><strong>Part II</strong> - Reshape emojis to image</p><ol><li>Reshape the flattened array of all Es back to the shape of our image.</li><li>Concatenate all emojis into a single array (reduce dimensions).</li></ol><p>That's pretty much it!</p><h3 id=step-i1---our-emoji-bank>Step I.1 - Our Emoji bank</h3><p>I took care of this for you beforehand with a bit of BeautifulSoup and requests magic. Our emoji collection is a numpy array of shape <code>1506, 16, 16, 4</code> - that's 1506 emojis with each being a 16x16 array of RGBA values. You can find it <a href=https://github.com/sharmaabhishekk/emoji-mosaic-mpl>here</a>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>emoji_array <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>load(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>emojis_16.npy</span><span style=color:#e6db74>&#34;</span>)
-<span style=color:#66d9ef>print</span>(emoji_array<span style=color:#f92672>.</span>shape)
-<span style=color:#75715e>## 1506, 16, 16, 4</span>
+<span style="color:#75715e">## Let&#39;s view the color of the first pixel</span>
+fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots()
+color<span style="color:#f92672">=</span>img[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">/</span><span style="color:#ae81ff">255.0</span> <span style="color:#75715e">##RGBA only accepts values in the 0-1 range</span>
+ax<span style="color:#f92672">.</span>fill([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], color<span style="color:#f92672">=</span>color)
+</code></pre></div><p>That should give you a square filled with the color of the first pixel of <code>img</code>.</p>
+<p><img src="./first_pixel.png" alt="img[0][0]" title="The first pixel of the image we read in"></p>
+<h2 id="methodology">Methodology</h2>
+<p>We want to go from a plain image to an image full of emojis - or in other words, <strong>an image of images</strong>. Essentially, we're going to replace all pixels with emojis. However, to ensure that our new emoji-image looks like the original image and not just random smiley faces, the trick is to make sure that <em>every pixel is replaced my an emoji which has similar color to that pixel</em>. That's what gives the result the look of a mosaic.</p>
+<p>&lsquo;Similar&rsquo; really just means that the <strong>mean</strong> (median is also worth trying) color of the emoji should be close to the pixel it replaces.</p>
+<p>So how do you find the mean color of an entire image? Easy. We just take all the RGBA arrays and average the Rs together, and then the Gs together, and then the Bs together, and then the As together (the As, by the way, are just all 1 in our case, so the mean is also going to be 1). Here's that idea expressed formally:</p>
+<p>\[ (r, g, b){\mu}=\left(\frac{\left(r{1}+r_{2}+\ldots+r_{N}\right)}{N}, \frac{\left(g_{1}+g_{2}+\ldots+g_{N}\right)}{N}, \frac{\left(b_{1}+b_{2}+\ldots+b_{N}\right)}{N}\right) \]</p>
+<p>The resulting color would be single array of RGBA values: \[ [r_{\mu},  g_{\mu},  b_{\mu}, 1] \]</p>
+<p>So now our steps become somewhat like this:</p>
+<p><strong>Part I</strong> - Get emoji matches</p>
+<ol>
+<li>Find a bunch of emojis.</li>
+<li>Find the mean of the emojis.</li>
+<li>For each pixel in the image, find the emoji closest to it (wrt color), and replace pixel with that emoji (say, E).</li>
+</ol>
+<p><strong>Part II</strong> - Reshape emojis to image</p>
+<ol>
+<li>Reshape the flattened array of all Es back to the shape of our image.</li>
+<li>Concatenate all emojis into a single array (reduce dimensions).</li>
+</ol>
+<p>That's pretty much it!</p>
+<h3 id="step-i1---our-emoji-bank">Step I.1 - Our Emoji bank</h3>
+<p>I took care of this for you beforehand with a bit of BeautifulSoup and requests magic. Our emoji collection is a numpy array of shape <code>1506, 16, 16, 4</code> - that's 1506 emojis with each being a 16x16 array of RGBA values. You can find it <a href="https://github.com/sharmaabhishekk/emoji-mosaic-mpl">here</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emoji_array <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>load(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">emojis_16.npy</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">print</span>(emoji_array<span style="color:#f92672">.</span>shape)
+<span style="color:#75715e">## 1506, 16, 16, 4</span>
 
-<span style=color:#75715e>##plt.imshow(emoji_array[0]) ##to view the first emoji</span>
-</code></pre></div><h3 id=step-i2---calculate-the-mean-rgba-value-of-all-emojis>Step I.2 - Calculate the mean RGBA value of all emojis.</h3><p>We've seen the formula above; here's the numpy code for it. We're gonna iterate over all all the 1506 emojis and create an array <code>emoji_mean_array</code> out of them.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>emoji_mean_array <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>array([ar<span style=color:#f92672>.</span>mean(axis<span style=color:#f92672>=</span>(<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>1</span>)) <span style=color:#66d9ef>for</span> ar <span style=color:#f92672>in</span> emoji_array]) <span style=color:#75715e>##`np.median(ar, axis=(0,1))` for median instead of mean</span>
-</code></pre></div><h3 id=step-i3---finding-closest-emoji-match-for-all-pixels>Step I.3 - finding closest emoji match for all pixels</h3><p>The easiest way to do that would be use Scipy's <strong><code>KDTree</code></strong> to create a <code>tree</code> object of all average RGBA values we calculated in #2. This enables us to perform fast lookup for every pixel using the <code>query</code> method. Here's how the code for that looks -</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>
-tree <span style=color:#f92672>=</span> spatial<span style=color:#f92672>.</span>KDTree(emoji_mean_array)
+<span style="color:#75715e">##plt.imshow(emoji_array[0]) ##to view the first emoji</span>
+</code></pre></div><h3 id="step-i2---calculate-the-mean-rgba-value-of-all-emojis">Step I.2 - Calculate the mean RGBA value of all emojis.</h3>
+<p>We've seen the formula above; here's the numpy code for it. We're gonna iterate over all all the 1506 emojis and create an array <code>emoji_mean_array</code> out of them.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">emoji_mean_array <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([ar<span style="color:#f92672">.</span>mean(axis<span style="color:#f92672">=</span>(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">for</span> ar <span style="color:#f92672">in</span> emoji_array]) <span style="color:#75715e">##`np.median(ar, axis=(0,1))` for median instead of mean</span>
+</code></pre></div><h3 id="step-i3---finding-closest-emoji-match-for-all-pixels">Step I.3 - finding closest emoji match for all pixels</h3>
+<p>The easiest way to do that would be use Scipy's <strong><code>KDTree</code></strong> to create a <code>tree</code> object of all average RGBA values we calculated in #2. This enables us to perform fast lookup for every pixel using the <code>query</code> method. Here's how the code for that looks -</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+tree <span style="color:#f92672">=</span> spatial<span style="color:#f92672">.</span>KDTree(emoji_mean_array)
 
-indices <span style=color:#f92672>=</span> []
-flattened_img <span style=color:#f92672>=</span> img<span style=color:#f92672>.</span>reshape(<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>, img<span style=color:#f92672>.</span>shape[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>]) <span style=color:#75715e>##shape = [1024, 16, 16, 4]</span>
-<span style=color:#66d9ef>for</span> pixel <span style=color:#f92672>in</span> tqdm(flattened_img, desc<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Matching emojis</span><span style=color:#e6db74>&#34;</span>):
-    _, index<span style=color:#f92672>=</span>tree<span style=color:#f92672>.</span>query(pixel) <span style=color:#75715e>##returns distance and index of closest match.</span>
-    indices<span style=color:#f92672>.</span>append(index)
+indices <span style="color:#f92672">=</span> []
+flattened_img <span style="color:#f92672">=</span> img<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, img<span style="color:#f92672">.</span>shape[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#75715e">##shape = [1024, 16, 16, 4]</span>
+<span style="color:#66d9ef">for</span> pixel <span style="color:#f92672">in</span> tqdm(flattened_img, desc<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Matching emojis</span><span style="color:#e6db74">&#34;</span>):
+    _, index<span style="color:#f92672">=</span>tree<span style="color:#f92672">.</span>query(pixel) <span style="color:#75715e">##returns distance and index of closest match.</span>
+    indices<span style="color:#f92672">.</span>append(index)
 
-emoji_matches <span style=color:#f92672>=</span> emoji_array[indices] <span style=color:#75715e>##our emoji_matches</span>
-</code></pre></div><h3 id=step-ii1>Step II.1</h3><p>The final step is to reshape the array a little more to enable us to plot it using the imshow function. As you can see above, to loop over the pixels we had to flatten the image out into the <code>flattened_img</code>. Now we have to sort of un-flatten it back; to make sure it's back in the form of an image. Fortunately, using numpy's <code>reshape</code> function makes this easy.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>resized_ar <span style=color:#f92672>=</span> emoji_matches<span style=color:#f92672>.</span>reshape((dim, dim, <span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>4</span>)) <span style=color:#75715e>##dim is what we got earlier when we read in the image</span>
-</code></pre></div><h3 id=step-ii2>Step II.2</h3><p>The last bit is the trickiest. The problem with the output we've got so far is that it's too nested. Or in simpler terms, what we have is a image where every individual pixel is itself an image. That's all fine but it's not valid input for imshow and if we try to pass it in, it tells us exactly that.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#a6e22e>TypeError</span>: Invalid shape (<span style=color:#ae81ff>32</span>, <span style=color:#ae81ff>32</span>, <span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>4</span>) <span style=color:#66d9ef>for</span> image data
-</code></pre></div><p>To grasp our problem intuitively, think about it this way. What we have right now are lots of images like these:</p><p><img src=./chopped_face.png alt="&ldquo;Chopped racoon img&rdquo;" title="Image from Scipy under BSD License"></p><p>What we want is to merge them all together. Like so:</p><p><img src=./rejoined_face.png alt="&ldquo;Rejoined racoon img&rdquo;"></p><p>To think about it slightly more technically, what we have right now is a <em>five</em> dimensional array. What we need is to rehshape it in such a way that it's - at maximum - <em>three</em> dimensional. However, it's not as easy as a simple <code>np.reshape</code> (I'd suggest you go ahead and try that anyway).</p><p>Don't worry though, we have Stack Overflow to the rescue! This excellent <a href=https://stackoverflow.com/questions/52730668/concatenating-multiple-images-into-one/52733370#52733370>answer</a> does exactly that. You don't have to go through it, I have copied the relevant code in here.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>np_block_2D</span>(chops):
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74> Converts list of chopped images to one single image</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
-    <span style=color:#66d9ef>return</span> np<span style=color:#f92672>.</span>block([[[x] <span style=color:#66d9ef>for</span> x <span style=color:#f92672>in</span> row] <span style=color:#66d9ef>for</span> row <span style=color:#f92672>in</span> chops])
+emoji_matches <span style="color:#f92672">=</span> emoji_array[indices] <span style="color:#75715e">##our emoji_matches</span>
+</code></pre></div><h3 id="step-ii1">Step II.1</h3>
+<p>The final step is to reshape the array a little more to enable us to plot it using the imshow function. As you can see above, to loop over the pixels we had to flatten the image out into the <code>flattened_img</code>. Now we have to sort of un-flatten it back; to make sure it's back in the form of an image. Fortunately, using numpy's <code>reshape</code> function makes this easy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">resized_ar <span style="color:#f92672">=</span> emoji_matches<span style="color:#f92672">.</span>reshape((dim, dim, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">4</span>)) <span style="color:#75715e">##dim is what we got earlier when we read in the image</span>
+</code></pre></div><h3 id="step-ii2">Step II.2</h3>
+<p>The last bit is the trickiest. The problem with the output we've got so far is that it's too nested. Or in simpler terms, what we have is a image where every individual pixel is itself an image. That's all fine but it's not valid input for imshow and if we try to pass it in, it tells us exactly that.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a6e22e">TypeError</span>: Invalid shape (<span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">4</span>) <span style="color:#66d9ef">for</span> image data
+</code></pre></div><p>To grasp our problem intuitively, think about it this way. What we have right now are lots of images like these:</p>
+<p><img src="./chopped_face.png" alt="&ldquo;Chopped racoon img&rdquo;" title="Image from Scipy under BSD License"></p>
+<p>What we want is to merge them all together. Like so:</p>
+<p><img src="./rejoined_face.png" alt="&ldquo;Rejoined racoon img&rdquo;"></p>
+<p>To think about it slightly more technically, what we have right now is a <em>five</em> dimensional array. What we need is to rehshape it in such a way that it's - at maximum - <em>three</em> dimensional. However, it's not as easy as a simple <code>np.reshape</code> (I'd suggest you go ahead and try that anyway).</p>
+<p>Don't worry though, we have Stack Overflow to the rescue! This excellent <a href="https://stackoverflow.com/questions/52730668/concatenating-multiple-images-into-one/52733370#52733370">answer</a> does exactly that. You don't have to go through it, I have copied the relevant code in here.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">np_block_2D</span>(chops):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74"> Converts list of chopped images to one single image</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>block([[[x] <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> row] <span style="color:#66d9ef">for</span> row <span style="color:#f92672">in</span> chops])
 
-final_img <span style=color:#f92672>=</span> np_block_2D(resized_ar)
+final_img <span style="color:#f92672">=</span> np_block_2D(resized_ar)
 
-<span style=color:#66d9ef>print</span>(final_img<span style=color:#f92672>.</span>shape)
-<span style=color:#75715e>## (512, 512, 4)</span>
-</code></pre></div><p>The shape looks correct enough. Let's try to plot it.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>plt<span style=color:#f92672>.</span>imshow(final_img)
-</code></pre></div><p><img src=final_image.png alt="&ldquo;Emoji Mosaic final_img&rdquo;"></p><p><strong>Et Voilà</strong></p><p>Of course, the result looks a little <em>meh</em> but that's because we only used 32x32 emojis. Here's what the same code would do with 10000 emojis (100x100).</p><p><img src=final_image_100.png alt="&ldquo;Emoji Mosaic full_size&rdquo;"></p><p>Better?</p><p>Now, let's try and create nine of these emoji-images and grid them together.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>canvas</span>(gray_scale_img):
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>
-</span><span style=color:#e6db74></span><span style=color:#e6db74>    Plot a 3x3 matrix of the images using different colormaps</span><span style=color:#e6db74>
-</span><span style=color:#e6db74></span><span style=color:#e6db74>        param gray_scale_img: a square gray_scale_image</span><span style=color:#e6db74>
-</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
-    fig, axes <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(nrows<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, ncols<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>13</span>, <span style=color:#ae81ff>8</span>))
-    axes <span style=color:#f92672>=</span> axes<span style=color:#f92672>.</span>flatten()
+<span style="color:#66d9ef">print</span>(final_img<span style="color:#f92672">.</span>shape)
+<span style="color:#75715e">## (512, 512, 4)</span>
+</code></pre></div><p>The shape looks correct enough. Let's try to plot it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>imshow(final_img)
+</code></pre></div><p><img src="final_image.png" alt="&ldquo;Emoji Mosaic final_img&rdquo;"></p>
+<p><strong>Et Voilà</strong></p>
+<p>Of course, the result looks a little <em>meh</em> but that's because we only used 32x32 emojis. Here's what the same code would do with 10000 emojis (100x100).</p>
+<p><img src="final_image_100.png" alt="&ldquo;Emoji Mosaic full_size&rdquo;"></p>
+<p>Better?</p>
+<p>Now, let's try and create nine of these emoji-images and grid them together.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">canvas</span>(gray_scale_img):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Plot a 3x3 matrix of the images using different colormaps</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">        param gray_scale_img: a square gray_scale_image</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    fig, axes <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">13</span>, <span style="color:#ae81ff">8</span>))
+    axes <span style="color:#f92672">=</span> axes<span style="color:#f92672">.</span>flatten()
 
-    cmaps <span style=color:#f92672>=</span> [<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>BuPu_r</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bone</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>CMRmap</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>magma</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>afmhot</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>ocean</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>inferno</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>PuRd_r</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>gist_gray</span><span style=color:#e6db74>&#34;</span>]
-    <span style=color:#66d9ef>for</span> cmap, ax <span style=color:#f92672>in</span> zip(cmaps, axes):
-        cmapper <span style=color:#f92672>=</span> cm<span style=color:#f92672>.</span>get_cmap(cmap)
-        rgba_image <span style=color:#f92672>=</span> cmapper(gray_scale_img)
+    cmaps <span style="color:#f92672">=</span> [<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">BuPu_r</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bone</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">CMRmap</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">magma</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">afmhot</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ocean</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">inferno</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">PuRd_r</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">gist_gray</span><span style="color:#e6db74">&#34;</span>]
+    <span style="color:#66d9ef">for</span> cmap, ax <span style="color:#f92672">in</span> zip(cmaps, axes):
+        cmapper <span style="color:#f92672">=</span> cm<span style="color:#f92672">.</span>get_cmap(cmap)
+        rgba_image <span style="color:#f92672">=</span> cmapper(gray_scale_img)
         single_plot(rgba_image, ax)
-        <span style=color:#75715e>#ax.imshow(rgba_image) ##try this if you just want to plot the plain image in different color spaces, comment the single_plot call above</span>
-        ax<span style=color:#f92672>.</span>set_axis_off()
+        <span style="color:#75715e">#ax.imshow(rgba_image) ##try this if you just want to plot the plain image in different color spaces, comment the single_plot call above</span>
+        ax<span style="color:#f92672">.</span>set_axis_off()
 
-    plt<span style=color:#f92672>.</span>subplots_adjust(hspace<span style=color:#f92672>=</span><span style=color:#ae81ff>0.0</span>, wspace<span style=color:#f92672>=</span><span style=color:#f92672>-</span><span style=color:#ae81ff>0.2</span>)
-    <span style=color:#66d9ef>return</span> fig, axes
-</code></pre></div><p>The code does mostly the same stuff as before. To get the different colours, I used a simple hack. I first converted the image to grayscale and then used 9 different colormaps on it. Then I used the RGB values returned by the colormap to get the absolute values for our new input image. After that, the only part left is to just feed the new input image through the pipeline we've discussed so far and that gives us our emoji-image.</p><p>Here's what that looks like:</p><p><img src=./final_3x3_tile.png alt="&ldquo;Emoji Mosaic 3x3_grid&rdquo;"></p><p><em>Pretty</em></p><h2 id=conclusion>Conclusion</h2><p>Some final thoughts to wrap this up.</p><ul><li><p>I'm not sure if my way to get different colours using different cmaps is what people usually do. I'm almost certain there's a better way and if you know one, please submit a PR to the repo (link below).</p></li><li><p>Iterating over every pixel is not really the best idea. We got away with it since it's just 1024 (32x32) pixels but for images with higher resolution, we'd have to either iterate over grids of images at once (say a 3x3 or 2x2 window) or resize the image itself to a more workable shape. I prefer the latter since that way we can also just resize it to a square shape in the same call which also has the additional advantage of fitting in nicely in our 3x3 mosaic. I'll leave the readers to work that out themselves using numpy (and, no, please don't use <code>cv2.resize</code>).</p></li><li><p>The <code>KDTree</code> was not part of my initial code. Initially, I'd just looped over every emoji for every pixel and then calculated the Euclidean distance (using <code>np.linalg.norm(a-b)</code>). As you can probably imagine, the nested loop in there slowed down the code tremendously - even a 32x32 emoji-image took around 10 minutes to run - right now the same code takes ~19 seconds. Guess that's the power of vectorization for you all.</p></li><li><p>It's worth messing around with median instead of mean to get the RGBA values of the emojis. Most emojis are circular in shape and hence there's a lot of space left outside the area of the circular region which sort of waters down the average color in turn watering down the end result. Considering the median might sort out this problem for some images which aren't very rich.</p></li><li><p>While I've tried to go in a linear manner with (what I hope was) a good mix of explanation and code, I'd strongly suggest looking at the full code in the repository <a href=https://github.com/sharmaabhishekk/emoji-mosaic-mpl>here</a> in case you feel like I sprung anything on you.</p></li></ul><hr><p>I hope you enjoyed this post and learned something from it. If you have any feedback, criticism, questions, please feel free to DM me on <a href=https://twitter.com/abhisheksh_98>Twitter</a> or email me (preferably the former since I'm almost always on there). Thank you, and take care!</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
+    plt<span style="color:#f92672">.</span>subplots_adjust(hspace<span style="color:#f92672">=</span><span style="color:#ae81ff">0.0</span>, wspace<span style="color:#f92672">=</span><span style="color:#f92672">-</span><span style="color:#ae81ff">0.2</span>)
+    <span style="color:#66d9ef">return</span> fig, axes
+</code></pre></div><p>The code does mostly the same stuff as before. To get the different colours, I used a simple hack. I first converted the image to grayscale and then used 9 different colormaps on it. Then I used the RGB values returned by the colormap to get the absolute values for our new input image. After that, the only part left is to just feed the new input image through the pipeline we've discussed so far and that gives us our emoji-image.</p>
+<p>Here's what that looks like:</p>
+<p><img src="./final_3x3_tile.png" alt="&ldquo;Emoji Mosaic 3x3_grid&rdquo;"></p>
+<p><em>Pretty</em></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Some final thoughts to wrap this up.</p>
+<ul>
+<li>
+<p>I'm not sure if my way to get different colours using different cmaps is what people usually do. I'm almost certain there's a better way and if you know one, please submit a PR to the repo (link below).</p>
+</li>
+<li>
+<p>Iterating over every pixel is not really the best idea. We got away with it since it's just 1024 (32x32) pixels but for images with higher resolution, we'd have to either iterate over grids of images at once (say a 3x3 or 2x2 window) or resize the image itself to a more workable shape. I prefer the latter since that way we can also just resize it to a square shape in the same call which also has the additional advantage of fitting in nicely in our 3x3 mosaic. I'll leave the readers to work that out themselves using numpy (and, no, please don't use <code>cv2.resize</code>).</p>
+</li>
+<li>
+<p>The <code>KDTree</code> was not part of my initial code. Initially, I'd just looped over every emoji for every pixel and then calculated the Euclidean distance (using <code>np.linalg.norm(a-b)</code>). As you can probably imagine, the nested loop in there slowed down the code tremendously - even a 32x32 emoji-image took around 10 minutes to run - right now the same code takes ~19 seconds. Guess that's the power of vectorization for you all.</p>
+</li>
+<li>
+<p>It's worth messing around with median instead of mean to get the RGBA values of the emojis. Most emojis are circular in shape and hence there's a lot of space left outside the area of the circular region which sort of waters down the average color in turn watering down the end result. Considering the median might sort out this problem for some images which aren't very rich.</p>
+</li>
+<li>
+<p>While I've tried to go in a linear manner with (what I hope was) a good mix of explanation and code, I'd strongly suggest looking at the full code in the repository <a href="https://github.com/sharmaabhishekk/emoji-mosaic-mpl">here</a> in case you feel like I sprung anything on you.</p>
+</li>
+</ul>
+<hr>
+<p>I hope you enjoyed this post and learned something from it. If you have any feedback, criticism, questions, please feel free to DM me on <a href="https://twitter.com/abhisheksh_98">Twitter</a> or email me (preferably the former since I'm almost always on there). Thank you, and take care!</p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      
+      
+      
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  
+  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>

@@ -1,13 +1,101 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>An Inquiry Into Matplotlib's Figures &#183; Matplotblog</title><meta name=description content="This guide dives deep into the inner workings of Matplotlib's Figures, Axes, subplots and the very amazing GridSpec!"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
-<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>An Inquiry Into Matplotlib's Figures</h1><p class=post-date>Posted <time datetime=2019-12-24>Dec 24, 2019</time>
-<span class=post-author>&mdash; By Akash Palrecha</span></p></header><picture class=post-figure>
-<source srcset=https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/cover_hu495107c2d7572af430255dfbe3866d4c_6640_800x0_resize_lanczos_2.png><img src=https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/cover_hu495107c2d7572af430255dfbe3866d4c_6640_800x0_resize_lanczos_2.png alt="Cover Image"></picture><h1 id=preliminaries>Preliminaries</h1><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># This is specific to Jupyter Notebooks</span>
-<span style=color:#f92672>%</span>matplotlib inline
-<span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
-<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
-<span style=color:#f92672>import</span> matplotlib <span style=color:#f92672>as</span> mpl
-</code></pre></div><blockquote><p>A Top-Down runnable Jupyter Notebook with the exact contents of this blog can be found <a href=https://gist.github.com/akashpalrecha/4652e98c9b2f3f1961637be001dc0239>here</a></p></blockquote><blockquote><p>An interactive version of this guide can be accessed on <a href=https://colab.research.google.com/drive/1SOgWPI9HckTQ0zm47Ma-gYCTucMccTxg>Google Colab</a></p></blockquote><h1 id=a-word-before-we-get-started>A word before we get started&mldr;</h1><hr><p>Although a beginner can follow along with this guide, it is primarily meant for people who have at least a basic knowledge of how Matplotlib's plotting functionality works.</p><p>Essentially, if you know how to take 2 NumPy arrays and plot them (using an appropriate type of graph) on 2 different axes in a single figure and give it basic styling, you're good to go for the purposes of this guide.</p><p>If you feel you need some introduction to basic Matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : <a href=https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html>https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html</a></p><p>From here on, I will be assuming that you have gained sufficient knowledge to follow along this guide.</p><p>Also, in order to save everyone's time, I will keep my explanations short, terse and very much to the point, and sometimes leave it for the reader to interpret things (because that's what I've done throughout this guide for myself anyway).</p><p>The primary driver in this whole exercise will be code and not text, and I encourage you to spin up a Jupyter notebook and type in and try out everything yourself to make the best use of this resource.</p><h2 id=what-this-guide-is-and-what-it-is-not>What this guide <em>is</em> and what it is <em>not</em>:</h2><p>This is not a guide about how to beautifully plot different kinds of data using Matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can.</p><p>This article attempts to explain the workings of some of the foundations of any plot you create using Matplotlib.
-We will mostly refrain from focusing on what data we are plotting and instead focus on the anatomy of our plots.</p><h1 id=setting-up>Setting up</h1><p>Matplotlib has many styles available, we can see the available options using:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>plt<span style=color:#f92672>.</span>style<span style=color:#f92672>.</span>available
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>An Inquiry Into Matplotlib&#39;s Figures &middot; Matplotblog</title>
+  <meta name="description" content="This guide dives deep into the inner workings of Matplotlib&#39;s Figures, Axes, subplots and the very amazing GridSpec!" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  
+  
+  
+  
+  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
+    }
+  </style>
+</head>
+
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
+    
+      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
+    
+    
+  </a></h1>
+
+  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+  <div class="hamburger-menu">
+    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menu" class="hamburger-menu-overlay">
+      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      
+      
+      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">An Inquiry Into Matplotlib&#39;s Figures</h1>
+          <p class="post-date">Posted <time datetime="2019-12-24">Dec 24, 2019</time>
+	  <span class="post-author"> &mdash; By Akash Palrecha</span>
+	  </p>
+
+        </header>
+        
+          
+          <picture class="post-figure">
+            
+            
+            <source srcset="https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/cover_hu495107c2d7572af430255dfbe3866d4c_6640_800x0_resize_lanczos_2.png">
+            <img src="https://matplotlib.org/matplotblog/posts/an-inquiry-into-matplotlib-figures/cover_hu495107c2d7572af430255dfbe3866d4c_6640_800x0_resize_lanczos_2.png" alt="Cover Image">
+          </picture>
+          
+        
+        <h1 id="preliminaries">Preliminaries</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># This is specific to Jupyter Notebooks</span>
+<span style="color:#f92672">%</span>matplotlib inline
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
+</code></pre></div><blockquote>
+<p>A Top-Down runnable Jupyter Notebook with the exact contents of this blog can be found <a href="https://gist.github.com/akashpalrecha/4652e98c9b2f3f1961637be001dc0239">here</a></p>
+</blockquote>
+<blockquote>
+<p>An interactive version of this guide can be accessed on <a href="https://colab.research.google.com/drive/1SOgWPI9HckTQ0zm47Ma-gYCTucMccTxg">Google Colab</a></p>
+</blockquote>
+<h1 id="a-word-before-we-get-started">A word before we get started&hellip;</h1>
+<hr>
+<p>Although a beginner can follow along with this guide, it is primarily meant for people who have at least a basic knowledge of how Matplotlib's plotting functionality works.</p>
+<p>Essentially, if you know how to take 2 NumPy arrays and plot them (using an appropriate type of graph) on 2 different axes in a single figure and give it basic styling, you're good to go for the purposes of this guide.</p>
+<p>If you feel you need some introduction to basic Matplotlib plotting, here's a great guide that can help you get a feel for introductory plotting using Matplotlib : <a href="https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html">https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html</a></p>
+<p>From here on, I will be assuming that you have gained sufficient knowledge to follow along this guide.</p>
+<p>Also, in order to save everyone's time, I will keep my explanations short, terse and very much to the point, and sometimes leave it for the reader to interpret things (because that's what I've done throughout this guide for myself anyway).</p>
+<p>The primary driver in this whole exercise will be code and not text, and I encourage you to spin up a Jupyter notebook and type in and try out everything yourself to make the best use of this resource.</p>
+<h2 id="what-this-guide-is-and-what-it-is-not">What this guide <em>is</em> and what it is <em>not</em>:</h2>
+<p>This is not a guide about how to beautifully plot different kinds of data using Matplotlib, the internet is more than full of such tutorials by people who can explain it way better than I can.</p>
+<p>This article attempts to explain the workings of some of the foundations of any plot you create using Matplotlib.
+We will mostly refrain from focusing on what data we are plotting and instead focus on the anatomy of our plots.</p>
+<h1 id="setting-up">Setting up</h1>
+<p>Matplotlib has many styles available, we can see the available options using:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>available
 </code></pre></div><pre><code>['seaborn-dark',
  'seaborn-darkgrid',
  'seaborn-ticks',
@@ -34,180 +122,310 @@ We will mostly refrain from focusing on what data we are plotting and instead fo
  'dark_background',
  'seaborn-poster',
  'seaborn-deep']
-</code></pre><p>We shall use <code>seaborn</code>. This is done like so:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>plt<span style=color:#f92672>.</span>style<span style=color:#f92672>.</span>use(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>seaborn</span><span style=color:#e6db74>&#39;</span>)
-</code></pre></div><p>Let's get started!</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Creating some fake data for plotting</span>
-xs <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>pi, <span style=color:#ae81ff>400</span>)
-ys <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>sin(xs <span style=color:#f92672>*</span><span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>)
+</code></pre>
+<p>We shall use <code>seaborn</code>. This is done like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">plt<span style="color:#f92672">.</span>style<span style="color:#f92672">.</span>use(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">seaborn</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><p>Let's get started!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Creating some fake data for plotting</span>
+xs <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi, <span style="color:#ae81ff">400</span>)
+ys <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>sin(xs <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
 
-xc <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>pi, <span style=color:#ae81ff>600</span>)
-yc <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>cos(xc <span style=color:#f92672>*</span><span style=color:#f92672>*</span> <span style=color:#ae81ff>2</span>)
-</code></pre></div><h1 id=exploration>Exploration</h1><p>The usual way to create a plot using Matplotlib goes somewhat like this:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>2</span>, figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>8</span>))
-<span style=color:#75715e># `Fig` is short for Figure. `ax` is short for Axes.</span>
-ax[<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>plot(xs, ys)
-ax[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>plot(xs, ys)
-ax[<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>]<span style=color:#f92672>.</span>plot(xc, yc)
-ax[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>]<span style=color:#f92672>.</span>plot(xc, yc)
-fig<span style=color:#f92672>.</span>suptitle(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Basic plotting using Matplotlib</span><span style=color:#e6db74>&#34;</span>)
-plt<span style=color:#f92672>.</span>show()
-</code></pre></div><p><img src=output_14_0.png alt=png></p><p>Our goal today is to take apart the previous snippet of code and understand all of the underlying building blocks well enough so that we can use them separately and in a much more powerful way.</p><p>If you're a beginner like I was before writing this guide, let me assure you: this is all very simple stuff.</p><p>Going into <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots"><code>plt.subplots</code></a> documentation (hit <code>Shift+Tab+Tab</code> in a Jupyter notebook) reveals some of the other Matplotlib internals that it uses in order to give us the <code>Figure</code> and it's <code>Axes</code>.</p><p>These include :</p><ol><li><code>plt.subplot</code></li><li><code>plt.figure</code></li><li><code>mpl.figure.Figure</code></li><li><code>mpl.figure.Figure.add_subplot</code></li><li><code>mpl.gridspec.GridSpec</code></li><li><code>mpl.axes.Axes</code></li></ol><p>Let's try and figure out what these functions / classes do.</p><h1 id=what-is-a-figure-and-what-are-axes>What is a <code>Figure</code>? And what are <code>Axes</code>?</h1><p>A <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure"><code>Figure</code></a> in Matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.</p><p>You can define a figure like so (both statements are equivalent):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>figure<span style=color:#f92672>.</span>Figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>10</span>))
-<span style=color:#75715e># OR</span>
-fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>10</span>))
-</code></pre></div><p>Notice the word <em>imaginary</em> above. What this means is that a Figure by itself does not have any place for you to plot. You need to attach/add an <a href="https://matplotlib.org/api/axes_api.html?highlight=matplotlib.axes.axes#matplotlib.axes.Axes"><code>Axes</code></a> to it to do any kind of plotting. You can put as many <code>Axes</code> objects as you want inside of any <code>Figure</code> you have created.</p><p>An <code>Axes</code>:</p><ol><li>Has a space (like a blank Page) where you can draw/plot data.</li><li>A parent <code>Figure</code></li><li>Has properties stating where it will be placed inside it's parent <code>Figure</code>.</li><li>Has methods to draw/plot different kinds of data in different ways and add custom styles.</li></ol><p>You can create an <code>Axes</code> like so (both statements are equivalent):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax1 <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>axes<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0.8</span>,<span style=color:#ae81ff>0.8</span>], facecolor<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>red</span><span style=color:#e6db74>&#39;</span>)
-<span style=color:#75715e>#OR</span>
-ax1 <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0.8</span>,<span style=color:#ae81ff>0.8</span>], facecolor<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>red</span><span style=color:#e6db74>&#39;</span>)
-<span style=color:#75715e>#</span>
-</code></pre></div><p>The first parameter <code>fig</code> is simply a pointer to the parent <code>Figure</code> to which an Axes will belong.
-The second parameter <code>rect</code> has four numbers : <code>[left_position, bottom_position, height, width]</code> to define the position of the <code>Axes</code> inside the <code>Figure</code> and the height and width <em>with respect to the <code>Figure</code></em>. All these numbers are expressed in percentages.</p><p>A <code>Figure</code> simply holds a given number of <code>Axes</code> at any point of time</p><p>We will go into some of these design decisions in a few moments&rsquo;</p><h1 id=recreating-pltsubplots-with-basic-matplotlib-functionality>Recreating <code>plt.subplots</code> with basic Matplotlib functionality</h1><p>We will try and recreate the below plot using Matplotlib primitives as a way to understand them better. We'll try and be a slightly creative by deviating a bit though.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>2</span>)
-fig<span style=color:#f92672>.</span>suptitle(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>2x2 Grid</span><span style=color:#e6db74>&#34;</span>)
+xc <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi, <span style="color:#ae81ff">600</span>)
+yc <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>cos(xc <span style="color:#f92672">*</span><span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)
+</code></pre></div><h1 id="exploration">Exploration</h1>
+<p>The usual way to create a plot using Matplotlib goes somewhat like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>, figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">8</span>))
+<span style="color:#75715e"># `Fig` is short for Figure. `ax` is short for Axes.</span>
+ax[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>plot(xs, ys)
+ax[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>plot(xs, ys)
+ax[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>plot(xc, yc)
+ax[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>plot(xc, yc)
+fig<span style="color:#f92672">.</span>suptitle(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Basic plotting using Matplotlib</span><span style="color:#e6db74">&#34;</span>)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><p><img src="output_14_0.png" alt="png"></p>
+<p>Our goal today is to take apart the previous snippet of code and understand all of the underlying building blocks well enough so that we can use them separately and in a much more powerful way.</p>
+<p>If you're a beginner like I was before writing this guide, let me assure you: this is all very simple stuff.</p>
+<p>Going into <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html?highlight=subplots#matplotlib.pyplot.subplots"><code>plt.subplots</code></a> documentation (hit <code>Shift+Tab+Tab</code> in a Jupyter notebook) reveals some of the other Matplotlib internals that it uses in order to give us the <code>Figure</code> and it's <code>Axes</code>.</p>
+<p>These include :<!-- raw HTML omitted --></p>
+<ol>
+<li><code>plt.subplot</code></li>
+<li><code>plt.figure</code></li>
+<li><code>mpl.figure.Figure</code></li>
+<li><code>mpl.figure.Figure.add_subplot</code></li>
+<li><code>mpl.gridspec.GridSpec</code></li>
+<li><code>mpl.axes.Axes</code></li>
+</ol>
+<p>Let's try and figure out what these functions / classes do.</p>
+<h1 id="what-is-a-figure-and-what-are-axes">What is a <code>Figure</code>? And what are <code>Axes</code>?</h1>
+<p>A <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html?highlight=figure#matplotlib.pyplot.figure"><code>Figure</code></a> in Matplotlib is simply your main (imaginary) canvas. This is where you will be doing all your plotting / drawing / putting images and what not. This is the central object with which you will always be interacting. A figure has a size defined for it at the time of creation.</p>
+<p>You can define a figure like so (both statements are equivalent):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>figure<span style="color:#f92672">.</span>Figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>))
+<span style="color:#75715e"># OR</span>
+fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>))
+</code></pre></div><p>Notice the word <em>imaginary</em> above. What this means is that a Figure by itself does not have any place for you to plot. You need to attach/add an <a href="https://matplotlib.org/api/axes_api.html?highlight=matplotlib.axes.axes#matplotlib.axes.Axes"><code>Axes</code></a> to it to do any kind of plotting. You can put as many <code>Axes</code> objects as you want inside of any <code>Figure</code> you have created.</p>
+<p>An <code>Axes</code>:</p>
+<ol>
+<li>Has a space (like a blank Page) where you can draw/plot data.</li>
+<li>A parent <code>Figure</code></li>
+<li>Has properties stating where it will be placed inside it's parent <code>Figure</code>.</li>
+<li>Has methods to draw/plot different kinds of data in different ways and add custom styles.</li>
+</ol>
+<p>You can create an <code>Axes</code> like so (both statements are equivalent):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax1 <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.8</span>,<span style="color:#ae81ff">0.8</span>], facecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">red</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#75715e">#OR</span>
+ax1 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.8</span>,<span style="color:#ae81ff">0.8</span>], facecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">red</span><span style="color:#e6db74">&#39;</span>)
+<span style="color:#75715e">#</span>
+</code></pre></div><p>The first parameter <code>fig</code> is simply a pointer to the parent <code>Figure</code> to which an Axes will belong.<!-- raw HTML omitted -->
+The second parameter <code>rect</code> has four numbers : <code>[left_position, bottom_position, height, width]</code> to define the position of the <code>Axes</code> inside the <code>Figure</code> and the height and width <em>with respect to the <code>Figure</code></em>. All these numbers are expressed in percentages.</p>
+<p>A <code>Figure</code> simply holds a given number of <code>Axes</code> at any point of time</p>
+<p>We will go into some of these design decisions in a few moments&rsquo;</p>
+<h1 id="recreating-pltsubplots-with-basic-matplotlib-functionality">Recreating <code>plt.subplots</code> with basic Matplotlib functionality</h1>
+<p>We will try and recreate the below plot using Matplotlib primitives as a way to understand them better. We'll try and be a slightly creative by deviating a bit though.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">2</span>)
+fig<span style="color:#f92672">.</span>suptitle(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">2x2 Grid</span><span style="color:#e6db74">&#34;</span>)
 </code></pre></div><pre><code>Text(0.5, 0.98, '2x2 Grid')
-</code></pre><p><img src=output_20_1.png alt=png></p><h1 id=lets-create-our-first-plot-using-matplotlib-primitives>Let's create our first plot using Matplotlib primitives:</h1><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># We first need a figure, an imaginary canvas to put things on</span>
-fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>Figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>6</span>))
-<span style=color:#75715e># Let&#39;s start with two Axes with an arbitrary position and size</span>
-ax1 <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0.3</span>, <span style=color:#ae81ff>0.3</span>, <span style=color:#ae81ff>0.4</span>, <span style=color:#ae81ff>0.4</span>], facecolor<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>red</span><span style=color:#e6db74>&#39;</span>)
-ax2 <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>], facecolor<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>blue</span><span style=color:#e6db74>&#39;</span>)
-</code></pre></div><p>Now you need to add the <code>Axes</code> to <code>fig</code>. You should stop right here and think about why would there be a need to do this when <code>fig</code> is already a parent of <code>ax1</code> and <code>ax2</code>? Let's do this anyway and we'll go into the details afterwards.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>add_axes(ax2)
-fig<span style=color:#f92672>.</span>add_axes(ax1)
+</code></pre>
+<p><img src="output_20_1.png" alt="png"></p>
+<h1 id="lets-create-our-first-plot-using-matplotlib-primitives">Let's create our first plot using Matplotlib primitives:</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># We first need a figure, an imaginary canvas to put things on</span>
+fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>Figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>))
+<span style="color:#75715e"># Let&#39;s start with two Axes with an arbitrary position and size</span>
+ax1 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.3</span>, <span style="color:#ae81ff">0.4</span>, <span style="color:#ae81ff">0.4</span>], facecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">red</span><span style="color:#e6db74">&#39;</span>)
+ax2 <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>], facecolor<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">blue</span><span style="color:#e6db74">&#39;</span>)
+</code></pre></div><p>Now you need to add the <code>Axes</code> to <code>fig</code>. You should stop right here and think about why would there be a need to do this when <code>fig</code> is already a parent of <code>ax1</code> and <code>ax2</code>? Let's do this anyway and we'll go into the details afterwards.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>add_axes(ax2)
+fig<span style="color:#f92672">.</span>add_axes(ax1)
 </code></pre></div><pre><code>&lt;matplotlib.axes._axes.Axes at 0x1211dead0&gt;
-</code></pre><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># As you can see the Axes are exactly where we specified.</span>
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># As you can see the Axes are exactly where we specified.</span>
 fig
-</code></pre></div><p><img src=output_25_0.png alt=png></p><p>That means you can do this now:</p><blockquote><p>Remark: Notice the <code>ax.reverse()</code> call in the snippet below. If I hadn't done that, the biggest plot would be placed in the end on top of every other plot and you would just see a single, blank &lsquo;cyan&rsquo; colored plot.</p></blockquote><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>6</span>))
-ax <span style=color:#f92672>=</span> []
-sizes <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0.02</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>50</span>)
-<span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>50</span>):
-    color <span style=color:#f92672>=</span> str(hex(int(sizes[i] <span style=color:#f92672>*</span> <span style=color:#ae81ff>255</span>)))[<span style=color:#ae81ff>2</span>:]
-    <span style=color:#66d9ef>if</span> len(color) <span style=color:#f92672>==</span> <span style=color:#ae81ff>1</span>: color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>0</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>+</span> color
-    color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>#99</span><span style=color:#e6db74>&#39;</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> color
-    ax<span style=color:#f92672>.</span>append(plt<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>, sizes[i], sizes[i]], facecolor<span style=color:#f92672>=</span>color))
+</code></pre></div><p><img src="output_25_0.png" alt="png"></p>
+<p>That means you can do this now:</p>
+<blockquote>
+<p>Remark: Notice the <code>ax.reverse()</code> call in the snippet below. If I hadn't done that, the biggest plot would be placed in the end on top of every other plot and you would just see a single, blank &lsquo;cyan&rsquo; colored plot.</p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">6</span>))
+ax <span style="color:#f92672">=</span> []
+sizes <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0.02</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">50</span>)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">50</span>):
+    color <span style="color:#f92672">=</span> str(hex(int(sizes[i] <span style="color:#f92672">*</span> <span style="color:#ae81ff">255</span>)))[<span style="color:#ae81ff">2</span>:]
+    <span style="color:#66d9ef">if</span> len(color) <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: color <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">0</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> color
+    color <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">#99</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> color
+    ax<span style="color:#f92672">.</span>append(plt<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>, sizes[i], sizes[i]], facecolor<span style="color:#f92672">=</span>color))
 
-ax<span style=color:#f92672>.</span>reverse()
-<span style=color:#66d9ef>for</span> axes <span style=color:#f92672>in</span> ax:
-    fig<span style=color:#f92672>.</span>add_axes(axes)
-plt<span style=color:#f92672>.</span>show()
-</code></pre></div><p><img src=output_27_0.png alt=png></p><p>The above example demonstrates why it is important to decouple the process of creation of an <code>Axes</code> and actually putting it onto a <code>Figure</code>.</p><p>Also, you can remove an <code>Axes</code> from the canvas area of a <code>Figure</code> like so:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>delaxes(ax)
-</code></pre></div><p>This can be useful when you want to compare the same primary data (GDP) to several secondary data sources (education, spending, etc.) one by one (you'll need to add and delete each graph from the Figure in succession)
-I also encourage you to look into the documentation for <code>Figure</code> and <code>Axes</code> and glance over the several methods available to them. This will help you know what parts of the wheel you do not need to rebuild when you're working with these objects the next time.</p><h2 id=recreating-our-subplots-literally-from-scratch>Recreating our subplots literally from scratch</h2><p>This should now make sense. We can now create our original <code>plt.subplots(2, 2)</code> example using the knowledge we have thus gained so far.
-(Although, this is definitely not the most convenient way to do this)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>figure<span style=color:#f92672>.</span>Figure(); fig
+ax<span style="color:#f92672">.</span>reverse()
+<span style="color:#66d9ef">for</span> axes <span style="color:#f92672">in</span> ax:
+    fig<span style="color:#f92672">.</span>add_axes(axes)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><p><img src="output_27_0.png" alt="png"></p>
+<p>The above example demonstrates why it is important to decouple the process of creation of an <code>Axes</code> and actually putting it onto a <code>Figure</code>.</p>
+<p>Also, you can remove an <code>Axes</code> from the canvas area of a <code>Figure</code> like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>delaxes(ax)
+</code></pre></div><p>This can be useful when you want to compare the same primary data (GDP) to several secondary data sources (education, spending, etc.) one by one (you'll need to add and delete each graph from the Figure in succession)<!-- raw HTML omitted -->
+I also encourage you to look into the documentation for <code>Figure</code> and <code>Axes</code> and glance over the several methods available to them. This will help you know what parts of the wheel you do not need to rebuild when you're working with these objects the next time.</p>
+<h2 id="recreating-our-subplots-literally-from-scratch">Recreating our subplots literally from scratch</h2>
+<p>This should now make sense. We can now create our original <code>plt.subplots(2, 2)</code> example using the knowledge we have thus gained so far.<!-- raw HTML omitted -->
+(Although, this is definitely not the most convenient way to do this)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>figure<span style="color:#f92672">.</span>Figure(); fig
 
-fig<span style=color:#f92672>.</span>suptitle(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Recreating plt.subplots(2, 2)</span><span style=color:#e6db74>&#34;</span>)
+fig<span style="color:#f92672">.</span>suptitle(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Recreating plt.subplots(2, 2)</span><span style="color:#e6db74">&#34;</span>)
 
-ax1 <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>axes<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0.42</span>,<span style=color:#ae81ff>0.42</span>])
-ax2 <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>axes<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.42</span>, <span style=color:#ae81ff>0.42</span>])
-ax3 <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>axes<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0.5</span>,<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0.42</span>,<span style=color:#ae81ff>0.42</span>])
-ax4 <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>axes<span style=color:#f92672>.</span>Axes(fig<span style=color:#f92672>=</span>fig, rect<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.42</span>, <span style=color:#ae81ff>0.42</span>])
+ax1 <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.42</span>,<span style="color:#ae81ff">0.42</span>])
+ax2 <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.42</span>, <span style="color:#ae81ff">0.42</span>])
+ax3 <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.5</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0.42</span>,<span style="color:#ae81ff">0.42</span>])
+ax4 <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>axes<span style="color:#f92672">.</span>Axes(fig<span style="color:#f92672">=</span>fig, rect<span style="color:#f92672">=</span>[<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.42</span>, <span style="color:#ae81ff">0.42</span>])
 
-fig<span style=color:#f92672>.</span>add_axes(ax1)
-fig<span style=color:#f92672>.</span>add_axes(ax2)
-fig<span style=color:#f92672>.</span>add_axes(ax3)
-fig<span style=color:#f92672>.</span>add_axes(ax4)
+fig<span style="color:#f92672">.</span>add_axes(ax1)
+fig<span style="color:#f92672">.</span>add_axes(ax2)
+fig<span style="color:#f92672">.</span>add_axes(ax3)
+fig<span style="color:#f92672">.</span>add_axes(ax4)
 
 fig
-</code></pre></div><p><img src=output_30_0.png alt=png></p><h2 id=using-gridspecgridspec>Using <code>gridspec.GridSpec</code></h2><p>Docs : <a href=https://matplotlib.org/api/_as_gen/matplotlib.gridspec.GridSpec.html#matplotlib.gridspec.GridSpec>https://matplotlib.org/api/_as_gen/matplotlib.gridspec.GridSpec.html#matplotlib.gridspec.GridSpec</a></p><p><code>GridSpec</code> objects allow us more intuitive control over how our plot is exactly divided into subplots and what the size of each <code>Axes</code> is.
-You can essentially decide a <strong>Grid</strong> which all your <code>Axes</code> will conform to when laying themselves over.
-Once you define a grid, or <code>GridSpec</code> so to say, you can use that object to <em>generate</em> new <code>Axes</code> conforming to the grid which you can then add to your <code>Figure</code></p><p>Lets see how all of this works in code:</p><p>You can define a <code>GridSpec</code> object like so (both statements are equivalent):</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>gs <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>gridspec<span style=color:#f92672>.</span>GridSpec(nrows, ncols, width_ratios, height_ratios)
-<span style=color:#75715e># OR</span>
-gs <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>GridSpec(nrows, ncols, width_ratios, height_ratios)
-</code></pre></div><p>More specifically:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>gs <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>GridSpec(nrows<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, ncols<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, width_ratios<span style=color:#f92672>=</span>[<span style=color:#ae81ff>1</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>3</span>], height_ratios[<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>2</span>,<span style=color:#ae81ff>1</span>])
+</code></pre></div><p><img src="output_30_0.png" alt="png"></p>
+<h2 id="using-gridspecgridspec">Using <code>gridspec.GridSpec</code></h2>
+<p>Docs : <a href="https://matplotlib.org/api/_as_gen/matplotlib.gridspec.GridSpec.html#matplotlib.gridspec.GridSpec">https://matplotlib.org/api/_as_gen/matplotlib.gridspec.GridSpec.html#matplotlib.gridspec.GridSpec</a></p>
+<p><code>GridSpec</code> objects allow us more intuitive control over how our plot is exactly divided into subplots and what the size of each <code>Axes</code> is.<!-- raw HTML omitted -->
+You can essentially decide a <strong>Grid</strong> which all your <code>Axes</code> will conform to when laying themselves over.<!-- raw HTML omitted -->
+Once you define a grid, or <code>GridSpec</code> so to say, you can use that object to <em>generate</em> new <code>Axes</code> conforming to the grid which you can then add to your <code>Figure</code></p>
+<p>Lets see how all of this works in code:</p>
+<p>You can define a <code>GridSpec</code> object like so (both statements are equivalent):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">gs <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>gridspec<span style="color:#f92672">.</span>GridSpec(nrows, ncols, width_ratios, height_ratios)
+<span style="color:#75715e"># OR</span>
+gs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>GridSpec(nrows, ncols, width_ratios, height_ratios)
+</code></pre></div><p>More specifically:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">gs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>GridSpec(nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, width_ratios<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>], height_ratios[<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>])
 </code></pre></div><p><code>nrows</code> and <code>ncols</code> are pretty self explanatory. <code>width_ratios</code> determines the relative width of each column. <code>height_ratios</code> follows along the same lines.
-The whole <code>grid</code> will always distribute itself using all the space available to it inside of a figure (things change up a bit when you have multiple <code>GridSpec</code> objects for a single figure, but that's for you to explore!). And inside of a <code>grid</code>, all the Axes will conform to the sizes and ratios defined already</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>annotate_axes</span>(fig):
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Taken from https://matplotlib.org/gallery/userdemo/demo_gridspec03.html#sphx-glr-gallery-userdemo-demo-gridspec03-py</span><span style=color:#e6db74>
-</span><span style=color:#e6db74></span><span style=color:#e6db74>       takes a figure and puts an </span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>axN</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74> label in the center of each Axes</span><span style=color:#e6db74>
-</span><span style=color:#e6db74></span><span style=color:#e6db74>    </span><span style=color:#e6db74>&#34;&#34;&#34;</span>
-    <span style=color:#66d9ef>for</span> i, ax <span style=color:#f92672>in</span> enumerate(fig<span style=color:#f92672>.</span>axes):
-        ax<span style=color:#f92672>.</span>text(<span style=color:#ae81ff>0.5</span>, <span style=color:#ae81ff>0.5</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>ax</span><span style=color:#e6db74>%d</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>%</span> (i<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>), va<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>center</span><span style=color:#e6db74>&#34;</span>, ha<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>center</span><span style=color:#e6db74>&#34;</span>)
-        ax<span style=color:#f92672>.</span>tick_params(labelbottom<span style=color:#f92672>=</span>False, labelleft<span style=color:#f92672>=</span>False)
-</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure()
+The whole <code>grid</code> will always distribute itself using all the space available to it inside of a figure (things change up a bit when you have multiple <code>GridSpec</code> objects for a single figure, but that's for you to explore!). And inside of a <code>grid</code>, all the Axes will conform to the sizes and ratios defined already</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">annotate_axes</span>(fig):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Taken from https://matplotlib.org/gallery/userdemo/demo_gridspec03.html#sphx-glr-gallery-userdemo-demo-gridspec03-py</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">       takes a figure and puts an </span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">axN</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74"> label in the center of each Axes</span><span style="color:#e6db74">
+</span><span style="color:#e6db74"></span><span style="color:#e6db74">    </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">for</span> i, ax <span style="color:#f92672">in</span> enumerate(fig<span style="color:#f92672">.</span>axes):
+        ax<span style="color:#f92672">.</span>text(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.5</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ax</span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> (i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>), va<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">center</span><span style="color:#e6db74">&#34;</span>, ha<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">center</span><span style="color:#e6db74">&#34;</span>)
+        ax<span style="color:#f92672">.</span>tick_params(labelbottom<span style="color:#f92672">=</span>False, labelleft<span style="color:#f92672">=</span>False)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
 
-<span style=color:#75715e># We will try and vary axis sizes here just to see what happens</span>
-gs <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>gridspec<span style=color:#f92672>.</span>GridSpec(nrows<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>, ncols<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>, width_ratios<span style=color:#f92672>=</span>[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>], height_ratios<span style=color:#f92672>=</span>[<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>1</span>])
+<span style="color:#75715e"># We will try and vary axis sizes here just to see what happens</span>
+gs <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>gridspec<span style="color:#f92672">.</span>GridSpec(nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, width_ratios<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>], height_ratios<span style="color:#f92672">=</span>[<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>])
 </code></pre></div><pre><code>&lt;Figure size 576x396 with 0 Axes&gt;
-</code></pre><p>You can pass <code>GridSpec</code> objects to a <code>Figure</code> to create subplots in your desired sizes and proportions like so :
-Notice how the sizes of the <code>Axes</code> relates to the ratios we defined when creating the Grid.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>clear()
-ax1, ax2, ax3, ax4 <span style=color:#f92672>=</span> [fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>0</span>]),
-                     fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>1</span>]),
-                     fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>2</span>]),
-                     fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>3</span>])]
+</code></pre>
+<p>You can pass <code>GridSpec</code> objects to a <code>Figure</code> to create subplots in your desired sizes and proportions like so :<!-- raw HTML omitted -->
+Notice how the sizes of the <code>Axes</code> relates to the ratios we defined when creating the Grid.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>clear()
+ax1, ax2, ax3, ax4 <span style="color:#f92672">=</span> [fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">0</span>]),
+                     fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">1</span>]),
+                     fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">2</span>]),
+                     fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">3</span>])]
 
 annotate_axes(fig)
 fig
-</code></pre></div><p><img src=output_36_0.png alt=png></p><p>Doing the same thing in a simpler way</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>add_gs_to_fig</span>(fig, gs): 
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Adds all `SubplotSpec`s in `gs` to `fig`</span><span style=color:#e6db74>&#34;</span>
-    <span style=color:#66d9ef>for</span> g <span style=color:#f92672>in</span> gs: fig<span style=color:#f92672>.</span>add_subplot(g)
-</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>clear()
+</code></pre></div><p><img src="output_36_0.png" alt="png"></p>
+<p>Doing the same thing in a simpler way</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_gs_to_fig</span>(fig, gs): 
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">Adds all `SubplotSpec`s in `gs` to `fig`</span><span style="color:#e6db74">&#34;</span>
+    <span style="color:#66d9ef">for</span> g <span style="color:#f92672">in</span> gs: fig<span style="color:#f92672">.</span>add_subplot(g)
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>clear()
 add_gs_to_fig(fig, gs)
 annotate_axes(fig)
 fig
-</code></pre></div><p><img src=output_39_0.png alt=png></p><p>That means you can now do this:
-(Notice how the <code>Axes</code> sizes increase from top-left to bottom-right)</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>10</span>))
-length <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>
-gs <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>GridSpec(nrows<span style=color:#f92672>=</span>length, ncols<span style=color:#f92672>=</span>length, 
-                  width_ratios<span style=color:#f92672>=</span>list(range(<span style=color:#ae81ff>1</span>, length<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)), height_ratios<span style=color:#f92672>=</span>list(range(<span style=color:#ae81ff>1</span>, length<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)))
+</code></pre></div><p><img src="output_39_0.png" alt="png"></p>
+<p>That means you can now do this:<!-- raw HTML omitted -->
+(Notice how the <code>Axes</code> sizes increase from top-left to bottom-right)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">14</span>,<span style="color:#ae81ff">10</span>))
+length <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
+gs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>GridSpec(nrows<span style="color:#f92672">=</span>length, ncols<span style="color:#f92672">=</span>length, 
+                  width_ratios<span style="color:#f92672">=</span>list(range(<span style="color:#ae81ff">1</span>, length<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)), height_ratios<span style="color:#f92672">=</span>list(range(<span style="color:#ae81ff">1</span>, length<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)))
 
 add_gs_to_fig(fig, gs)
 annotate_axes(fig)
-<span style=color:#66d9ef>for</span> ax <span style=color:#f92672>in</span> fig<span style=color:#f92672>.</span>axes:
-    ax<span style=color:#f92672>.</span>plot(xs, ys)
-plt<span style=color:#f92672>.</span>show()
-</code></pre></div><p><img src=output_41_0.png alt=png></p><h2 id=a-very-unexpected-observation-which-gives-us-yet-more-clarity-and-power>A very unexpected observation: (which gives us yet more clarity, and Power)</h2><p>Notice how after each print operation, different addresses get printed for each <code>gs</code> object.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>gs[<span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>1</span>], gs[<span style=color:#ae81ff>2</span>], gs[<span style=color:#ae81ff>3</span>]
+<span style="color:#66d9ef">for</span> ax <span style="color:#f92672">in</span> fig<span style="color:#f92672">.</span>axes:
+    ax<span style="color:#f92672">.</span>plot(xs, ys)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><p><img src="output_41_0.png" alt="png"></p>
+<h2 id="a-very-unexpected-observation-which-gives-us-yet-more-clarity-and-power">A very unexpected observation: (which gives us yet more clarity, and Power)</h2>
+<p>Notice how after each print operation, different addresses get printed for each <code>gs</code> object.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">gs[<span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">1</span>], gs[<span style="color:#ae81ff">2</span>], gs[<span style="color:#ae81ff">3</span>]
 </code></pre></div><pre><code>(&lt;matplotlib.gridspec.SubplotSpec at 0x1282a9e50&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x12942add0&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x12942a750&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x12a727e10&gt;)
-</code></pre><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>gs[<span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>1</span>], gs[<span style=color:#ae81ff>2</span>], gs[<span style=color:#ae81ff>3</span>]
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">gs[<span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">1</span>], gs[<span style="color:#ae81ff">2</span>], gs[<span style="color:#ae81ff">3</span>]
 </code></pre></div><pre><code>(&lt;matplotlib.gridspec.SubplotSpec at 0x127d5c6d0&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x12b6d0b10&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x129fc6390&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x129fc6a50&gt;)
-</code></pre><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>print</span>(gs[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>1</span>], gs[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>])
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(gs[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], gs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>])
 </code></pre></div><pre><code>&lt;matplotlib.gridspec.SubplotSpec object at 0x12951a610&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x12951a890&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x12951ac10&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x12951a150&gt;
-</code></pre><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>print</span>(gs[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>1</span>], gs[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>], gs[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>])
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(gs[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], gs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>], gs[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>])
 </code></pre></div><pre><code>&lt;matplotlib.gridspec.SubplotSpec object at 0x128fad4d0&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x1291ebbd0&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x1294f9850&gt; &lt;matplotlib.gridspec.SubplotSpec object at 0x128106250&gt;
-</code></pre><p><strong>Lets understand why this happens:</strong></p><p><em>Notice how a group of <code>gs</code> objects indexed into at the same time also produces just one object instead of multiple objects</em></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>gs[:,:], gs[:, <span style=color:#ae81ff>0</span>]
-<span style=color:#75715e># both output just one object each</span>
+</code></pre>
+<p><strong>Lets understand why this happens:</strong></p>
+<p><em>Notice how a group of <code>gs</code> objects indexed into at the same time also produces just one object instead of multiple objects</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">gs[:,:], gs[:, <span style="color:#ae81ff">0</span>]
+<span style="color:#75715e"># both output just one object each</span>
 </code></pre></div><pre><code>(&lt;matplotlib.gridspec.SubplotSpec at 0x128116e50&gt;,
  &lt;matplotlib.gridspec.SubplotSpec at 0x128299290&gt;)
-</code></pre><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># Lets try another `gs` object, this time a little more crowded</span>
-<span style=color:#75715e># I chose the ratios randomly</span>
-gs <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>gridspec<span style=color:#f92672>.</span>GridSpec(nrows<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, ncols<span style=color:#f92672>=</span><span style=color:#ae81ff>3</span>, width_ratios<span style=color:#f92672>=</span>[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>1</span>], height_ratios<span style=color:#f92672>=</span>[<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>3</span>])
-</code></pre></div><p><em>All these operations print just one object. What is going on here?</em></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>print</span>(gs[:,<span style=color:#ae81ff>0</span>])
-<span style=color:#66d9ef>print</span>(gs[<span style=color:#ae81ff>1</span>:,:<span style=color:#ae81ff>2</span>])
-<span style=color:#66d9ef>print</span>(gs[:,:])
+</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Lets try another `gs` object, this time a little more crowded</span>
+<span style="color:#75715e"># I chose the ratios randomly</span>
+gs <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>gridspec<span style="color:#f92672">.</span>GridSpec(nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, width_ratios<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>], height_ratios<span style="color:#f92672">=</span>[<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>])
+</code></pre></div><p><em>All these operations print just one object. What is going on here?</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">print</span>(gs[:,<span style="color:#ae81ff">0</span>])
+<span style="color:#66d9ef">print</span>(gs[<span style="color:#ae81ff">1</span>:,:<span style="color:#ae81ff">2</span>])
+<span style="color:#66d9ef">print</span>(gs[:,:])
 </code></pre></div><pre><code>&lt;matplotlib.gridspec.SubplotSpec object at 0x12a075fd0&gt;
 &lt;matplotlib.gridspec.SubplotSpec object at 0x128cf0990&gt;
 &lt;matplotlib.gridspec.SubplotSpec object at 0x12a075fd0&gt;
-</code></pre><p>Let's try and add subplots to our <code>Figure</code> to <code>see</code> what's going on.
-We'll do a few different permutations to get an exact idea.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>5</span>,<span style=color:#ae81ff>5</span>))
-ax1 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[:<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>0</span>])
-ax2 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>0</span>])
-ax3 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[:, <span style=color:#ae81ff>1</span>:])
+</code></pre>
+<p>Let's try and add subplots to our <code>Figure</code> to <code>see</code> what's going on.<!-- raw HTML omitted -->
+We'll do a few different permutations to get an exact idea.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>))
+ax1 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[:<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>])
+ax2 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>])
+ax3 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[:, <span style="color:#ae81ff">1</span>:])
 annotate_axes(fig)
-</code></pre></div><p><img src=output_54_0.png alt=png></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>5</span>,<span style=color:#ae81ff>5</span>))
-<span style=color:#75715e># ax1 = fig.add_subplot(gs[:2, 0])</span>
-ax2 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>0</span>])
-ax3 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[:, <span style=color:#ae81ff>1</span>:])
+</code></pre></div><p><img src="output_54_0.png" alt="png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>))
+<span style="color:#75715e"># ax1 = fig.add_subplot(gs[:2, 0])</span>
+ax2 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>])
+ax3 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[:, <span style="color:#ae81ff">1</span>:])
 annotate_axes(fig)
-</code></pre></div><p><img src=output_55_0.png alt=png></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>5</span>,<span style=color:#ae81ff>5</span>))
-<span style=color:#75715e># ax1 = fig.add_subplot(gs[:2, 0])</span>
-<span style=color:#75715e># ax2 = fig.add_subplot(gs[2, 0])</span>
-ax3 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[:, <span style=color:#ae81ff>1</span>:])
+</code></pre></div><p><img src="output_55_0.png" alt="png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>))
+<span style="color:#75715e"># ax1 = fig.add_subplot(gs[:2, 0])</span>
+<span style="color:#75715e"># ax2 = fig.add_subplot(gs[2, 0])</span>
+ax3 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[:, <span style="color:#ae81ff">1</span>:])
 annotate_axes(fig)
-</code></pre></div><p><img src=output_56_0.png alt=png></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>5</span>,<span style=color:#ae81ff>5</span>))
-<span style=color:#75715e># ax1 = fig.add_subplot(gs[:2, 0])</span>
-<span style=color:#75715e># ax2 = fig.add_subplot(gs[2, 0])</span>
-ax3 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[:, <span style=color:#ae81ff>1</span>:])
+</code></pre></div><p><img src="output_56_0.png" alt="png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">5</span>))
+<span style="color:#75715e"># ax1 = fig.add_subplot(gs[:2, 0])</span>
+<span style="color:#75715e"># ax2 = fig.add_subplot(gs[2, 0])</span>
+ax3 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[:, <span style="color:#ae81ff">1</span>:])
 
-<span style=color:#75715e># Notice the line below : You can overlay Axes using `GridSpec` too</span>
-ax4 <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_subplot(gs[<span style=color:#ae81ff>2</span>:, <span style=color:#ae81ff>1</span>:])
-ax4<span style=color:#f92672>.</span>set_facecolor(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>orange</span><span style=color:#e6db74>&#39;</span>)
+<span style="color:#75715e"># Notice the line below : You can overlay Axes using `GridSpec` too</span>
+ax4 <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_subplot(gs[<span style="color:#ae81ff">2</span>:, <span style="color:#ae81ff">1</span>:])
+ax4<span style="color:#f92672">.</span>set_facecolor(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">orange</span><span style="color:#e6db74">&#39;</span>)
 annotate_axes(fig)
-</code></pre></div><p><img src=output_57_0.png alt=png></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>clear()
+</code></pre></div><p><img src="output_57_0.png" alt="png"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>clear()
 add_gs_to_fig(fig, gs)
 annotate_axes(fig)
 fig
-</code></pre></div><p><img src=output_58_0.png alt=png></p><p>Here's a bullet point summary of what this means:</p><ol><li><code>gs</code> can be used as a sort of a <code>factory</code> for different kinds of <code>Axes</code>.</li><li>You give this <code>factory</code> an order by indexing into particular areas of the <code>Grid</code>. It gives back a single <code>SubplotSpec</code> (check <code>type(gs[0]</code>) object that helps you create an <code>Axes</code> which has all of the area you indexed into combined into one unit.</li><li>Your <code>height</code> and <code>width</code> ratios for the indexed portion will determine the size of the <code>Axes</code> that gets generated.</li><li><code>Axes</code> will maintain relative proportions according to your <code>height</code> and <code>width</code> ratios always.</li><li>For all these reasons, I like <code>GridSpec</code>!</li></ol><p>This ability to create different grid variations that <code>GridSpec</code> provides is probably the reason for that anomaly we saw a while ago (printing different Addresses).</p><p>It creates new objects every time you index into it because it will be very troublesome to store all permutations of <code>SubplotSpec</code> objects into one group in memory (try and count permutations for a <code>GridSpec</code> of 10x10 and you'll know why)</p><hr><h2 id=now-lets-finally-create-pltsubplots22-once-again-using-gridspec>Now let's finally create <code>plt.subplots(2,2)</code> once again using GridSpec</h2><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure()
-gs <span style=color:#f92672>=</span> mpl<span style=color:#f92672>.</span>gridspec<span style=color:#f92672>.</span>GridSpec(nrows<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>, ncols<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>)
+</code></pre></div><p><img src="output_58_0.png" alt="png"></p>
+<p>Here's a bullet point summary of what this means:</p>
+<ol>
+<li><code>gs</code> can be used as a sort of a <code>factory</code> for different kinds of <code>Axes</code>.</li>
+<li>You give this <code>factory</code> an order by indexing into particular areas of the <code>Grid</code>. It gives back a single <code>SubplotSpec</code> (check <code>type(gs[0]</code>) object that helps you create an <code>Axes</code> which has all of the area you indexed into combined into one unit.</li>
+<li>Your <code>height</code> and <code>width</code> ratios for the indexed portion will determine the size of the <code>Axes</code> that gets generated.</li>
+<li><code>Axes</code> will maintain relative proportions according to your <code>height</code> and <code>width</code> ratios always.</li>
+<li>For all these reasons, I like <code>GridSpec</code>!</li>
+</ol>
+<p>This ability to create different grid variations that <code>GridSpec</code> provides is probably the reason for that anomaly we saw a while ago (printing different Addresses).</p>
+<p>It creates new objects every time you index into it because it will be very troublesome to store all permutations of <code>SubplotSpec</code> objects into one group in memory (try and count permutations for a <code>GridSpec</code> of 10x10 and you'll know why)</p>
+<hr>
+<h2 id="now-lets-finally-create-pltsubplots22-once-again-using-gridspec">Now let's finally create <code>plt.subplots(2,2)</code> once again using GridSpec</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure()
+gs <span style="color:#f92672">=</span> mpl<span style="color:#f92672">.</span>gridspec<span style="color:#f92672">.</span>GridSpec(nrows<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, ncols<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
 add_gs_to_fig(fig, gs)
 annotate_axes(fig)
-fig<span style=color:#f92672>.</span>suptitle(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>We</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>re done!</span><span style=color:#e6db74>&#34;</span>)
-<span style=color:#66d9ef>print</span>(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>yayy</span><span style=color:#e6db74>&#34;</span>)
+fig<span style="color:#f92672">.</span>suptitle(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">We</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">re done!</span><span style="color:#e6db74">&#34;</span>)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">yayy</span><span style="color:#e6db74">&#34;</span>)
 </code></pre></div><pre><code>yayy
-</code></pre><p><img src=output_61_1.png alt=png></p><h1 id=what-you-should-try>What you should try:</h1><hr><p>Here's a few things I think you should go ahead and explore:</p><ol><li>Multiple <code>GridSpec</code> objects for the Same Figure.</li><li>Deleting and adding <code>Axes</code> effectively and meaningfully.</li><li>All the methods available for <code>mpl.figure.Figure</code> and <code>mpl.axes.Axes</code> allowing us to manipulate their properties.</li><li>Kaggle Learn's Data visualization course is a great place to learn effective plotting using Python</li><li>Armed with knowledge, you will be able to use other plotting libraries such as <code>seaborn</code>, <code>plotly</code>, <code>pandas</code> and <code>altair</code> with much more flexibility (you can pass an <code>Axes</code> object to all their plotting functions). I encourage you to explore these libraries too.</li></ol><p>This is the first time I've written any technical guide for the internet, it may not be as clean as tutorials generally are. But, I'm open to all the constructive criticism that you may have for me (drop me an email on <a href=mailto:akashpalrecha@gmail.com>akashpalrecha@gmail.com</a>)</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
+</code></pre>
+<p><img src="output_61_1.png" alt="png"></p>
+<h1 id="what-you-should-try">What you should try:</h1>
+<hr>
+<p>Here's a few things I think you should go ahead and explore:</p>
+<ol>
+<li>Multiple <code>GridSpec</code> objects for the Same Figure.</li>
+<li>Deleting and adding <code>Axes</code> effectively and meaningfully.</li>
+<li>All the methods available for <code>mpl.figure.Figure</code> and <code>mpl.axes.Axes</code> allowing us to manipulate their properties.</li>
+<li>Kaggle Learn's Data visualization course is a great place to learn effective plotting using Python</li>
+<li>Armed with knowledge, you will be able to use other plotting libraries such as <code>seaborn</code>, <code>plotly</code>, <code>pandas</code> and <code>altair</code> with much more flexibility (you can pass an <code>Axes</code> object to all their plotting functions). I encourage you to explore these libraries too.</li>
+</ol>
+<p>This is the first time I've written any technical guide for the internet, it may not be as clean as tutorials generally are. But, I'm open to all the constructive criticism that you may have for me (drop me an email on <a href="mailto:akashpalrecha@gmail.com">akashpalrecha@gmail.com</a>)</p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      
+      
+      
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  
+  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>

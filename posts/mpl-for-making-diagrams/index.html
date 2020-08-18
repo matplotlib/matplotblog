@@ -1,158 +1,271 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Matplotlib for Making Diagrams &#183; Matplotblog</title><meta name=description content="How to use Matplotlib to make diagrams."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
-<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Matplotlib for Making Diagrams</h1><p class=post-date>Posted <time datetime=2020-02-19>Feb 19, 2020</time>
-<span class=post-author>&mdash; By Brandon Rohrer</span></p></header><picture class=post-figure>
-<source srcset=https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/causal_hufbab3ed12bd99b5c636725c65500f4c7_97696_800x0_resize_lanczos_2.png><img src=https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/causal_hufbab3ed12bd99b5c636725c65500f4c7_97696_800x0_resize_lanczos_2.png alt="A causal model diagram"></picture><h1 id=matplotlib-for-diagrams>Matplotlib for diagrams</h1><p>This is my first post for the Matplotlib blog so I wanted to lead
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Matplotlib for Making Diagrams &middot; Matplotblog</title>
+  <meta name="description" content="How to use Matplotlib to make diagrams." />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  
+  
+  
+  
+  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
+    }
+  </style>
+</head>
+
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
+    
+      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
+    
+    
+  </a></h1>
+
+  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+  <div class="hamburger-menu">
+    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menu" class="hamburger-menu-overlay">
+      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      
+      
+      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">Matplotlib for Making Diagrams</h1>
+          <p class="post-date">Posted <time datetime="2020-02-19">Feb 19, 2020</time>
+	  <span class="post-author"> &mdash; By Brandon Rohrer</span>
+	  </p>
+
+        </header>
+        
+          
+          <picture class="post-figure">
+            
+            
+            <source srcset="https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/causal_hufbab3ed12bd99b5c636725c65500f4c7_97696_800x0_resize_lanczos_2.png">
+            <img src="https://matplotlib.org/matplotblog/posts/mpl-for-making-diagrams/causal_hufbab3ed12bd99b5c636725c65500f4c7_97696_800x0_resize_lanczos_2.png" alt="A causal model diagram">
+          </picture>
+          
+        
+        <h1 id="matplotlib-for-diagrams">Matplotlib for diagrams</h1>
+<p>This is my first post for the Matplotlib blog so I wanted to lead
 with an example of what I most love about it:
 How much control Matplotlib gives you.
 I like to use it as a programmable drawing tool that happens
-to be good at plotting data.</p><p>The default layout for Matplotlib works great for a lot of things,
+to be good at plotting data.</p>
+<p>The default layout for Matplotlib works great for a lot of things,
 but sometimes you want to exert
 more control. Sometimes you want to treat your figure window as
 a blank canvas and create diagrams
 to communicate your ideas. Here, we will walk through the process
 for setting this up. Most of these tricks are detailed in
-<a href=https://e2eml.school/matplotlib_framing.html>this cheat sheet for laying out plots</a>.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
-<span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
-</code></pre></div><p>The first step is to choose the size of your canvas.</p><p>(Just a heads up, I love the metaphor
+<a href="https://e2eml.school/matplotlib_framing.html">this cheat sheet for laying out plots</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+</code></pre></div><p>The first step is to choose the size of your canvas.</p>
+<p>(Just a heads up, I love the metaphor
 of the canvas, so that's how I am using the term here.
 The Canvas object is a very specific
-thing in the Matplotlib code base. That's not what I'm referring to.)</p><p>I'm planning to make a diagram that is 16 centimeters wide
+thing in the Matplotlib code base. That's not what I'm referring to.)</p>
+<p>I'm planning to make a diagram that is 16 centimeters wide
 and 9 centimeters high.
 This will fit comfortably on a piece of A4 or US Letter paper
 and will be almost twice as wide as it is high.
-It also scales up nicely to fit on a wide-format slide presentation.</p><p>The <code>plt.figure()</code> function accepts a <code>figsize</code> argument,
+It also scales up nicely to fit on a wide-format slide presentation.</p>
+<p>The <code>plt.figure()</code> function accepts a <code>figsize</code> argument,
 a tuple of <code>(width, height)</code> in <strong>inches</strong>.
-To convert from centimeters, we'll divide by 2.54.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig_width <span style=color:#f92672>=</span> <span style=color:#ae81ff>16</span>  <span style=color:#75715e># cm</span>
-fig_height <span style=color:#f92672>=</span> <span style=color:#ae81ff>9</span>  <span style=color:#75715e># cm</span>
-fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(fig_width <span style=color:#f92672>/</span> <span style=color:#ae81ff>2.54</span>, fig_height <span style=color:#f92672>/</span> <span style=color:#ae81ff>2.54</span>))
+To convert from centimeters, we'll divide by 2.54.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig_width <span style="color:#f92672">=</span> <span style="color:#ae81ff">16</span>  <span style="color:#75715e"># cm</span>
+fig_height <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>  <span style="color:#75715e"># cm</span>
+fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(fig_width <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.54</span>, fig_height <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.54</span>))
 </code></pre></div><p>The next step is to add an Axes object that we can draw on.
 By default, Matplotlib will size and place the Axes to leave
 a little border and room for x- and y-axis labels. However, we don't
 want that this time around. We want our Axes to extend right up
-to the edge of the Figure.</p><p>The <code>add_axes()</code> function lets us specify exactly where to place
+to the edge of the Figure.</p>
+<p>The <code>add_axes()</code> function lets us specify exactly where to place
 our new Axes and how big to make it. It accepts a tuple of the format
 <code>(left, bottom, width, height)</code>. The coordinate frame of the Figure
 is always (0, 0) at the bottom left corner and (1, 1) at the upper right,
 no matter what size of Figure you are working with. Positions, widths,
-and heights all become fractions of the total width and height of the Figure.</p><p>To fill the Figure with our Axes entirely, we specify a left position of 0,
-a bottom position of 0, a width of 1, and a height of 1.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_axes((<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>))
+and heights all become fractions of the total width and height of the Figure.</p>
+<p>To fill the Figure with our Axes entirely, we specify a left position of 0,
+a bottom position of 0, a width of 1, and a height of 1.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_axes((<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>))
 </code></pre></div><p>To make our diagram creation easier, we can set the axis limits so that
 one unit in the figure equals one centimeter. This grants us
 an intuitive way to control the size of objects in the diagram.
 A circle with a radius of 2 will be drawn as a circle (not an ellipse)
-in the final image and have a radius of 2 cm.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax<span style=color:#f92672>.</span>set_xlim(<span style=color:#ae81ff>0</span>, fig_width)
-ax<span style=color:#f92672>.</span>set_ylim(<span style=color:#ae81ff>0</span>, fig_height)
+in the final image and have a radius of 2 cm.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, fig_width)
+ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, fig_height)
 </code></pre></div><p>We can also do away with the automatically generated ticks
-and tick labels with this pair of calls.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax<span style=color:#f92672>.</span>tick_params(bottom<span style=color:#f92672>=</span>False, top<span style=color:#f92672>=</span>False, left<span style=color:#f92672>=</span>False, right<span style=color:#f92672>=</span>False)
-ax<span style=color:#f92672>.</span>tick_params(labelbottom<span style=color:#f92672>=</span>False, labeltop<span style=color:#f92672>=</span>False, labelleft<span style=color:#f92672>=</span>False, labelright<span style=color:#f92672>=</span>False)
+and tick labels with this pair of calls.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax<span style="color:#f92672">.</span>tick_params(bottom<span style="color:#f92672">=</span>False, top<span style="color:#f92672">=</span>False, left<span style="color:#f92672">=</span>False, right<span style="color:#f92672">=</span>False)
+ax<span style="color:#f92672">.</span>tick_params(labelbottom<span style="color:#f92672">=</span>False, labeltop<span style="color:#f92672">=</span>False, labelleft<span style="color:#f92672">=</span>False, labelright<span style="color:#f92672">=</span>False)
 </code></pre></div><p>At this point we have a big blank space of exactly the right size and shape.
 Now we can begin building our diagram. The foundation of the image will be
 the background color. White is fine, but sometimes it's fun to mix it up.
-<a href=https://e2eml.school/matplotlib_lines.html#color>Here are some ideas</a>
-to get you started.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax<span style=color:#f92672>.</span>set_facecolor(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>antiquewhite</span><span style=color:#e6db74>&#34;</span>)
-</code></pre></div><p>We can also add a border to the diagram to visually set it apart.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>top</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bottom</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>left</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>right</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>top</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bottom</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>left</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>right</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
+<a href="https://e2eml.school/matplotlib_lines.html#color">Here are some ideas</a>
+to get you started.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax<span style="color:#f92672">.</span>set_facecolor(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">antiquewhite</span><span style="color:#e6db74">&#34;</span>)
+</code></pre></div><p>We can also add a border to the diagram to visually set it apart.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">top</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bottom</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">left</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">right</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">top</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bottom</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">left</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">right</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
 </code></pre></div><p>Now we have a foundation and background in place
 and we're finally ready to start drawing.
 You have complete freedom to
-<a href=https://e2eml.school/matplotlib_lines.html>draw curves and shapes</a>,
-<a href=https://e2eml.school/matplotlib_points.html>place points</a>,
-and <a href=https://e2eml.school/matplotlib_text.html>add text</a>
-of any variety within our 16 x 9 garden walls.</p><p>Then when you're done, the last step is to save the figure out as a
+<a href="https://e2eml.school/matplotlib_lines.html">draw curves and shapes</a>,
+<a href="https://e2eml.school/matplotlib_points.html">place points</a>,
+and <a href="https://e2eml.school/matplotlib_text.html">add text</a>
+of any variety within our 16 x 9 garden walls.</p>
+<p>Then when you're done, the last step is to save the figure out as a
 <code>.png</code> file. In this format it can be imported to and added to whatever
-document or presentation you're working on</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig<span style=color:#f92672>.</span>savefig(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>blank_diagram.png</span><span style=color:#e6db74>&#34;</span>, dpi<span style=color:#f92672>=</span><span style=color:#ae81ff>300</span>)
-</code></pre></div><p><img src=blank_diagram.png alt="Blank diagram example"></p><p>If you're making a collection of diagrams,
-you can make a convenient template for your blank canvas.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>blank_diagram</span>(fig_width<span style=color:#f92672>=</span><span style=color:#ae81ff>16</span>, fig_height<span style=color:#f92672>=</span><span style=color:#ae81ff>9</span>,
-                  bg_color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>antiquewhite</span><span style=color:#e6db74>&#34;</span>, color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>):
-    fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(fig_width <span style=color:#f92672>/</span> <span style=color:#ae81ff>2.54</span>, fig_height <span style=color:#f92672>/</span> <span style=color:#ae81ff>2.54</span>))
-    ax <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>add_axes((<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>))
-    ax<span style=color:#f92672>.</span>set_xlim(<span style=color:#ae81ff>0</span>, fig_width)
-    ax<span style=color:#f92672>.</span>set_ylim(<span style=color:#ae81ff>0</span>, fig_height)
-    ax<span style=color:#f92672>.</span>set_facecolor(bg_color)
+document or presentation you're working on</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">blank_diagram.png</span><span style="color:#e6db74">&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</code></pre></div><p><img src="blank_diagram.png" alt="Blank diagram example"></p>
+<p>If you're making a collection of diagrams,
+you can make a convenient template for your blank canvas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">blank_diagram</span>(fig_width<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>, fig_height<span style="color:#f92672">=</span><span style="color:#ae81ff">9</span>,
+                  bg_color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">antiquewhite</span><span style="color:#e6db74">&#34;</span>, color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>):
+    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(fig_width <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.54</span>, fig_height <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.54</span>))
+    ax <span style="color:#f92672">=</span> fig<span style="color:#f92672">.</span>add_axes((<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>))
+    ax<span style="color:#f92672">.</span>set_xlim(<span style="color:#ae81ff">0</span>, fig_width)
+    ax<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, fig_height)
+    ax<span style="color:#f92672">.</span>set_facecolor(bg_color)
 
-    ax<span style=color:#f92672>.</span>tick_params(bottom<span style=color:#f92672>=</span>False, top<span style=color:#f92672>=</span>False,
-                   left<span style=color:#f92672>=</span>False, right<span style=color:#f92672>=</span>False)
-    ax<span style=color:#f92672>.</span>tick_params(labelbottom<span style=color:#f92672>=</span>False, labeltop<span style=color:#f92672>=</span>False,
-                   labelleft<span style=color:#f92672>=</span>False, labelright<span style=color:#f92672>=</span>False)
+    ax<span style="color:#f92672">.</span>tick_params(bottom<span style="color:#f92672">=</span>False, top<span style="color:#f92672">=</span>False,
+                   left<span style="color:#f92672">=</span>False, right<span style="color:#f92672">=</span>False)
+    ax<span style="color:#f92672">.</span>tick_params(labelbottom<span style="color:#f92672">=</span>False, labeltop<span style="color:#f92672">=</span>False,
+                   labelleft<span style="color:#f92672">=</span>False, labelright<span style="color:#f92672">=</span>False)
 
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>top</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(color)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bottom</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(color)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>left</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(color)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>right</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_color(color)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>top</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>bottom</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>left</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
-    ax<span style=color:#f92672>.</span>spines[<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>right</span><span style=color:#e6db74>&#34;</span>]<span style=color:#f92672>.</span>set_linewidth(<span style=color:#ae81ff>4</span>)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">top</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(color)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bottom</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(color)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">left</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(color)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">right</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_color(color)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">top</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">bottom</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">left</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
+    ax<span style="color:#f92672">.</span>spines[<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">right</span><span style="color:#e6db74">&#34;</span>]<span style="color:#f92672">.</span>set_linewidth(<span style="color:#ae81ff">4</span>)
 
-    <span style=color:#66d9ef>return</span> fig, ax
-</code></pre></div><p>Then you can take that canvas and add arbitrary text, shapes, and lines.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig, ax <span style=color:#f92672>=</span> blank_diagram()
+    <span style="color:#66d9ef">return</span> fig, ax
+</code></pre></div><p>Then you can take that canvas and add arbitrary text, shapes, and lines.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig, ax <span style="color:#f92672">=</span> blank_diagram()
 
-<span style=color:#66d9ef>for</span> x0 <span style=color:#f92672>in</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>16</span>, <span style=color:#f92672>.</span><span style=color:#ae81ff>5</span>):
-    ax<span style=color:#f92672>.</span>plot([x0, x0 <span style=color:#f92672>+</span> <span style=color:#ae81ff>3</span>], [<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>9</span>], color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#34;</span>)
+<span style="color:#66d9ef">for</span> x0 <span style="color:#f92672">in</span> np<span style="color:#f92672">.</span>arange(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">16</span>, <span style="color:#f92672">.</span><span style="color:#ae81ff">5</span>):
+    ax<span style="color:#f92672">.</span>plot([x0, x0 <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">9</span>], color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">black</span><span style="color:#e6db74">&#34;</span>)
 
-fig<span style=color:#f92672>.</span>savefig(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>stripes.png</span><span style=color:#e6db74>&#34;</span>, dpi<span style=color:#f92672>=</span><span style=color:#ae81ff>300</span>)
-</code></pre></div><p><img src=stripes.png alt=png></p><p>Or more intricately:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>fig, ax <span style=color:#f92672>=</span> blank_diagram()
+fig<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">stripes.png</span><span style="color:#e6db74">&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</code></pre></div><p><img src="stripes.png" alt="png"></p>
+<p>Or more intricately:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">fig, ax <span style="color:#f92672">=</span> blank_diagram()
 
-centers <span style=color:#f92672>=</span> [(<span style=color:#ae81ff>3.5</span>, <span style=color:#ae81ff>6.5</span>), (<span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>6.5</span>), (<span style=color:#ae81ff>12.5</span>, <span style=color:#ae81ff>6.5</span>), (<span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>2.5</span>)]
-radii <span style=color:#f92672>=</span> <span style=color:#ae81ff>1.5</span>
-texts <span style=color:#f92672>=</span> [
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>My roommate</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>is a Philistine</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>and a boor</span><span style=color:#e6db74>&#34;</span>]),
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>My roommate</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>ate the last</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>of the</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>cold cereal</span><span style=color:#e6db74>&#34;</span>]),
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>I am really</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>really hungy</span><span style=color:#e6db74>&#34;</span>]),
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#34;</span><span style=color:#f92672>.</span>join([<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>I</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>m annoyed</span><span style=color:#e6db74>&#34;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>at my roommate</span><span style=color:#e6db74>&#34;</span>]),
+centers <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">3.5</span>, <span style="color:#ae81ff">6.5</span>), (<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6.5</span>), (<span style="color:#ae81ff">12.5</span>, <span style="color:#ae81ff">6.5</span>), (<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">2.5</span>)]
+radii <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.5</span>
+texts <span style="color:#f92672">=</span> [
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">My roommate</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">is a Philistine</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">and a boor</span><span style="color:#e6db74">&#34;</span>]),
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">My roommate</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ate the last</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">of the</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">cold cereal</span><span style="color:#e6db74">&#34;</span>]),
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">I am really</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">really hungy</span><span style="color:#e6db74">&#34;</span>]),
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>join([<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">I</span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">m annoyed</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">at my roommate</span><span style="color:#e6db74">&#34;</span>]),
 ]
 
-<span style=color:#75715e># Draw circles with text in the center</span>
-<span style=color:#66d9ef>for</span> i, center <span style=color:#f92672>in</span> enumerate(centers):
-    x, y <span style=color:#f92672>=</span> center
-    theta <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>pi, <span style=color:#ae81ff>100</span>)
-    ax<span style=color:#f92672>.</span>plot(
-        x <span style=color:#f92672>+</span> radii <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>cos(theta),
-        y <span style=color:#f92672>+</span> radii <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>sin(theta),
-        color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>,
+<span style="color:#75715e"># Draw circles with text in the center</span>
+<span style="color:#66d9ef">for</span> i, center <span style="color:#f92672">in</span> enumerate(centers):
+    x, y <span style="color:#f92672">=</span> center
+    theta <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linspace(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>pi, <span style="color:#ae81ff">100</span>)
+    ax<span style="color:#f92672">.</span>plot(
+        x <span style="color:#f92672">+</span> radii <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(theta),
+        y <span style="color:#f92672">+</span> radii <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sin(theta),
+        color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>,
     )
-    ax<span style=color:#f92672>.</span>text(
+    ax<span style="color:#f92672">.</span>text(
         x, y,
         texts[i],
-        horizontalalignment<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>center</span><span style=color:#e6db74>&#34;</span>,
-        verticalalignment<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>center</span><span style=color:#e6db74>&#34;</span>,
-        color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>midnightblue</span><span style=color:#e6db74>&#34;</span>,
+        horizontalalignment<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">center</span><span style="color:#e6db74">&#34;</span>,
+        verticalalignment<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">center</span><span style="color:#e6db74">&#34;</span>,
+        color<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">midnightblue</span><span style="color:#e6db74">&#34;</span>,
     )
 
-<span style=color:#75715e># Draw arrows connecting them</span>
-<span style=color:#75715e># https://e2eml.school/matplotlib_text.html#annotate</span>
-ax<span style=color:#f92672>.</span>annotate(
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>,
-    (centers[<span style=color:#ae81ff>1</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> radii, centers[<span style=color:#ae81ff>1</span>][<span style=color:#ae81ff>1</span>]),
-    (centers[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>+</span> radii, centers[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>1</span>]),
-    arrowprops<span style=color:#f92672>=</span>dict(arrowstyle <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>-|&gt;</span><span style=color:#e6db74>&#34;</span>),
+<span style="color:#75715e"># Draw arrows connecting them</span>
+<span style="color:#75715e"># https://e2eml.school/matplotlib_text.html#annotate</span>
+ax<span style="color:#f92672">.</span>annotate(
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>,
+    (centers[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> radii, centers[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>]),
+    (centers[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> radii, centers[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>]),
+    arrowprops<span style="color:#f92672">=</span>dict(arrowstyle <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">-|&gt;</span><span style="color:#e6db74">&#34;</span>),
 )
-ax<span style=color:#f92672>.</span>annotate(
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>,
-    (centers[<span style=color:#ae81ff>2</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> radii, centers[<span style=color:#ae81ff>2</span>][<span style=color:#ae81ff>1</span>]),
-    (centers[<span style=color:#ae81ff>1</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>+</span> radii, centers[<span style=color:#ae81ff>1</span>][<span style=color:#ae81ff>1</span>]),
-    arrowprops<span style=color:#f92672>=</span>dict(arrowstyle <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>-|&gt;</span><span style=color:#e6db74>&#34;</span>),
+ax<span style="color:#f92672">.</span>annotate(
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>,
+    (centers[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> radii, centers[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>]),
+    (centers[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> radii, centers[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>]),
+    arrowprops<span style="color:#f92672">=</span>dict(arrowstyle <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">-|&gt;</span><span style="color:#e6db74">&#34;</span>),
 )
-ax<span style=color:#f92672>.</span>annotate(
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>,
-    (centers[<span style=color:#ae81ff>3</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii, centers[<span style=color:#ae81ff>3</span>][<span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii),
-    (centers[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>+</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii, centers[<span style=color:#ae81ff>0</span>][<span style=color:#ae81ff>1</span>] <span style=color:#f92672>-</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii),
-    arrowprops<span style=color:#f92672>=</span>dict(arrowstyle <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>-|&gt;</span><span style=color:#e6db74>&#34;</span>),
+ax<span style="color:#f92672">.</span>annotate(
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>,
+    (centers[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii, centers[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii),
+    (centers[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii, centers[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii),
+    arrowprops<span style="color:#f92672">=</span>dict(arrowstyle <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">-|&gt;</span><span style="color:#e6db74">&#34;</span>),
 )
-ax<span style=color:#f92672>.</span>annotate(
-    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>&#34;</span>,
-    (centers[<span style=color:#ae81ff>3</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>+</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii, centers[<span style=color:#ae81ff>3</span>][<span style=color:#ae81ff>1</span>] <span style=color:#f92672>+</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii),
-    (centers[<span style=color:#ae81ff>2</span>][<span style=color:#ae81ff>0</span>] <span style=color:#f92672>-</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii, centers[<span style=color:#ae81ff>2</span>][<span style=color:#ae81ff>1</span>] <span style=color:#f92672>-</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span> <span style=color:#f92672>*</span> radii),
-    arrowprops<span style=color:#f92672>=</span>dict(arrowstyle <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>-|&gt;</span><span style=color:#e6db74>&#34;</span>),
+ax<span style="color:#f92672">.</span>annotate(
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">&#34;</span>,
+    (centers[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii, centers[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii),
+    (centers[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii, centers[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#f92672">.</span><span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> radii),
+    arrowprops<span style="color:#f92672">=</span>dict(arrowstyle <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">-|&gt;</span><span style="color:#e6db74">&#34;</span>),
 )
 
-fig<span style=color:#f92672>.</span>savefig(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>causal.png</span><span style=color:#e6db74>&#34;</span>, dpi<span style=color:#f92672>=</span><span style=color:#ae81ff>300</span>)
-</code></pre></div><p><img src=causal.png alt=png></p><p>Once you get started on this path, you can start making
+fig<span style="color:#f92672">.</span>savefig(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">causal.png</span><span style="color:#e6db74">&#34;</span>, dpi<span style="color:#f92672">=</span><span style="color:#ae81ff">300</span>)
+</code></pre></div><p><img src="causal.png" alt="png"></p>
+<p>Once you get started on this path, you can start making
 extravagantly annotated plots. It can elevate your data
-presentations to true storytelling.</p><p>Happy diagram building!</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
+presentations to true storytelling.</p>
+<p>Happy diagram building!</p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      
+      
+      
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  
+  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>

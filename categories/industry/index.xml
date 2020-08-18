@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>industry on Matplotblog</title><link>https://matplotlib.org/matplotblog/categories/industry/</link><description>Recent content in industry on Matplotblog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 04 Dec 2019 17:23:24 +0100</lastBuildDate><atom:link href="https://matplotlib.org/matplotblog/categories/industry/index.xml" rel="self" type="application/rss+xml"/><item><title>Matplotlib in Data Driven SEO</title><link>https://matplotlib.org/matplotblog/posts/matplotlib-in-data-driven-seo/</link><pubDate>Wed, 04 Dec 2019 17:23:24 +0100</pubDate><guid>https://matplotlib.org/matplotblog/posts/matplotlib-in-data-driven-seo/</guid><description>Search Engine Optimization (SEO) is a process that aims to increase quantity and quality of website traffic by ensuring a website can be found in search engines for phrases that are relevant to what the site is offering. Google is the most popular search engine in the world and presence in top search results is invaluable for any online business since click rates drop exponentially with ranking position. Since the beginning, specialized entities have been decoding signals that influence position in search engine result page (SERP) focusing on e.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>industry on Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/industry/</link>
+    <description>Recent content in industry on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 04 Dec 2019 17:23:24 +0100</lastBuildDate>
+    
+	<atom:link href="https://matplotlib.org/matplotblog/categories/industry/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Matplotlib in Data Driven SEO</title>
+      <link>https://matplotlib.org/matplotblog/posts/matplotlib-in-data-driven-seo/</link>
+      <pubDate>Wed, 04 Dec 2019 17:23:24 +0100</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/matplotlib-in-data-driven-seo/</guid>
+      <description>Search Engine Optimization (SEO) is a process that aims to increase quantity and quality of website traffic by ensuring a website can be found in search engines for phrases that are relevant to what the site is offering. Google is the most popular search engine in the world and presence in top search results is invaluable for any online business since click rates drop exponentially with ranking position. Since the beginning, specialized entities have been decoding signals that influence position in search engine result page (SERP) focusing on e.</description>
+    </item>
+    
+  </channel>
+</rss>

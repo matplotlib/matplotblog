@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>3D on Matplotblog</title><link>https://matplotlib.org/matplotblog/categories/3d/</link><description>Recent content in 3D on Matplotblog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 18 Dec 2019 09:05:32 +0100</lastBuildDate><atom:link href="https://matplotlib.org/matplotblog/categories/3d/index.xml" rel="self" type="application/rss+xml"/><item><title>Custom 3D engine in Matplotlib</title><link>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</link><pubDate>Wed, 18 Dec 2019 09:05:32 +0100</pubDate><guid>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</guid><description>Matplotlib has a really nice 3D interface with many capabilities (and some limitations) that is quite popular among users. Yet, 3D is still considered to be some kind of black magic for some users (or maybe for the majority of users). I would thus like to explain in this post that 3D rendering is really easy once you've understood a few concepts. To demonstrate that, we'll render the bunny above with 60 lines of Python and one Matplotlib call.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>3D on Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/3d/</link>
+    <description>Recent content in 3D on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Dec 2019 09:05:32 +0100</lastBuildDate>
+    
+	<atom:link href="https://matplotlib.org/matplotblog/categories/3d/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Custom 3D engine in Matplotlib</title>
+      <link>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</link>
+      <pubDate>Wed, 18 Dec 2019 09:05:32 +0100</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/custom-3d-engine/</guid>
+      <description>Matplotlib has a really nice 3D interface with many capabilities (and some limitations) that is quite popular among users. Yet, 3D is still considered to be some kind of black magic for some users (or maybe for the majority of users). I would thus like to explain in this post that 3D rendering is really easy once you&#39;ve understood a few concepts. To demonstrate that, we&#39;ll render the bunny above with 60 lines of Python and one Matplotlib call.</description>
+    </item>
+    
+  </channel>
+</rss>

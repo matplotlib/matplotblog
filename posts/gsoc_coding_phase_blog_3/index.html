@@ -1,4 +1,101 @@
-<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>GSoC Coding Phase 2 Blog 1 &#183; Matplotblog</title><meta name=description content="Progress Report for the first half of the Google Summer of Code 2020 Phase 2 for the Baseline Images Problem"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
-<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>GSoC Coding Phase 2 Blog 1</h1><p class=post-date>Posted <time datetime=2020-07-11>Jul 11, 2020</time>
-<span class=post-author>&mdash; By Sidharth Bansal</span></p></header><p>Google Summer of Code 2020's first evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the second evaluation. This post discusses about the progress so far in the first two weeks of the second coding period from 30 June to 12 July 2020.</p><h2 id=completion-of-the-matplotlib_baseline_images-package>Completion of the matplotlib_baseline_images package</h2><p>We successfully created the matplotlib_baseline_images package. It contains the matplotlib and the matplotlib toolkit baseline images. Symlinking is done for the baseline images, related changes for Travis, appvoyer, azure pipelines etc. are functional and tests/test_data is created as discussed in the previous blog. PR is reviewed and suggested work is done.</p><h2 id=modular-approach-towards-removal-of-matplotlib-baseline-images>Modular approach towards removal of matplotlib baseline images</h2><p>We have divide the work in two parts. The first part is the generation of the baseline images discussed below. The second part is the modification of the baseline images which happens when some baseline images gets modified due to <code>git push</code> or <code>git merge</code>. Modification of baseline images will be further divided into two sub tasks: addition of new baseline image and the deletion of the previous baseline image. This will be discussed in the second half of the second phase of the Google Summer of Code 2020.</p><h2 id=generation-of-the-matplotlib-baseline-images>Generation of the matplotlib baseline images</h2><p>After the changes proposed in the <a href=https://github.com/matplotlib/matplotlib/pull/17557>previous PR</a>, the developer will have no baseline images on fresh install of matplotlib. The developer would need to install the sub-wheel matplotlib_baseline_images package to get started with the testing part of the mpl. Now, we have started removing the use of the matplotlib_baseline_images package. It will require two steps as discussed above.
-The images can be generated by the image comparison tests. Once these images are generated for the first time, then they can be used as the baseline images for the later times for comparison. This is the main principle adopted. The images are first created in the <code>result_images</code> directory. Then they will be moved to the <code>lib/matplotlib/tests/baseline_images</code> directory. Later on, running the pytests will start the image comparison.</p><h2 id=created-commandline-flags-for-baseline-images-creation>Created commandline flags for baseline images creation</h2><p>I learned about the pytest hooks and fixtures. I build a command line flag <code>matplotlib_baseline_image_generation</code> which will create the baseline images in the <code>result_images</code> directory. The full command will be <code>python3 pytest --matplotlib_baseline_image_generation</code>. In order to do this, we have done changes in the <code>conftest.py</code> and also added markers to the <code>image_comparison</code> decorator.</p><h2 id=learning-more-about-the-git-and-virtual-environments>Learning more about the Git and virtual environments</h2><p>I came to know about the git worktree and the scenarios in which we can use it. I also know more about virtual environments and their need in different scenarios.</p><h2 id=future-goals>Future Goals</h2><p>Once the generation of the baseline images is completed in the <a href=https://github.com/matplotlib/matplotlib/pull/17793>current PR</a>, we will move to the modification of the baseline images in the second half of the second coding phase.</p><h2 id=daily-meet-ups>Daily Meet-ups</h2><p>Monday to Thursday meeting initiated at <a href=https://everytimezone.com/>11:00pm IST</a> via Zoom. Meeting notes are present at HackMD.</p><p>I am grateful to be part of such a great community. Project is really interesting and challenging :) Thanks Thomas, Antony and Hannah for helping me so far.</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>GSoC Coding Phase 2 Blog 1 &middot; Matplotblog</title>
+  <meta name="description" content="Progress Report for the first half of the Google Summer of Code 2020 Phase 2 for the Baseline Images Problem" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  
+  
+  
+  
+  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
+  
+  <style>
+    body {
+      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
+    }
+  </style>
+</head>
+
+  <body class="single-body">
+    <nav class="nav-bar side-padding">
+  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
+    
+      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
+    
+    
+  </a></h1>
+
+  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
+  <div class="hamburger-menu">
+    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <ul id="menu" class="hamburger-menu-overlay">
+      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
+      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
+      
+      
+      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
+      
+      
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content side-text-padding">
+      <article class="post dropcase">
+        <header class="post-header">
+        	<h1 class="post-title">GSoC Coding Phase 2 Blog 1</h1>
+          <p class="post-date">Posted <time datetime="2020-07-11">Jul 11, 2020</time>
+	  <span class="post-author"> &mdash; By Sidharth Bansal</span>
+	  </p>
+
+        </header>
+        
+        <p>Google Summer of Code 2020's first evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the second evaluation. This post discusses about the progress so far in the first two weeks of the second coding period from 30 June to 12 July 2020.</p>
+<h2 id="completion-of-the-matplotlib_baseline_images-package">Completion of the matplotlib_baseline_images package</h2>
+<p>We successfully created the matplotlib_baseline_images package. It contains the matplotlib and the matplotlib toolkit baseline images. Symlinking is done for the baseline images, related changes for Travis, appvoyer, azure pipelines etc. are functional and tests/test_data is created as discussed in the previous blog. PR is reviewed and suggested work is done.</p>
+<h2 id="modular-approach-towards-removal-of-matplotlib-baseline-images">Modular approach towards removal of matplotlib baseline images</h2>
+<p>We have divide the work in two parts. The first part is the generation of the baseline images discussed below. The second part is the modification of the baseline images which happens when some baseline images gets modified due to <code>git push</code> or <code>git merge</code>. Modification of baseline images will be further divided into two sub tasks: addition of new baseline image and the deletion of the previous baseline image.  This will be discussed in the second half of the second phase of the Google Summer of Code 2020.</p>
+<h2 id="generation-of-the-matplotlib-baseline-images">Generation of the matplotlib baseline images</h2>
+<p>After the changes proposed in the <a href="https://github.com/matplotlib/matplotlib/pull/17557">previous PR</a>, the developer will have no baseline images on fresh install of matplotlib. The developer would need to install the sub-wheel matplotlib_baseline_images package to get started with the testing part of the mpl. Now, we have started removing the use of the matplotlib_baseline_images package. It will require two steps as discussed above.
+The images can be generated by the image comparison tests. Once these images are generated for the first time, then they can be used as the baseline images for the later times for comparison. This is the main principle adopted. The images are first created in the <code>result_images</code> directory. Then they will be moved to the <code>lib/matplotlib/tests/baseline_images</code> directory. Later on, running the pytests will start the image comparison.</p>
+<h2 id="created-commandline-flags-for-baseline-images-creation">Created commandline flags for baseline images creation</h2>
+<p>I learned about the pytest hooks and fixtures. I build a command line flag <code>matplotlib_baseline_image_generation</code> which will create the baseline images in the <code>result_images</code> directory. The full command will be <code>python3 pytest --matplotlib_baseline_image_generation</code>. In order to do this, we have done changes in the <code>conftest.py</code> and also added markers to the <code>image_comparison</code> decorator.</p>
+<h2 id="learning-more-about-the-git-and-virtual-environments">Learning more about the Git and virtual environments</h2>
+<p>I came to know about the git worktree and the scenarios in which we can use it. I also know more about virtual environments and their need in different scenarios.</p>
+<h2 id="future-goals">Future Goals</h2>
+<p>Once the generation of the  baseline images is completed in the <a href="https://github.com/matplotlib/matplotlib/pull/17793">current PR</a>, we will move to the modification of the baseline images in the second half of the second coding phase.</p>
+<h2 id="daily-meet-ups">Daily Meet-ups</h2>
+<p>Monday to Thursday meeting initiated at <a href="https://everytimezone.com/">11:00pm IST</a> via Zoom. Meeting notes are present at HackMD.</p>
+<p>I am grateful to be part of such a great community. Project is really interesting and challenging :) Thanks Thomas, Antony and Hannah for helping me so far.</p>
+
+      </article>
+      
+    </main>
+    <nav class="end-nav side-padding">
+      
+      
+      
+      
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+  
+  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+  </body>
+</html>

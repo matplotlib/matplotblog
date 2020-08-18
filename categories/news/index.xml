@@ -1,8 +1,96 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>News on Matplotblog</title><link>https://matplotlib.org/matplotblog/categories/news/</link><description>Recent content in News on Matplotblog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 08 Aug 2020 09:47:51 +0530</lastBuildDate><atom:link href="https://matplotlib.org/matplotblog/categories/news/index.xml" rel="self" type="application/rss+xml"/><item><title>GSoC Coding Phase 3 Blog 1</title><link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_5/</link><pubDate>Sat, 08 Aug 2020 09:47:51 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_5/</guid><description>Google Summer of Code 2020's second evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the last evaluation. This post discusses about the progress so far in the first two weeks of the third coding period from 26 July to 9 August 2020.
-Completion of the modification logic for the matplotlib_baseline_images package We successfully created the matplotlib_baseline_image_generation command line flag for baseline image generation for matplotlib and mpl_toolkits in the previous months.</description></item><item><title>GSoC Coding Phase 2 Blog 2</title><link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_4/</link><pubDate>Thu, 23 Jul 2020 19:47:51 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_4/</guid><description>Google Summer of Code 2020's second evaluation is about to complete. Now we are about to start with the final coding phase. This post discusses about the progress so far in the last two weeks of the second coding period from 13 July to 26 July 2020.
-Modular approach towards removal of matplotlib baseline images We have divided the work in two parts as discussed in the previous blog. The first part is the generation of the baseline images discussed below.</description></item><item><title>GSoC Coding Phase 2 Blog 1</title><link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_3/</link><pubDate>Sat, 11 Jul 2020 19:47:51 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_3/</guid><description>Google Summer of Code 2020's first evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the second evaluation. This post discusses about the progress so far in the first two weeks of the second coding period from 30 June to 12 July 2020.
-Completion of the matplotlib_baseline_images package We successfully created the matplotlib_baseline_images package. It contains the matplotlib and the matplotlib toolkit baseline images. Symlinking is done for the baseline images, related changes for Travis, appvoyer, azure pipelines etc.</description></item><item><title>GSoC Coding Phase 1 Blog 2</title><link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_2/</link><pubDate>Wed, 24 Jun 2020 16:47:51 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_2/</guid><description>Google Summer of Code 2020's first evaluation is about to complete. This post discusses about the progress so far in the last two weeks of the first coding period from 15 June to 30 June 2020.
-Completion of the demo package We successfully created the demo app and uploaded it to the test.pypi. It contains the main and the secondary package. The main package is analogous to the matplotlib and secondary package is analogous to the matplotlib_baseline_images package as discussed in the previous blog.</description></item><item><title>GSoC Coding Phase 1 Blog 1</title><link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_1/</link><pubDate>Tue, 09 Jun 2020 16:47:51 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_1/</guid><description>I Sidharth Bansal, was waiting for the coding period to start from the March end so that I can make my hands dirty with the code. Finally, coding period has started. Two weeks have passed. This blog contains information about the progress so far from 1 June to 14 June 2020.
-Movement from mpl-test and mpl packages to mpl and mpl-baseline-images packages Initially, we thought of creating a mpl-test and mpl package.</description></item><item><title>Sidharth Bansal joined as GSoC'20 intern</title><link>https://matplotlib.org/matplotblog/posts/introductory-gsoc2020-post/</link><pubDate>Wed, 06 May 2020 21:47:36 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/introductory-gsoc2020-post/</guid><description>When I, Sidharth Bansal, heard I got selected in Google Summer of Code(GSOC) 2020 with Matplotlib under Numfocus, I was jumping and dancing. In this post, I talk about my past experiences, how I got selected for GSOC with Matplotlib, and my project details. I am grateful to the community :)
-About me: I am currently pursuing a Bachelor’s in Technology in Software Engineering at Delhi Technological University, Delhi, India. I started my journey of open source with Public Lab, an open-source organization as a full-stack Ruby on Rails web developer.</description></item><item><title>Elliott Sales de Andrade hired as Matplotlib Software Research Engineering Fellow</title><link>https://matplotlib.org/matplotblog/posts/matplotlib-rsef/</link><pubDate>Fri, 20 Mar 2020 15:51:00 -0400</pubDate><guid>https://matplotlib.org/matplotblog/posts/matplotlib-rsef/</guid><description>As has been discussed in detail in Nadia Eghbal's Roads and Bridges, the CZI EOSS program announcement, and in the NumFocus sustainability program goals, much of the critical software that science and industry are built on is maintained by a primarily volunteer community. While this has worked, it is not sustainable in the long term for the health of many projects or their contributors.
-We are happy to announce that we have hired Elliott Sales de Andrade (QuLogic) as the Matplotlib Software Research Engineering Fellow supported by the Chan Zuckerberg Initiative Essential Open Source Software for Science effective March 1, 2020!</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>News on Matplotblog</title>
+    <link>https://matplotlib.org/matplotblog/categories/news/</link>
+    <description>Recent content in News on Matplotblog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 16 Aug 2020 09:47:51 +0530</lastBuildDate>
+    
+	<atom:link href="https://matplotlib.org/matplotblog/categories/news/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GSoC 2020 Work Product - Baseline Images Problem</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_2020_final_work_product/</link>
+      <pubDate>Sun, 16 Aug 2020 09:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_2020_final_work_product/</guid>
+      <description>Google Summer of Code 2020 is completed. Hurray!! This post discusses about the progress so far in the three months of the coding period from 1 June to 24 August 2020 regarding the project Baseline Images Problem under matplotlib organisation under the umbrella of NumFOCUS organization.
+Project Details: This project helps with the difficulty in adding/modifying tests which require a baseline image. Baseline images are problematic because
+ Baseline images cause the repo size to grow rather quickly.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Coding Phase 3 Blog 1</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_5/</link>
+      <pubDate>Sat, 08 Aug 2020 09:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_5/</guid>
+      <description>Google Summer of Code 2020&#39;s second evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the last evaluation. This post discusses about the progress so far in the first two weeks of the third coding period from 26 July to 9 August 2020.
+Completion of the modification logic for the matplotlib_baseline_images package We successfully created the matplotlib_baseline_image_generation command line flag for baseline image generation for matplotlib and mpl_toolkits in the previous months.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Coding Phase 2 Blog 2</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_4/</link>
+      <pubDate>Thu, 23 Jul 2020 19:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_4/</guid>
+      <description>Google Summer of Code 2020&#39;s second evaluation is about to complete. Now we are about to start with the final coding phase. This post discusses about the progress so far in the last two weeks of the second coding period from 13 July to 26 July 2020.
+Modular approach towards removal of matplotlib baseline images We have divided the work in two parts as discussed in the previous blog. The first part is the generation of the baseline images discussed below.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Coding Phase 2 Blog 1</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_3/</link>
+      <pubDate>Sat, 11 Jul 2020 19:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_3/</guid>
+      <description>Google Summer of Code 2020&#39;s first evaluation is completed. I passed!!! Hurray! Now we are in the mid way of the second evaluation. This post discusses about the progress so far in the first two weeks of the second coding period from 30 June to 12 July 2020.
+Completion of the matplotlib_baseline_images package We successfully created the matplotlib_baseline_images package. It contains the matplotlib and the matplotlib toolkit baseline images. Symlinking is done for the baseline images, related changes for Travis, appvoyer, azure pipelines etc.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Coding Phase 1 Blog 2</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_2/</link>
+      <pubDate>Wed, 24 Jun 2020 16:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_2/</guid>
+      <description>Google Summer of Code 2020&#39;s first evaluation is about to complete. This post discusses about the progress so far in the last two weeks of the first coding period from 15 June to 30 June 2020.
+Completion of the demo package We successfully created the demo app and uploaded it to the test.pypi. It contains the main and the secondary package. The main package is analogous to the matplotlib and secondary package is analogous to the matplotlib_baseline_images package as discussed in the previous blog.</description>
+    </item>
+    
+    <item>
+      <title>GSoC Coding Phase 1 Blog 1</title>
+      <link>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_1/</link>
+      <pubDate>Tue, 09 Jun 2020 16:47:51 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/gsoc_coding_phase_blog_1/</guid>
+      <description>I Sidharth Bansal, was waiting for the coding period to start from the March end so that I can make my hands dirty with the code. Finally, coding period has started. Two weeks have passed. This blog contains information about the progress so far from 1 June to 14 June 2020.
+Movement from mpl-test and mpl packages to mpl and mpl-baseline-images packages Initially, we thought of creating a mpl-test and mpl package.</description>
+    </item>
+    
+    <item>
+      <title>Sidharth Bansal joined as GSoC&#39;20 intern</title>
+      <link>https://matplotlib.org/matplotblog/posts/introductory-gsoc2020-post/</link>
+      <pubDate>Wed, 06 May 2020 21:47:36 +0530</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/introductory-gsoc2020-post/</guid>
+      <description>When I, Sidharth Bansal, heard I got selected in Google Summer of Code(GSOC) 2020 with Matplotlib under Numfocus, I was jumping and dancing. In this post, I talk about my past experiences, how I got selected for GSOC with Matplotlib, and my project details. I am grateful to the community :)
+About me: I am currently pursuing a Bachelor’s in Technology in Software Engineering at Delhi Technological University, Delhi, India. I started my journey of open source with Public Lab, an open-source organization as a full-stack Ruby on Rails web developer.</description>
+    </item>
+    
+    <item>
+      <title>Elliott Sales de Andrade hired as Matplotlib Software Research Engineering Fellow</title>
+      <link>https://matplotlib.org/matplotblog/posts/matplotlib-rsef/</link>
+      <pubDate>Fri, 20 Mar 2020 15:51:00 -0400</pubDate>
+      
+      <guid>https://matplotlib.org/matplotblog/posts/matplotlib-rsef/</guid>
+      <description>As has been discussed in detail in Nadia Eghbal&#39;s Roads and Bridges, the CZI EOSS program announcement, and in the NumFocus sustainability program goals, much of the critical software that science and industry are built on is maintained by a primarily volunteer community. While this has worked, it is not sustainable in the long term for the health of many projects or their contributors.
+We are happy to announce that we have hired Elliott Sales de Andrade (QuLogic) as the Matplotlib Software Research Engineering Fellow supported by the Chan Zuckerberg Initiative Essential Open Source Software for Science effective March 1, 2020!</description>
+    </item>
+    
+  </channel>
+</rss>
