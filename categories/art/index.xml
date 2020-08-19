@@ -1,26 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>art on Matplotblog</title>
-    <link>https://matplotlib.org/matplotblog/categories/art/</link>
-    <description>Recent content in art on Matplotblog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 24 May 2020 19:11:01 +0530</lastBuildDate>
-    
-	<atom:link href="https://matplotlib.org/matplotblog/categories/art/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Emoji Mosaic Art</title>
-      <link>https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/</link>
-      <pubDate>Sun, 24 May 2020 19:11:01 +0530</pubDate>
-      
-      <guid>https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/</guid>
-      <description>A while back, I came across this cool repository to create emoji-art from images. I wanted to use it to transform my mundane Facebook profile picture to something more snazzy. The only trouble? It was written in Rust.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>art on Matplotblog</title><link>https://matplotlib.org/matplotblog/categories/art/</link><description>Recent content in art on Matplotblog</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 24 May 2020 19:11:01 +0530</lastBuildDate><atom:link href="https://matplotlib.org/matplotblog/categories/art/index.xml" rel="self" type="application/rss+xml"/><item><title>Emoji Mosaic Art</title><link>https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/</link><pubDate>Sun, 24 May 2020 19:11:01 +0530</pubDate><guid>https://matplotlib.org/matplotblog/posts/emoji-mosaic-art/</guid><description>A while back, I came across this cool repository to create emoji-art from images. I wanted to use it to transform my mundane Facebook profile picture to something more snazzy. The only trouble? It was written in Rust.
 So instead of going through the process of installing Rust, I decided to take the easy route and spin up some code to do the same in Python using matplotlib.
-Because that&#39;s what anyone sane would do, right?</description>
-    </item>
-    
-  </channel>
-</rss>
+Because that's what anyone sane would do, right?</description></item></channel></rss>

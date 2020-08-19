@@ -1,84 +1,15 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Elementary Cellular Automata &middot; Matplotblog</title>
-  <meta name="description" content="A brief tour through the world of elementary cellular automata" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  
-  
-  
-  
-  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
-    }
-  </style>
-</head>
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Elementary Cellular Automata &#183; Matplotblog</title><meta name=description content="A brief tour through the world of elementary cellular automata"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Elementary Cellular Automata</h1><p class=post-date>Posted <time datetime=2020-07-14>Jul 14, 2020</time>
+<span class=post-author>&mdash; By Eitan Lees</span></p></header><p><a href=https://en.wikipedia.org/wiki/Cellular_automaton>Cellular automata</a> are discrete models, typically on a grid, which evolve in time. Each grid cell has a finite state, such as 0 or 1, which is updated based on a certain set of rules. A specific cell uses information of the surrounding cells, called it's <em>neighborhood</em>, to determine what changes should be made. In general cellular automata can be defined in any number of dimensions. A famous two dimensional example is <a href=https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life>Conway's Game of Life</a> in which cells &ldquo;live&rdquo; and &ldquo;die&rdquo;, sometimes producing beautiful patterns.</p><p>In this post we will be looking at a one dimensional example known as <a href=https://en.wikipedia.org/wiki/Elementary_cellular_automaton>elementary cellular automaton</a>, popularized by <a href=https://en.wikipedia.org/wiki/Stephen_Wolfram>Stephen Wolfram</a> in the 1980s.</p><p><img src=./ca-bar.png alt></p><p>Imagine a row of cells, arranged side by side, each of which is colored black or white. We label black cells 1 and white cells 0, resulting in an array of bits. As an example lets consider a random array of 20 bits.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
 
-  <body class="single-body">
-    <nav class="nav-bar side-padding">
-  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
-    
-      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
-    
-    
-  </a></h1>
+rng <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>random<span style=color:#f92672>.</span>RandomState(<span style=color:#ae81ff>42</span>)
+data <span style=color:#f92672>=</span> rng<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>20</span>)
 
-  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
-  <div class="hamburger-menu">
-    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="menu" class="hamburger-menu-overlay">
-      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
-      
-      
-      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
-      
-      
-      
-    </ul>
-  </div>
-</nav>
-
-    <main class="content side-text-padding">
-      <article class="post dropcase">
-        <header class="post-header">
-        	<h1 class="post-title">Elementary Cellular Automata</h1>
-          <p class="post-date">Posted <time datetime="2020-07-14">Jul 14, 2020</time>
-	  <span class="post-author"> &mdash; By Eitan Lees</span>
-	  </p>
-
-        </header>
-        
-          
-        
-        <p><a href="https://en.wikipedia.org/wiki/Cellular_automaton">Cellular automata</a> are discrete models, typically on a grid, which evolve in time. Each grid cell has a finite state, such as 0 or 1, which is updated based on a certain set of rules. A specific cell uses information of the surrounding cells, called it's <em>neighborhood</em>, to determine what changes should be made. In general cellular automata can be defined in any number of dimensions. A famous two dimensional example is <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a> in which cells &ldquo;live&rdquo; and &ldquo;die&rdquo;, sometimes producing beautiful patterns.</p>
-<p>In this post we will be looking at a one dimensional example known as <a href="https://en.wikipedia.org/wiki/Elementary_cellular_automaton">elementary cellular automaton</a>, popularized by <a href="https://en.wikipedia.org/wiki/Stephen_Wolfram">Stephen Wolfram</a> in the 1980s.</p>
-<p><img src="./ca-bar.png" alt=""></p>
-<p>Imagine a row of cells, arranged side by side, each of which is colored black or white. We label black cells 1 and white cells 0, resulting in an array of bits. As an example lets consider a random array of 20 bits.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
-
-rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>RandomState(<span style="color:#ae81ff">42</span>)
-data <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">20</span>)
-
-<span style="color:#66d9ef">print</span>(data)
+<span style=color:#66d9ef>print</span>(data)
 </code></pre></div><pre><code>[0 1 0 0 0 1 0 0 0 1 0 0 0 0 1 0 1 1 1 0]
-</code></pre>
-<p>To update the state of our cellular automaton we will need to define a set of rules.
-A given cell \(C\) only knows about the state of it's left and right neighbors, labeled \(L\) and \(R\) respectively. We can define a function or rule, \(f(L, C, R)\), which maps the cell state to either 0 or 1.</p>
-<p>Since our input cells are binary values there are \(2^3=8\) possible inputs into the function.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
-    <span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>binary_repr(i, <span style="color:#ae81ff">3</span>))
+</code></pre><p>To update the state of our cellular automaton we will need to define a set of rules.
+A given cell \(C\) only knows about the state of it's left and right neighbors, labeled \(L\) and \(R\) respectively. We can define a function or rule, \(f(L, C, R)\), which maps the cell state to either 0 or 1.</p><p>Since our input cells are binary values there are \(2^3=8\) possible inputs into the function.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>8</span>):
+    <span style=color:#66d9ef>print</span>(np<span style=color:#f92672>.</span>binary_repr(i, <span style=color:#ae81ff>3</span>))
 </code></pre></div><pre><code>000
 001
 010
@@ -87,19 +18,14 @@ A given cell \(C\) only knows about the state of it's left and right neighbors, 
 101
 110
 111
-</code></pre>
-<p>For each input triplet, we can assign 0 or 1 to the output. The output of \(f\) is the value which will replace the current cell \(C\) in the next time step. In total there are \(2^{2^3} = 2^8 = 256\) possible rules for updating a cell. Stephen Wolfram introduced a naming convention, now known as the <a href="https://en.wikipedia.org/wiki/Wolfram_code">Wolfram Code</a>, for the update rules in which each rule is represented by an 8 bit binary number.</p>
-<p>For example &ldquo;Rule 30&rdquo; could be constructed by first converting to binary and then building an array for each bit</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rule_number <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span>
-rule_string <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>binary_repr(rule_number, <span style="color:#ae81ff">8</span>)
-rule <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([int(bit) <span style="color:#66d9ef">for</span> bit <span style="color:#f92672">in</span> rule_string])
-<span style="color:#66d9ef">print</span>(rule)
+</code></pre><p>For each input triplet, we can assign 0 or 1 to the output. The output of \(f\) is the value which will replace the current cell \(C\) in the next time step. In total there are \(2^{2^3} = 2^8 = 256\) possible rules for updating a cell. Stephen Wolfram introduced a naming convention, now known as the <a href=https://en.wikipedia.org/wiki/Wolfram_code>Wolfram Code</a>, for the update rules in which each rule is represented by an 8 bit binary number.</p><p>For example &ldquo;Rule 30&rdquo; could be constructed by first converting to binary and then building an array for each bit</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>rule_number <span style=color:#f92672>=</span> <span style=color:#ae81ff>30</span>
+rule_string <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>binary_repr(rule_number, <span style=color:#ae81ff>8</span>)
+rule <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>array([int(bit) <span style=color:#66d9ef>for</span> bit <span style=color:#f92672>in</span> rule_string])
+<span style=color:#66d9ef>print</span>(rule)
 </code></pre></div><pre><code>[0 0 0 1 1 1 1 0]
-</code></pre>
-<p>By convention the Wolfram code associates the leading bit with &lsquo;111&rsquo; and the final bit with &lsquo;000&rsquo;. For rule 30 the relationship between the input, rule index and output is as follows:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
-    triplet <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>binary_repr(i, <span style="color:#ae81ff">3</span>)
-    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">input:{triplet}, index:{7-i}, output {rule[7-i]}</span><span style="color:#e6db74">&#34;</span>)
+</code></pre><p>By convention the Wolfram code associates the leading bit with &lsquo;111&rsquo; and the final bit with &lsquo;000&rsquo;. For rule 30 the relationship between the input, rule index and output is as follows:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>8</span>):
+    triplet <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>binary_repr(i, <span style=color:#ae81ff>3</span>)
+    <span style=color:#66d9ef>print</span>(f<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>input:{triplet}, index:{7-i}, output {rule[7-i]}</span><span style=color:#e6db74>&#34;</span>)
 </code></pre></div><pre><code>input:000, index:7, output 0
 input:001, index:6, output 1
 input:010, index:5, output 1
@@ -108,50 +34,42 @@ input:100, index:3, output 1
 input:101, index:2, output 0
 input:110, index:1, output 0
 input:111, index:0, output 0
-</code></pre>
-<p>We can define a function which maps the input cell information with the associated rule index. Essentially we are converting the binary input to decimal and adjusting the index range.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rule_index</span>(triplet):
-    L, C, R <span style="color:#f92672">=</span> triplet
-    index <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">-</span> (<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>L <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>C <span style="color:#f92672">+</span> R)
-    <span style="color:#66d9ef">return</span> int(index)
-</code></pre></div><p>Now we can take in any input and look up the output based on our rule, for example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rule[rule_index((<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>))]
+</code></pre><p>We can define a function which maps the input cell information with the associated rule index. Essentially we are converting the binary input to decimal and adjusting the index range.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>rule_index</span>(triplet):
+    L, C, R <span style=color:#f92672>=</span> triplet
+    index <span style=color:#f92672>=</span> <span style=color:#ae81ff>7</span> <span style=color:#f92672>-</span> (<span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>L <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span><span style=color:#f92672>*</span>C <span style=color:#f92672>+</span> R)
+    <span style=color:#66d9ef>return</span> int(index)
+</code></pre></div><p>Now we can take in any input and look up the output based on our rule, for example:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>rule[rule_index((<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>))]
 </code></pre></div><pre><code>0
-</code></pre>
-<p>Finally, we can use Numpy to create a data structure containing all the triplets for our state array and apply the function across the appropriate axis to determine  our new state.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">all_triplets <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>stack([
-    np<span style="color:#f92672">.</span>roll(data, <span style="color:#ae81ff">1</span>),
+</code></pre><p>Finally, we can use Numpy to create a data structure containing all the triplets for our state array and apply the function across the appropriate axis to determine our new state.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>all_triplets <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>stack([
+    np<span style=color:#f92672>.</span>roll(data, <span style=color:#ae81ff>1</span>),
     data,
-    np<span style="color:#f92672">.</span>roll(data, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)]
+    np<span style=color:#f92672>.</span>roll(data, <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)]
 )
-new_data <span style="color:#f92672">=</span> rule[np<span style="color:#f92672">.</span>apply_along_axis(rule_index, <span style="color:#ae81ff">0</span>, all_triplets)]
-<span style="color:#66d9ef">print</span>(new_data)
+new_data <span style=color:#f92672>=</span> rule[np<span style=color:#f92672>.</span>apply_along_axis(rule_index, <span style=color:#ae81ff>0</span>, all_triplets)]
+<span style=color:#66d9ef>print</span>(new_data)
 </code></pre></div><pre><code>[1 1 1 0 1 1 1 0 1 1 1 0 0 1 1 0 1 0 0 1]
-</code></pre>
-<p>That is the process for a single update of our cellular automata.</p>
-<p>To do many updates and record the state over time, we will create a function.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CA_run</span>(initial_state, n_steps, rule_number):
-    rule_string <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>binary_repr(rule_number, <span style="color:#ae81ff">8</span>)
-    rule <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([int(bit) <span style="color:#66d9ef">for</span> bit <span style="color:#f92672">in</span> rule_string])
+</code></pre><p>That is the process for a single update of our cellular automata.</p><p>To do many updates and record the state over time, we will create a function.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>CA_run</span>(initial_state, n_steps, rule_number):
+    rule_string <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>binary_repr(rule_number, <span style=color:#ae81ff>8</span>)
+    rule <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>array([int(bit) <span style=color:#66d9ef>for</span> bit <span style=color:#f92672>in</span> rule_string])
 
-    m_cells <span style="color:#f92672">=</span> len(initial_state)
-    CA_run <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros((n_steps, m_cells))
-    CA_run[<span style="color:#ae81ff">0</span>, :] <span style="color:#f92672">=</span> initial_state
+    m_cells <span style=color:#f92672>=</span> len(initial_state)
+    CA_run <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>zeros((n_steps, m_cells))
+    CA_run[<span style=color:#ae81ff>0</span>, :] <span style=color:#f92672>=</span> initial_state
 
-    <span style="color:#66d9ef">for</span> step <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n_steps):
-        all_triplets <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>stack(
+    <span style=color:#66d9ef>for</span> step <span style=color:#f92672>in</span> range(<span style=color:#ae81ff>1</span>, n_steps):
+        all_triplets <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>stack(
             [
-                np<span style="color:#f92672">.</span>roll(CA_run[step <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, :], <span style="color:#ae81ff">1</span>),
-                CA_run[step <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, :],
-                np<span style="color:#f92672">.</span>roll(CA_run[step <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, :], <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),
+                np<span style=color:#f92672>.</span>roll(CA_run[step <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>, :], <span style=color:#ae81ff>1</span>),
+                CA_run[step <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>, :],
+                np<span style=color:#f92672>.</span>roll(CA_run[step <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>, :], <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>),
             ]
         )
-        CA_run[step, :] <span style="color:#f92672">=</span> rule[np<span style="color:#f92672">.</span>apply_along_axis(rule_index, <span style="color:#ae81ff">0</span>, all_triplets)]
+        CA_run[step, :] <span style=color:#f92672>=</span> rule[np<span style=color:#f92672>.</span>apply_along_axis(rule_index, <span style=color:#ae81ff>0</span>, all_triplets)]
 
-    <span style="color:#66d9ef">return</span> CA_run
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">initial <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>])
-data <span style="color:#f92672">=</span> CA_run(initial, <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">30</span>)
-<span style="color:#66d9ef">print</span>(data)
+    <span style=color:#66d9ef>return</span> CA_run
+</code></pre></div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>initial <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>array([<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>0</span>])
+data <span style=color:#f92672>=</span> CA_run(initial, <span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>30</span>)
+<span style=color:#66d9ef>print</span>(data)
 </code></pre></div><pre><code>[[0. 1. 0. 0. 0. 1. 0. 0. 0. 1. 0. 0. 0. 0. 1. 0. 1. 1. 1. 0.]
  [1. 1. 1. 0. 1. 1. 1. 0. 1. 1. 1. 0. 0. 1. 1. 0. 1. 0. 0. 1.]
  [0. 0. 0. 0. 1. 0. 0. 0. 1. 0. 0. 1. 1. 1. 0. 0. 1. 1. 1. 1.]
@@ -162,82 +80,38 @@ data <span style="color:#f92672">=</span> CA_run(initial, <span style="color:#ae
  [0. 1. 1. 1. 0. 0. 1. 1. 1. 1. 0. 0. 0. 1. 0. 0. 1. 0. 1. 1.]
  [0. 1. 0. 0. 1. 1. 1. 0. 0. 0. 1. 0. 1. 1. 1. 1. 1. 0. 1. 0.]
  [1. 1. 1. 1. 1. 0. 0. 1. 0. 1. 1. 0. 1. 0. 0. 0. 0. 0. 1. 1.]]
-</code></pre>
-<h2 id="lets-get-visual">Let's Get Visual</h2>
-<p>For larger simulations, interesting patterns start to emerge. To visualize our simulation results we will use the <code>ax.matshow</code> function.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-plt<span style="color:#f92672">.</span>rcParams[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">image.cmap</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">binary</span><span style="color:#e6db74">&#39;</span>
+</code></pre><h2 id=lets-get-visual>Let's Get Visual</h2><p>For larger simulations, interesting patterns start to emerge. To visualize our simulation results we will use the <code>ax.matshow</code> function.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+plt<span style=color:#f92672>.</span>rcParams[<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>image.cmap</span><span style=color:#e6db74>&#39;</span>] <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>binary</span><span style=color:#e6db74>&#39;</span>
 
-rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>RandomState(<span style="color:#ae81ff">0</span>)
-data <span style="color:#f92672">=</span> CA_run(rng<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">300</span>), <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">30</span>)
+rng <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>random<span style=color:#f92672>.</span>RandomState(<span style=color:#ae81ff>0</span>)
+data <span style=color:#f92672>=</span> CA_run(rng<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>300</span>), <span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>30</span>)
 
-fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">9</span>))
-ax<span style="color:#f92672">.</span>matshow(data)
-ax<span style="color:#f92672">.</span>axis(False);
-</code></pre></div><p><img src="output_18_0.png" alt="png"></p>
-<h2 id="learning-the-rules">Learning the Rules</h2>
-<p>With the code set up to produce the simulation, we can now start to explore the properties of these different rules. Wolfram separated the rules into four classes which are outlined below.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_CA_class</span>(rule_list, class_label):
-    rng <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>random<span style="color:#f92672">.</span>RandomState(seed<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>)
-    fig, axs <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(<span style="color:#ae81ff">1</span>, len(rule_list),figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3.5</span>), constrained_layout<span style="color:#f92672">=</span>True)
-    initial <span style="color:#f92672">=</span> rng<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">100</span>)
+fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>16</span>, <span style=color:#ae81ff>9</span>))
+ax<span style=color:#f92672>.</span>matshow(data)
+ax<span style=color:#f92672>.</span>axis(False);
+</code></pre></div><p><img src=output_18_0.png alt=png></p><h2 id=learning-the-rules>Learning the Rules</h2><p>With the code set up to produce the simulation, we can now start to explore the properties of these different rules. Wolfram separated the rules into four classes which are outlined below.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>plot_CA_class</span>(rule_list, class_label):
+    rng <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>random<span style=color:#f92672>.</span>RandomState(seed<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>)
+    fig, axs <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(<span style=color:#ae81ff>1</span>, len(rule_list),figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>3.5</span>), constrained_layout<span style=color:#f92672>=</span>True)
+    initial <span style=color:#f92672>=</span> rng<span style=color:#f92672>.</span>randint(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>100</span>)
 
-    <span style="color:#66d9ef">for</span> i, ax <span style="color:#f92672">in</span> enumerate(axs<span style="color:#f92672">.</span>ravel()):
-        data <span style="color:#f92672">=</span> CA_run(initial, <span style="color:#ae81ff">100</span>, rule_list[i])
-        ax<span style="color:#f92672">.</span>set_title(f<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Rule {rule_list[i]}</span><span style="color:#e6db74">&#39;</span>)
-        ax<span style="color:#f92672">.</span>matshow(data)
-        ax<span style="color:#f92672">.</span>axis(False)
+    <span style=color:#66d9ef>for</span> i, ax <span style=color:#f92672>in</span> enumerate(axs<span style=color:#f92672>.</span>ravel()):
+        data <span style=color:#f92672>=</span> CA_run(initial, <span style=color:#ae81ff>100</span>, rule_list[i])
+        ax<span style=color:#f92672>.</span>set_title(f<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Rule {rule_list[i]}</span><span style=color:#e6db74>&#39;</span>)
+        ax<span style=color:#f92672>.</span>matshow(data)
+        ax<span style=color:#f92672>.</span>axis(False)
 
-    fig<span style="color:#f92672">.</span>suptitle(class_label, fontsize<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>)
+    fig<span style=color:#f92672>.</span>suptitle(class_label, fontsize<span style=color:#f92672>=</span><span style=color:#ae81ff>16</span>)
 
-    <span style="color:#66d9ef">return</span> fig, ax
-</code></pre></div><h3 id="class-one">Class One</h3>
-<p>Cellular automata which rapidly converge to a uniform state</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">_ <span style="color:#f92672">=</span> plot_CA_class([<span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">32</span>, <span style="color:#ae81ff">172</span>], <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Class One</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p><img src="output_22_0.png" alt="png"></p>
-<h3 id="class-two">Class Two</h3>
-<p>Cellular automata which rapidly converge to a repetitive or stable state</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">_ <span style="color:#f92672">=</span> plot_CA_class([<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">173</span>], <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Class Two</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p><img src="output_24_0.png" alt="png"></p>
-<h3 id="class-three">Class Three</h3>
-<p>Cellular automata which appear to remain in a random state</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">_ <span style="color:#f92672">=</span> plot_CA_class([<span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">106</span>, <span style="color:#ae81ff">150</span>], <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Class Three</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p><img src="output_26_0.png" alt="png"></p>
-<h3 id="class-four">Class Four</h3>
-<p>Cellular automata which form areas of repetitive or stable states, but also form structures that interact with each other in complicated ways.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">_ <span style="color:#f92672">=</span> plot_CA_class([<span style="color:#ae81ff">54</span>, <span style="color:#ae81ff">62</span>, <span style="color:#ae81ff">110</span>], <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">Class Four</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p><img src="output_28_0.png" alt="png"></p>
-<p>Amazingly, the interacting structures which emerge from rule 110 has been shown to be capable of <a href="https://en.wikipedia.org/wiki/Turing_machine">universal computation</a>.</p>
-<p>In all the examples above a random initial state was used, but another interesting case is when a single 1 is initialized with all other values set to zero.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">initial <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">300</span>)
-initial[<span style="color:#ae81ff">300</span><span style="color:#f92672">/</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-data <span style="color:#f92672">=</span> CA_run(initial, <span style="color:#ae81ff">150</span>, <span style="color:#ae81ff">30</span>)
+    <span style=color:#66d9ef>return</span> fig, ax
+</code></pre></div><h3 id=class-one>Class One</h3><p>Cellular automata which rapidly converge to a uniform state</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>_ <span style=color:#f92672>=</span> plot_CA_class([<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>32</span>, <span style=color:#ae81ff>172</span>], <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Class One</span><span style=color:#e6db74>&#39;</span>)
+</code></pre></div><p><img src=output_22_0.png alt=png></p><h3 id=class-two>Class Two</h3><p>Cellular automata which rapidly converge to a repetitive or stable state</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>_ <span style=color:#f92672>=</span> plot_CA_class([<span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>108</span>, <span style=color:#ae81ff>173</span>], <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Class Two</span><span style=color:#e6db74>&#39;</span>)
+</code></pre></div><p><img src=output_24_0.png alt=png></p><h3 id=class-three>Class Three</h3><p>Cellular automata which appear to remain in a random state</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>_ <span style=color:#f92672>=</span> plot_CA_class([<span style=color:#ae81ff>60</span>, <span style=color:#ae81ff>106</span>, <span style=color:#ae81ff>150</span>], <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Class Three</span><span style=color:#e6db74>&#39;</span>)
+</code></pre></div><p><img src=output_26_0.png alt=png></p><h3 id=class-four>Class Four</h3><p>Cellular automata which form areas of repetitive or stable states, but also form structures that interact with each other in complicated ways.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>_ <span style=color:#f92672>=</span> plot_CA_class([<span style=color:#ae81ff>54</span>, <span style=color:#ae81ff>62</span>, <span style=color:#ae81ff>110</span>], <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Class Four</span><span style=color:#e6db74>&#39;</span>)
+</code></pre></div><p><img src=output_28_0.png alt=png></p><p>Amazingly, the interacting structures which emerge from rule 110 has been shown to be capable of <a href=https://en.wikipedia.org/wiki/Turing_machine>universal computation</a>.</p><p>In all the examples above a random initial state was used, but another interesting case is when a single 1 is initialized with all other values set to zero.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>initial <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>zeros(<span style=color:#ae81ff>300</span>)
+initial[<span style=color:#ae81ff>300</span><span style=color:#f92672>/</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>
+data <span style=color:#f92672>=</span> CA_run(initial, <span style=color:#ae81ff>150</span>, <span style=color:#ae81ff>30</span>)
 
-fig, ax <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>subplots(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>))
-ax<span style="color:#f92672">.</span>matshow(data)
-ax<span style="color:#f92672">.</span>axis(False);
-</code></pre></div><p><img src="output_31_0.png" alt="png"></p>
-<p>For certain rules, the emergent structures interact in chaotic and interesting ways.</p>
-<p>I hope you enjoyed this brief look into the world of elementary cellular automata, and are inspired to make some pretty pictures of your own.</p>
-
-      </article>
-      
-    </main>
-    <nav class="end-nav side-padding">
-      
-      
-      
-      
-    </nav>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-  
-  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-  </body>
-</html>
+fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(figsize<span style=color:#f92672>=</span>(<span style=color:#ae81ff>10</span>, <span style=color:#ae81ff>5</span>))
+ax<span style=color:#f92672>.</span>matshow(data)
+ax<span style=color:#f92672>.</span>axis(False);
+</code></pre></div><p><img src=output_31_0.png alt=png></p><p>For certain rules, the emergent structures interact in chaotic and interesting ways.</p><p>I hope you enjoyed this brief look into the world of elementary cellular automata, and are inspired to make some pretty pictures of your own.</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>

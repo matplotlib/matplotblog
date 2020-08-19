@@ -1,213 +1,90 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Draw all graphs of N nodes &middot; Matplotblog</title>
-  <meta name="description" content="A fun project about drawing all possible differently-looking (not isomorphic) graphs of N nodes." />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  
-  
-  
-  
-  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
-    }
-  </style>
-</head>
-
-  <body class="single-body">
-    <nav class="nav-bar side-padding">
-  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
-    
-      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
-    
-    
-  </a></h1>
-
-  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
-  <div class="hamburger-menu">
-    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="menu" class="hamburger-menu-overlay">
-      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
-      
-      
-      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
-      
-      
-      
-    </ul>
-  </div>
-</nav>
-
-    <main class="content side-text-padding">
-      <article class="post dropcase">
-        <header class="post-header">
-        	<h1 class="post-title">Draw all graphs of N nodes</h1>
-          <p class="post-date">Posted <time datetime="2020-05-07">May 7, 2020</time>
-	  <span class="post-author"> &mdash; By Arseny Khakhalin</span>
-	  </p>
-
-        </header>
-        
-          
-          <picture class="post-figure">
-            
-            
-            <source srcset="https://matplotlib.org/matplotblog/posts/draw-all-graphs-of-n-nodes/thumbnail_hu8858ad23dbc7c9b2648b849bc08f52cf_293428_800x0_resize_lanczos_2.png">
-            <img src="https://matplotlib.org/matplotblog/posts/draw-all-graphs-of-n-nodes/thumbnail_hu8858ad23dbc7c9b2648b849bc08f52cf_293428_800x0_resize_lanczos_2.png" >
-          </picture>
-          
-        
-        <p>The other day I was homeschooling my kids, and they asked me: &ldquo;Daddy, can you draw us all possible non-isomorphic graphs of 3 nodes&rdquo;? Or maybe I asked them that? Either way, we happily drew all possible graphs of 3 nodes, but already for 4 nodes it got hard, and for 5 nodes - <a href="https://www.graphclasses.org/smallgraphs.html#nodes5">plain impossible</a>!</p>
-<p>So I thought: let me try to write a brute-force program to do it! I spent a few hours sketching some smart dynamic programming solution to generate these graphs, and went nowhere, as apparently the <a href="http://www.cs.columbia.edu/~cs4205/files/CM9.pdf">problem is quite hard</a>. I gave up, and decided to go with a naive approach:</p>
-<ol>
-<li>Generate all graphs of N nodes, even if some of them look the same (are isomorphic). For \(N\) nodes, there are \(\frac{N(N-1)}{2}\) potential edges to connect these nodes, so it's like generating a bunch of binary numbers. Simple!</li>
-<li>Write a program to tell if two graphs are isomorphic, then remove all duplicates, unworthy of being presented in the final picture.</li>
-</ol>
-<p>This strategy seemed more reasonable, but writing a &ldquo;graph-comparator&rdquo; still felt like a cumbersome task, and more importantly, this part would itself be slow, as I'd still have to go through a whole tree of options for every graph comparison. So after some more head-scratching, I decided to simplify it even further, and use the fact that these days the memory is cheap:</p>
-<ol>
-<li>Generate all possible graphs (some of them totally isomorphic, meaning that they would look as a repetition if plotted on a figure)</li>
-<li>For each graph, generate its &ldquo;description&rdquo; (like an <a href="https://en.wikipedia.org/wiki/Adjacency_matrix">adjacency matrix</a>, of an edge list), and check if a graph with this description is already on the list. If yes, skip it, we got its portrait already!</li>
-<li>If however the graph is unique, include it in the picture, and also generate all possible &ldquo;descriptions&rdquo; of it, up to node permutation, and add them to the hash table. To make sure no other graph of this particular shape would ever be included in our pretty picture again.</li>
-</ol>
-<p>For the first task, I went with the edge list, which made the task identical to <a href="https://www.geeksforgeeks.org/generate-all-the-binary-strings-of-n-bits/">generating all binary numbers</a> of length \(\frac{N(N-1)}{2}\) with a recursive function, except instead of writing zeroes you skip edges, and instead of writing ones, you include them. Below is the function that does the trick, and has an additional bonus of listing all edges in a neat orderly way. For every edge \(i \rightarrow j\) we can be sure that \(i\) is lower than \(j\), and also that edges are sorted as words in a dictionary. Which is good, as it restricts the set of possible descriptions a bit, which will simplify our life later.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_graphs</span>(n<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, i<span style="color:#f92672">=</span>None, j<span style="color:#f92672">=</span>None):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Make a graph recursively, by either including, or skipping each edge.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Edges are given in lexicographical order by construction.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    out <span style="color:#f92672">=</span> []
-    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">is</span> None: <span style="color:#75715e"># First call</span>
-        out  <span style="color:#f92672">=</span> [[(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>)]<span style="color:#f92672">+</span>r <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> make_graphs(n<span style="color:#f92672">=</span>n, i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, j<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)]
-    <span style="color:#66d9ef">elif</span> j<span style="color:#f92672">&lt;</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-        out <span style="color:#f92672">+</span><span style="color:#f92672">=</span> [[(i,j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]<span style="color:#f92672">+</span>r <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> make_graphs(n<span style="color:#f92672">=</span>n, i<span style="color:#f92672">=</span>i, j<span style="color:#f92672">=</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
-        out <span style="color:#f92672">+</span><span style="color:#f92672">=</span> [          r <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> make_graphs(n<span style="color:#f92672">=</span>n, i<span style="color:#f92672">=</span>i, j<span style="color:#f92672">=</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
-    <span style="color:#66d9ef">elif</span> i<span style="color:#f92672">&lt;</span>n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-        out <span style="color:#f92672">=</span> make_graphs(n<span style="color:#f92672">=</span>n, i<span style="color:#f92672">=</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">=</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-    <span style="color:#66d9ef">else</span>:
-        out <span style="color:#f92672">=</span> [[]]
-    <span style="color:#66d9ef">return</span> out
-</code></pre></div><p>If you run this function for a small number of nodes (say, \(N=3\)), you can see how it generates all possible graph topologies, but that some of the descriptions would actually lead to identical pictures, if drawn (graphs 2 and 3 in the list below).</p>
-<pre><code>[(0, 1), (0, 2), (1, 2)]
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Draw all graphs of N nodes &#183; Matplotblog</title><meta name=description content="A fun project about drawing all possible differently-looking (not isomorphic) graphs of N nodes."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Draw all graphs of N nodes</h1><p class=post-date>Posted <time datetime=2020-05-07>May 7, 2020</time>
+<span class=post-author>&mdash; By Arseny Khakhalin</span></p></header><picture class=post-figure>
+<source srcset=https://matplotlib.org/matplotblog/posts/draw-all-graphs-of-n-nodes/thumbnail_hu8858ad23dbc7c9b2648b849bc08f52cf_293428_800x0_resize_lanczos_2.png><img src=https://matplotlib.org/matplotblog/posts/draw-all-graphs-of-n-nodes/thumbnail_hu8858ad23dbc7c9b2648b849bc08f52cf_293428_800x0_resize_lanczos_2.png></picture><p>The other day I was homeschooling my kids, and they asked me: &ldquo;Daddy, can you draw us all possible non-isomorphic graphs of 3 nodes&rdquo;? Or maybe I asked them that? Either way, we happily drew all possible graphs of 3 nodes, but already for 4 nodes it got hard, and for 5 nodes - <a href=https://www.graphclasses.org/smallgraphs.html#nodes5>plain impossible</a>!</p><p>So I thought: let me try to write a brute-force program to do it! I spent a few hours sketching some smart dynamic programming solution to generate these graphs, and went nowhere, as apparently the <a href=http://www.cs.columbia.edu/~cs4205/files/CM9.pdf>problem is quite hard</a>. I gave up, and decided to go with a naive approach:</p><ol><li>Generate all graphs of N nodes, even if some of them look the same (are isomorphic). For \(N\) nodes, there are \(\frac{N(N-1)}{2}\) potential edges to connect these nodes, so it's like generating a bunch of binary numbers. Simple!</li><li>Write a program to tell if two graphs are isomorphic, then remove all duplicates, unworthy of being presented in the final picture.</li></ol><p>This strategy seemed more reasonable, but writing a &ldquo;graph-comparator&rdquo; still felt like a cumbersome task, and more importantly, this part would itself be slow, as I'd still have to go through a whole tree of options for every graph comparison. So after some more head-scratching, I decided to simplify it even further, and use the fact that these days the memory is cheap:</p><ol><li>Generate all possible graphs (some of them totally isomorphic, meaning that they would look as a repetition if plotted on a figure)</li><li>For each graph, generate its &ldquo;description&rdquo; (like an <a href=https://en.wikipedia.org/wiki/Adjacency_matrix>adjacency matrix</a>, of an edge list), and check if a graph with this description is already on the list. If yes, skip it, we got its portrait already!</li><li>If however the graph is unique, include it in the picture, and also generate all possible &ldquo;descriptions&rdquo; of it, up to node permutation, and add them to the hash table. To make sure no other graph of this particular shape would ever be included in our pretty picture again.</li></ol><p>For the first task, I went with the edge list, which made the task identical to <a href=https://www.geeksforgeeks.org/generate-all-the-binary-strings-of-n-bits/>generating all binary numbers</a> of length \(\frac{N(N-1)}{2}\) with a recursive function, except instead of writing zeroes you skip edges, and instead of writing ones, you include them. Below is the function that does the trick, and has an additional bonus of listing all edges in a neat orderly way. For every edge \(i \rightarrow j\) we can be sure that \(i\) is lower than \(j\), and also that edges are sorted as words in a dictionary. Which is good, as it restricts the set of possible descriptions a bit, which will simplify our life later.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>make_graphs</span>(n<span style=color:#f92672>=</span><span style=color:#ae81ff>2</span>, i<span style=color:#f92672>=</span>None, j<span style=color:#f92672>=</span>None):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Make a graph recursively, by either including, or skipping each edge.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Edges are given in lexicographical order by construction.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    out <span style=color:#f92672>=</span> []
+    <span style=color:#66d9ef>if</span> i <span style=color:#f92672>is</span> None: <span style=color:#75715e># First call</span>
+        out  <span style=color:#f92672>=</span> [[(<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>1</span>)]<span style=color:#f92672>+</span>r <span style=color:#66d9ef>for</span> r <span style=color:#f92672>in</span> make_graphs(n<span style=color:#f92672>=</span>n, i<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>, j<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>)]
+    <span style=color:#66d9ef>elif</span> j<span style=color:#f92672>&lt;</span>n<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+        out <span style=color:#f92672>+</span><span style=color:#f92672>=</span> [[(i,j<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)]<span style=color:#f92672>+</span>r <span style=color:#66d9ef>for</span> r <span style=color:#f92672>in</span> make_graphs(n<span style=color:#f92672>=</span>n, i<span style=color:#f92672>=</span>i, j<span style=color:#f92672>=</span>j<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)]
+        out <span style=color:#f92672>+</span><span style=color:#f92672>=</span> [          r <span style=color:#66d9ef>for</span> r <span style=color:#f92672>in</span> make_graphs(n<span style=color:#f92672>=</span>n, i<span style=color:#f92672>=</span>i, j<span style=color:#f92672>=</span>j<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)]
+    <span style=color:#66d9ef>elif</span> i<span style=color:#f92672>&lt;</span>n<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+        out <span style=color:#f92672>=</span> make_graphs(n<span style=color:#f92672>=</span>n, i<span style=color:#f92672>=</span>i<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>, j<span style=color:#f92672>=</span>i<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)
+    <span style=color:#66d9ef>else</span>:
+        out <span style=color:#f92672>=</span> [[]]
+    <span style=color:#66d9ef>return</span> out
+</code></pre></div><p>If you run this function for a small number of nodes (say, \(N=3\)), you can see how it generates all possible graph topologies, but that some of the descriptions would actually lead to identical pictures, if drawn (graphs 2 and 3 in the list below).</p><pre><code>[(0, 1), (0, 2), (1, 2)]
 [(0, 1), (0, 2)]
 [(0, 1), (1, 2)]
 [(0, 1)]
-</code></pre><p>Also, while building a graph from edges means that we'll never get lonely unconnected points, we can get graphs that are smaller than \(n\) nodes (the last graph in the list above), or graphs that have unconnected parts. It is impossible for \(n=3\), but starting with \(n=4\) we would get things like <code>[(0,1), (2,3)]</code>, which is technically a graph, but you cannot exactly wear it as a piece of jewelry, as it would fall apart. So at this point I decided to only visualize fully connected graphs of exactly \(n\) vertices.</p>
-<p>To continue with the plan, we now need to make a function that for every graph would generate a family of its &ldquo;alternative representations&rdquo; (given the constraints of our generator), to make sure duplicates would not slip under the radar. First we need a permutation function, to permute the nodes (you could also use a built-in function in <code>numpy</code>, but coding this one from scratch is always fun, isn't it?). Here's the permutation generator:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perm</span>(n, s<span style="color:#f92672">=</span>None):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">All permutations of n elements.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    <span style="color:#66d9ef">if</span> s <span style="color:#f92672">is</span> None: <span style="color:#66d9ef">return</span> perm(n, tuple(range(n)))
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> s: <span style="color:#66d9ef">return</span> [[]]
-    <span style="color:#66d9ef">return</span> [[i]<span style="color:#f92672">+</span>p <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> s <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> perm(n, tuple([k <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> s <span style="color:#66d9ef">if</span> k<span style="color:#f92672">!=</span>i]))]
-</code></pre></div><p>Now, for any given graph description, we can permute its nodes, sort the \(i,j\) within each edge, sort the edges themselves, remove duplicate alt-descriptions, and remember the list of potential impostors:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">permute</span>(g, n):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Create a set of all possible isomorphic codes for a graph,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    as nice hashable tuples. All edges are i&lt;j, and sorted lexicographically.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    ps <span style="color:#f92672">=</span> perm(n)
-    out <span style="color:#f92672">=</span> set([])
-    <span style="color:#66d9ef">for</span> p <span style="color:#f92672">in</span> ps:
-        out<span style="color:#f92672">.</span>add(tuple(sorted([(p[i],p[j]) <span style="color:#66d9ef">if</span> p[i]<span style="color:#f92672">&lt;</span>p[j]
-                              <span style="color:#66d9ef">else</span> (p[j],p[i]) <span style="color:#66d9ef">for</span> i,j <span style="color:#f92672">in</span> g])))
-    <span style="color:#66d9ef">return</span> list(out)
-</code></pre></div><p>Say, for an input description of <code>[(0, 1), (0, 2)]</code>, the function above returns three &ldquo;synonyms&rdquo;:</p>
-<pre><code>((0, 1), (1, 2))
+</code></pre><p>Also, while building a graph from edges means that we'll never get lonely unconnected points, we can get graphs that are smaller than \(n\) nodes (the last graph in the list above), or graphs that have unconnected parts. It is impossible for \(n=3\), but starting with \(n=4\) we would get things like <code>[(0,1), (2,3)]</code>, which is technically a graph, but you cannot exactly wear it as a piece of jewelry, as it would fall apart. So at this point I decided to only visualize fully connected graphs of exactly \(n\) vertices.</p><p>To continue with the plan, we now need to make a function that for every graph would generate a family of its &ldquo;alternative representations&rdquo; (given the constraints of our generator), to make sure duplicates would not slip under the radar. First we need a permutation function, to permute the nodes (you could also use a built-in function in <code>numpy</code>, but coding this one from scratch is always fun, isn't it?). Here's the permutation generator:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>perm</span>(n, s<span style=color:#f92672>=</span>None):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>All permutations of n elements.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    <span style=color:#66d9ef>if</span> s <span style=color:#f92672>is</span> None: <span style=color:#66d9ef>return</span> perm(n, tuple(range(n)))
+    <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> s: <span style=color:#66d9ef>return</span> [[]]
+    <span style=color:#66d9ef>return</span> [[i]<span style=color:#f92672>+</span>p <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> s <span style=color:#66d9ef>for</span> p <span style=color:#f92672>in</span> perm(n, tuple([k <span style=color:#66d9ef>for</span> k <span style=color:#f92672>in</span> s <span style=color:#66d9ef>if</span> k<span style=color:#f92672>!=</span>i]))]
+</code></pre></div><p>Now, for any given graph description, we can permute its nodes, sort the \(i,j\) within each edge, sort the edges themselves, remove duplicate alt-descriptions, and remember the list of potential impostors:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>permute</span>(g, n):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Create a set of all possible isomorphic codes for a graph,</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    as nice hashable tuples. All edges are i&lt;j, and sorted lexicographically.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    ps <span style=color:#f92672>=</span> perm(n)
+    out <span style=color:#f92672>=</span> set([])
+    <span style=color:#66d9ef>for</span> p <span style=color:#f92672>in</span> ps:
+        out<span style=color:#f92672>.</span>add(tuple(sorted([(p[i],p[j]) <span style=color:#66d9ef>if</span> p[i]<span style=color:#f92672>&lt;</span>p[j]
+                              <span style=color:#66d9ef>else</span> (p[j],p[i]) <span style=color:#66d9ef>for</span> i,j <span style=color:#f92672>in</span> g])))
+    <span style=color:#66d9ef>return</span> list(out)
+</code></pre></div><p>Say, for an input description of <code>[(0, 1), (0, 2)]</code>, the function above returns three &ldquo;synonyms&rdquo;:</p><pre><code>((0, 1), (1, 2))
 ((0, 1), (0, 2))
 ((0, 2), (1, 2))
-</code></pre><p>I suspect there should be a neater way to code that, to avoid using the <code>list → set → list</code> pipeline to get rid of duplicates, but hey, it works!</p>
-<p>At this point, the only thing that's missing is the function to check whether the graph comes in one piece, which happens to be a famous and neat algorithm called the &ldquo;<a href="https://en.wikipedia.org/wiki/Disjoint-set_data_structure">Union-Find</a>&quot;. I won't describe it here in detail, but in short, it goes though all edges and connects nodes to each other in a special way; then counts how many separate connected components (like, chunks of the graph) remain in the end. If all nodes are in one chunk, we like it. If not, I don't want to see it in my pictures!</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">connected</span>(g):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Check if the graph is fully connected, with Union-Find.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    nodes <span style="color:#f92672">=</span> set([i <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> g <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> e])
-    roots <span style="color:#f92672">=</span> {node: node <span style="color:#66d9ef">for</span> node <span style="color:#f92672">in</span> nodes}
+</code></pre><p>I suspect there should be a neater way to code that, to avoid using the <code>list → set → list</code> pipeline to get rid of duplicates, but hey, it works!</p><p>At this point, the only thing that's missing is the function to check whether the graph comes in one piece, which happens to be a famous and neat algorithm called the &ldquo;<a href=https://en.wikipedia.org/wiki/Disjoint-set_data_structure>Union-Find</a>". I won't describe it here in detail, but in short, it goes though all edges and connects nodes to each other in a special way; then counts how many separate connected components (like, chunks of the graph) remain in the end. If all nodes are in one chunk, we like it. If not, I don't want to see it in my pictures!</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>connected</span>(g):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Check if the graph is fully connected, with Union-Find.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    nodes <span style=color:#f92672>=</span> set([i <span style=color:#66d9ef>for</span> e <span style=color:#f92672>in</span> g <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> e])
+    roots <span style=color:#f92672>=</span> {node: node <span style=color:#66d9ef>for</span> node <span style=color:#f92672>in</span> nodes}
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_root</span>(node, depth<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
-        <span style="color:#66d9ef">if</span> node<span style="color:#f92672">==</span>roots[node]: <span style="color:#66d9ef">return</span> (node, depth)
-        <span style="color:#66d9ef">else</span>: <span style="color:#66d9ef">return</span> _root(roots[node], depth<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+    <span style=color:#66d9ef>def</span> <span style=color:#a6e22e>_root</span>(node, depth<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>):
+        <span style=color:#66d9ef>if</span> node<span style=color:#f92672>==</span>roots[node]: <span style=color:#66d9ef>return</span> (node, depth)
+        <span style=color:#66d9ef>else</span>: <span style=color:#66d9ef>return</span> _root(roots[node], depth<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)
 
-    <span style="color:#66d9ef">for</span> i,j <span style="color:#f92672">in</span> g:
-        ri,di <span style="color:#f92672">=</span> _root(i)
-        rj,dj <span style="color:#f92672">=</span> _root(j)
-        <span style="color:#66d9ef">if</span> ri<span style="color:#f92672">==</span>rj: <span style="color:#66d9ef">continue</span>
-        <span style="color:#66d9ef">if</span> di<span style="color:#f92672">&lt;</span><span style="color:#f92672">=</span>dj: roots[ri] <span style="color:#f92672">=</span> rj
-        <span style="color:#66d9ef">else</span>:      roots[rj] <span style="color:#f92672">=</span> ri
-    <span style="color:#66d9ef">return</span> len(set([_root(node)[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">for</span> node <span style="color:#f92672">in</span> nodes]))<span style="color:#f92672">==</span><span style="color:#ae81ff">1</span>
-</code></pre></div><p>Now we can finally generate the &ldquo;overkill&rdquo; list of graphs, filter it, and plot the pics:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">filter</span>(gs, target_nv):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Filter all improper graphs: those with not enough nodes,</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    those not fully connected, and those isomorphic to previously considered.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    mem <span style="color:#f92672">=</span> set({})
-    gs2 <span style="color:#f92672">=</span> []
-    <span style="color:#66d9ef">for</span> g <span style="color:#f92672">in</span> gs:
-        nv <span style="color:#f92672">=</span> len(set([i <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> g <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> e]))
-        <span style="color:#66d9ef">if</span> nv <span style="color:#f92672">!=</span> target_nv:
-            <span style="color:#66d9ef">continue</span>
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> connected(g):
-            <span style="color:#66d9ef">continue</span>
-        <span style="color:#66d9ef">if</span> tuple(g) <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> mem:
-            gs2<span style="color:#f92672">.</span>append(g)
-            mem <span style="color:#f92672">|</span><span style="color:#f92672">=</span> set(permute(g, target_nv))
-    <span style="color:#66d9ef">return</span> gs2
+    <span style=color:#66d9ef>for</span> i,j <span style=color:#f92672>in</span> g:
+        ri,di <span style=color:#f92672>=</span> _root(i)
+        rj,dj <span style=color:#f92672>=</span> _root(j)
+        <span style=color:#66d9ef>if</span> ri<span style=color:#f92672>==</span>rj: <span style=color:#66d9ef>continue</span>
+        <span style=color:#66d9ef>if</span> di<span style=color:#f92672>&lt;</span><span style=color:#f92672>=</span>dj: roots[ri] <span style=color:#f92672>=</span> rj
+        <span style=color:#66d9ef>else</span>:      roots[rj] <span style=color:#f92672>=</span> ri
+    <span style=color:#66d9ef>return</span> len(set([_root(node)[<span style=color:#ae81ff>0</span>] <span style=color:#66d9ef>for</span> node <span style=color:#f92672>in</span> nodes]))<span style=color:#f92672>==</span><span style=color:#ae81ff>1</span>
+</code></pre></div><p>Now we can finally generate the &ldquo;overkill&rdquo; list of graphs, filter it, and plot the pics:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>filter</span>(gs, target_nv):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Filter all improper graphs: those with not enough nodes,</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    those not fully connected, and those isomorphic to previously considered.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    mem <span style=color:#f92672>=</span> set({})
+    gs2 <span style=color:#f92672>=</span> []
+    <span style=color:#66d9ef>for</span> g <span style=color:#f92672>in</span> gs:
+        nv <span style=color:#f92672>=</span> len(set([i <span style=color:#66d9ef>for</span> e <span style=color:#f92672>in</span> g <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> e]))
+        <span style=color:#66d9ef>if</span> nv <span style=color:#f92672>!=</span> target_nv:
+            <span style=color:#66d9ef>continue</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> connected(g):
+            <span style=color:#66d9ef>continue</span>
+        <span style=color:#66d9ef>if</span> tuple(g) <span style=color:#f92672>not</span> <span style=color:#f92672>in</span> mem:
+            gs2<span style=color:#f92672>.</span>append(g)
+            mem <span style=color:#f92672>|</span><span style=color:#f92672>=</span> set(permute(g, target_nv))
+    <span style=color:#66d9ef>return</span> gs2
 
-<span style="color:#75715e"># Main body</span>
-NV <span style="color:#f92672">=</span> <span style="color:#ae81ff">6</span>
-gs <span style="color:#f92672">=</span> make_graphs(NV)
-gs <span style="color:#f92672">=</span> filter(gs, NV)
-plot_graphs(gs, figsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>, dotsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>)
-</code></pre></div><p>For plotting the graphs I wrote a small wrapper for the MatPlotLib-based NetworkX visualizer, splitting the figure into lots of tiny little facets using Matplotlib <code>subplot</code> command. &ldquo;Kamada-Kawai&rdquo; layout below is a <a href="https://en.wikipedia.org/wiki/Force-directed_graph_drawing">popular and fast version of a spring-based layout</a>, that makes the graphs look really nice.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_graphs</span>(graphs, figsize<span style="color:#f92672">=</span><span style="color:#ae81ff">14</span>, dotsize<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>):
-    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Utility to plot a lot of graphs from an array of graphs.</span><span style="color:#e6db74">
-</span><span style="color:#e6db74"></span><span style="color:#e6db74">    Each graphs is a list of edges; each edge is a tuple.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
-    n <span style="color:#f92672">=</span> len(graphs)
-    fig <span style="color:#f92672">=</span> plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(figsize,figsize))
-    fig<span style="color:#f92672">.</span>patch<span style="color:#f92672">.</span>set_facecolor(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">white</span><span style="color:#e6db74">&#39;</span>) <span style="color:#75715e"># To make copying possible (white background)</span>
-    k <span style="color:#f92672">=</span> int(np<span style="color:#f92672">.</span>sqrt(n))
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
-        plt<span style="color:#f92672">.</span>subplot(k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>,k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>,i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-        g <span style="color:#f92672">=</span> nx<span style="color:#f92672">.</span>Graph() <span style="color:#75715e"># Generate a Networkx object</span>
-        <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> graphs[i]:            
-            g<span style="color:#f92672">.</span>add_edge(e[<span style="color:#ae81ff">0</span>],e[<span style="color:#ae81ff">1</span>])
-        nx<span style="color:#f92672">.</span>draw_kamada_kawai(g, node_size<span style="color:#f92672">=</span>dotsize)
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">.</span><span style="color:#e6db74">&#39;</span>, end<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">&#39;</span>)
-</code></pre></div><p>Here are the results. To build the anticipation, let's start with something trivial: all graphs of 3 nodes:</p>
-<p><img src="3nodes.png" alt=""></p>
-<p>All graphs of 4 nodes:</p>
-<p><img src="4nodes.png" alt=""></p>
-<p>All graphs of 5 nodes:</p>
-<p><img src="5nodes.png" alt=""></p>
-<p>Generating figures above is of course all instantaneous on a decent computer, but for 6 nodes (below) it takes a few seconds:</p>
-<p><img src="6nodes.png" alt=""></p>
-<p>For 7 nodes (below) it takes about 5-10 minutes. It's easy to see why: the brute-force approach generates all \(2^{\frac{n(n-1)}{2}}\) possible graphs, which means that the number of operations grows exponentially! Every increase of \(n\) by one, gives us \(n-1\) new edges to consider, which means that the time to run the program increases by \(~2^{n-1}\). For \(n=7\) it brought me from seconds to minutes, for \(n=8\) it would have shifted me from minutes to hours, and for \(n=9\), from hours, to months of computation. Isn't it fun? We are all specialists in exponential growth these days, so here you are :)</p>
-<p><img src="7nodes.png" alt=""></p>
-<p>The code is available as a <a href="https://github.com/khakhalin/Sketches/blob/master/classic/generate_all_graphs.ipynb">Jupyter Notebook on my GitHub</a>. I hope you enjoyed the pictures, and the read! Which of those charms above would bring most luck? Which ones seem best for divination? Let me know what you think! :)</p>
-<p>Contact me via <a href="https://twitter.com/ampanmdagaba">Twitter</a> or <a href="https://github.com/khakhalin">Github</a>.</p>
-
-      </article>
-      
-    </main>
-    <nav class="end-nav side-padding">
-      
-      
-      
-      
-    </nav>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-  
-  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-  </body>
-</html>
+<span style=color:#75715e># Main body</span>
+NV <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>
+gs <span style=color:#f92672>=</span> make_graphs(NV)
+gs <span style=color:#f92672>=</span> filter(gs, NV)
+plot_graphs(gs, figsize<span style=color:#f92672>=</span><span style=color:#ae81ff>14</span>, dotsize<span style=color:#f92672>=</span><span style=color:#ae81ff>20</span>)
+</code></pre></div><p>For plotting the graphs I wrote a small wrapper for the MatPlotLib-based NetworkX visualizer, splitting the figure into lots of tiny little facets using Matplotlib <code>subplot</code> command. &ldquo;Kamada-Kawai&rdquo; layout below is a <a href=https://en.wikipedia.org/wiki/Force-directed_graph_drawing>popular and fast version of a spring-based layout</a>, that makes the graphs look really nice.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>plot_graphs</span>(graphs, figsize<span style=color:#f92672>=</span><span style=color:#ae81ff>14</span>, dotsize<span style=color:#f92672>=</span><span style=color:#ae81ff>20</span>):
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#34;&#34;&#34;</span><span style=color:#e6db74>Utility to plot a lot of graphs from an array of graphs.</span><span style=color:#e6db74>
+</span><span style=color:#e6db74></span><span style=color:#e6db74>    Each graphs is a list of edges; each edge is a tuple.</span><span style=color:#e6db74>&#34;&#34;&#34;</span>
+    n <span style=color:#f92672>=</span> len(graphs)
+    fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure(figsize<span style=color:#f92672>=</span>(figsize,figsize))
+    fig<span style=color:#f92672>.</span>patch<span style=color:#f92672>.</span>set_facecolor(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>white</span><span style=color:#e6db74>&#39;</span>) <span style=color:#75715e># To make copying possible (white background)</span>
+    k <span style=color:#f92672>=</span> int(np<span style=color:#f92672>.</span>sqrt(n))
+    <span style=color:#66d9ef>for</span> i <span style=color:#f92672>in</span> range(n):
+        plt<span style=color:#f92672>.</span>subplot(k<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>,k<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>,i<span style=color:#f92672>+</span><span style=color:#ae81ff>1</span>)
+        g <span style=color:#f92672>=</span> nx<span style=color:#f92672>.</span>Graph() <span style=color:#75715e># Generate a Networkx object</span>
+        <span style=color:#66d9ef>for</span> e <span style=color:#f92672>in</span> graphs[i]:            
+            g<span style=color:#f92672>.</span>add_edge(e[<span style=color:#ae81ff>0</span>],e[<span style=color:#ae81ff>1</span>])
+        nx<span style=color:#f92672>.</span>draw_kamada_kawai(g, node_size<span style=color:#f92672>=</span>dotsize)
+        <span style=color:#66d9ef>print</span>(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>.</span><span style=color:#e6db74>&#39;</span>, end<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>&#39;</span>)
+</code></pre></div><p>Here are the results. To build the anticipation, let's start with something trivial: all graphs of 3 nodes:</p><p><img src=3nodes.png alt></p><p>All graphs of 4 nodes:</p><p><img src=4nodes.png alt></p><p>All graphs of 5 nodes:</p><p><img src=5nodes.png alt></p><p>Generating figures above is of course all instantaneous on a decent computer, but for 6 nodes (below) it takes a few seconds:</p><p><img src=6nodes.png alt></p><p>For 7 nodes (below) it takes about 5-10 minutes. It's easy to see why: the brute-force approach generates all \(2^{\frac{n(n-1)}{2}}\) possible graphs, which means that the number of operations grows exponentially! Every increase of \(n\) by one, gives us \(n-1\) new edges to consider, which means that the time to run the program increases by \(~2^{n-1}\). For \(n=7\) it brought me from seconds to minutes, for \(n=8\) it would have shifted me from minutes to hours, and for \(n=9\), from hours, to months of computation. Isn't it fun? We are all specialists in exponential growth these days, so here you are :)</p><p><img src=7nodes.png alt></p><p>The code is available as a <a href=https://github.com/khakhalin/Sketches/blob/master/classic/generate_all_graphs.ipynb>Jupyter Notebook on my GitHub</a>. I hope you enjoyed the pictures, and the read! Which of those charms above would bring most luck? Which ones seem best for divination? Let me know what you think! :)</p><p>Contact me via <a href=https://twitter.com/ampanmdagaba>Twitter</a> or <a href=https://github.com/khakhalin>Github</a>.</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>

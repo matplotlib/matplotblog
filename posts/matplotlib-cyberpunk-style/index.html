@@ -1,71 +1,6 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Matplotlib Cyberpunk Style &middot; Matplotblog</title>
-  <meta name="description" content="Futuristic neon glow for your next data visualization" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  
-  
-  
-  
-  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
-    }
-  </style>
-</head>
-
-  <body class="single-body">
-    <nav class="nav-bar side-padding">
-  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
-    
-      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
-    
-    
-  </a></h1>
-
-  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
-  <div class="hamburger-menu">
-    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="menu" class="hamburger-menu-overlay">
-      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
-      
-      
-      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
-      
-      
-      
-    </ul>
-  </div>
-</nav>
-
-    <main class="content side-text-padding">
-      <article class="post dropcase">
-        <header class="post-header">
-        	<h1 class="post-title">Matplotlib Cyberpunk Style</h1>
-          <p class="post-date">Posted <time datetime="2020-03-27">Mar 27, 2020</time>
-	  <span class="post-author"> &mdash; By Dominik Haitz</span>
-	  </p>
-
-        </header>
-        
-          
-        
-        <p><img src="figures/5.png" alt=""></p>
-<h2 id="1---the-basis">1 - The Basis</h2>
-<p>Let's make up some numbers, put them in a Pandas dataframe and plot them:</p>
-<pre><code>import pandas as pd
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Matplotlib Cyberpunk Style &#183; Matplotblog</title><meta name=description content="Futuristic neon glow for your next data visualization"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Matplotlib Cyberpunk Style</h1><p class=post-date>Posted <time datetime=2020-03-27>Mar 27, 2020</time>
+<span class=post-author>&mdash; By Dominik Haitz</span></p></header><p><img src=figures/5.png alt></p><h2 id=1---the-basis>1 - The Basis</h2><p>Let's make up some numbers, put them in a Pandas dataframe and plot them:</p><pre><code>import pandas as pd
 import matplotlib.pyplot as plt
 
 df = pd.DataFrame({'A': [1, 3, 9, 5, 2, 1, 1],
@@ -73,11 +8,7 @@ df = pd.DataFrame({'A': [1, 3, 9, 5, 2, 1, 1],
 
 df.plot(marker='o')
 plt.show()
-</code></pre>
-<p><img src="figures/1.png" alt=""></p>
-<h2 id="2---the-darkness">2 - The Darkness</h2>
-<p>Not bad, but somewhat ordinary. Let's customize it by using Seaborn's dark style, as well as changing background and font colors:</p>
-<pre><code>plt.style.use(&quot;seaborn-dark&quot;)
+</code></pre><p><img src=figures/1.png alt></p><h2 id=2---the-darkness>2 - The Darkness</h2><p>Not bad, but somewhat ordinary. Let's customize it by using Seaborn's dark style, as well as changing background and font colors:</p><pre><code>plt.style.use(&quot;seaborn-dark&quot;)
 
 for param in ['figure.facecolor', 'axes.facecolor', 'savefig.facecolor']:
     plt.rcParams[param] = '#212946'  # bluish dark grey
@@ -86,11 +17,7 @@ for param in ['text.color', 'axes.labelcolor', 'xtick.color', 'ytick.color']:
     plt.rcParams[param] = '0.9'  # very light grey
 
 ax.grid(color='#2A3459')  # bluish dark grey, but slightly lighter than background
-</code></pre>
-<p><img src="figures/2.png" alt=""></p>
-<h2 id="3---the-light">3 - The Light</h2>
-<p>It looks more interesting now, but we need our colors to shine more against the dark background:</p>
-<pre><code>fig, ax = plt.subplots()
+</code></pre><p><img src=figures/2.png alt></p><h2 id=3---the-light>3 - The Light</h2><p>It looks more interesting now, but we need our colors to shine more against the dark background:</p><pre><code>fig, ax = plt.subplots()
 colors = [
     '#08F7FE',  # teal/cyan
     '#FE53BB',  # pink
@@ -98,11 +25,7 @@ colors = [
     '#00ff41', # matrix green
 ]
 df.plot(marker='o', ax=ax, color=colors)
-</code></pre>
-<p><img src="figures/3.png" alt=""></p>
-<h2 id="4---the-glow">4 - The Glow</h2>
-<p>Now, how to get that neon look? To make it shine, we <em>redraw the lines multiple times</em>, with low alpha value and slighty increasing linewidth. The overlap creates the glow effect.</p>
-<pre><code>n_lines = 10
+</code></pre><p><img src=figures/3.png alt></p><h2 id=4---the-glow>4 - The Glow</h2><p>Now, how to get that neon look? To make it shine, we <em>redraw the lines multiple times</em>, with low alpha value and slighty increasing linewidth. The overlap creates the glow effect.</p><pre><code>n_lines = 10
 diff_linewidth = 1.05
 alpha_value = 0.03
 
@@ -114,12 +37,7 @@ for n in range(1, n_lines+1):
             legend=False,
             ax=ax,
             color=colors)
-</code></pre>
-<p><img src="figures/4.png" alt=""></p>
-<h2 id="5---the-finish">5 - The Finish</h2>
-<p>For some more fine tuning, we color the area below the line (via <code>ax.fill_between</code>) and adjust the axis limits.</p>
-<p>Here's the full code:</p>
-<pre><code>import pandas as pd
+</code></pre><p><img src=figures/4.png alt></p><h2 id=5---the-finish>5 - The Finish</h2><p>For some more fine tuning, we color the area below the line (via <code>ax.fill_between</code>) and adjust the axis limits.</p><p>Here's the full code:</p><pre><code>import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -174,28 +92,4 @@ ax.set_xlim([ax.get_xlim()[0] - 0.2, ax.get_xlim()[1] + 0.2])  # to not have the
 ax.set_ylim(0)
 
 plt.show()
-</code></pre>
-<p><img src="figures/5.png" alt=""></p>
-<p>If this helps you or if you have constructive criticism, I'd be happy to hear about it! Please contact me via <a href="https://dhaitz.github.io">here</a> or  <a href="https://twitter.com/d_haitz">here</a>. Thanks!</p>
-
-      </article>
-      
-    </main>
-    <nav class="end-nav side-padding">
-      
-      
-      
-      
-    </nav>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-  
-  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-  </body>
-</html>
+</code></pre><p><img src=figures/5.png alt></p><p>If this helps you or if you have constructive criticism, I'd be happy to hear about it! Please contact me via <a href=https://dhaitz.github.io>here</a> or <a href=https://twitter.com/d_haitz>here</a>. Thanks!</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>

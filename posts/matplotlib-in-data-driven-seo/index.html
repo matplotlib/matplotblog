@@ -1,73 +1,6 @@
-<!DOCTYPE html>
-<html lang="en-us" dir="ltr">
-  <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Matplotlib in Data Driven SEO &middot; Matplotblog</title>
-  <meta name="description" content="At Whites Agency we analyze big unstructured data to increases client&#39;s online visibility. We share our story of how we used Matplotlib to present the complicated data in a simple and reader-friendly way." />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  
-  
-  
-  
-  <link href="https://matplotlib.org/matplotblog/css/concated.min.css" rel="stylesheet">
-  
-  <style>
-    body {
-      background: #ecedef url("https://matplotlib.org/matplotblog/bg_tiles.png") repeat;
-    }
-  </style>
-</head>
-
-  <body class="single-body">
-    <nav class="nav-bar side-padding">
-  <h1 class="nav-header"><a href="https://matplotlib.org/matplotblog/" class="nav-text">
-    
-      <img src="https://matplotlib.org/matplotblog/mpl_logo.png">
-    
-    
-  </a></h1>
-
-  <a href="https://matplotlib.org/matplotblog/index.xml"><img src="https://matplotlib.org/matplotblog/rss.svg" style="width: 25px; margin: 10px" alt="RSS feed"></a>
-  <div class="hamburger-menu">
-    <button onclick="hamburgerMenuPressed.call(this)" aria-haspopup="true" aria-expanded="false" aria-controls="menu" aria-label="Menu">
-      <span></span>
-      <span></span>
-    </button>
-    <ul id="menu" class="hamburger-menu-overlay">
-      <li><a href="https://matplotlib.org/matplotblog/" class="hamburger-menu-overlay-link">Home</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/posts/how-to-contribute/" class="hamburger-menu-overlay-link">How to Contribute</a></li>
-      <li><a href="https://matplotlib.org/matplotblog/categories/3d" class="hamburger-menu-overlay-link">3d</a></li><li><a href="https://matplotlib.org/matplotblog/categories/academia" class="hamburger-menu-overlay-link">Academia</a></li><li><a href="https://matplotlib.org/matplotblog/categories/art" class="hamburger-menu-overlay-link">Art</a></li><li><a href="https://matplotlib.org/matplotblog/categories/editorial" class="hamburger-menu-overlay-link">Editorial</a></li><li><a href="https://matplotlib.org/matplotblog/categories/graphs" class="hamburger-menu-overlay-link">Graphs</a></li><li><a href="https://matplotlib.org/matplotblog/categories/gsoc" class="hamburger-menu-overlay-link">Gsoc</a></li><li><a href="https://matplotlib.org/matplotblog/categories/industry" class="hamburger-menu-overlay-link">Industry</a></li><li><a href="https://matplotlib.org/matplotblog/categories/news" class="hamburger-menu-overlay-link">News</a></li><li><a href="https://matplotlib.org/matplotblog/categories/tutorials" class="hamburger-menu-overlay-link">Tutorials</a></li>
-      
-      
-      <li><a href="https://matplotlib.org" class="hamburger-menu-overlay-link" target="blank">About</a></li>
-      
-      
-      
-    </ul>
-  </div>
-</nav>
-
-    <main class="content side-text-padding">
-      <article class="post dropcase">
-        <header class="post-header">
-        	<h1 class="post-title">Matplotlib in Data Driven SEO</h1>
-          <p class="post-date">Posted <time datetime="2019-12-04">Dec 4, 2019</time>
-	  <span class="post-author"> &mdash; By Whites Agency</span>
-	  </p>
-
-        </header>
-        
-          
-        
-        <p><img src="fig4.jpg" alt="Other visualization projects at Whites Agency."></p>
-<p>Search Engine Optimization (SEO) is a process that aims to increase quantity and quality of website traffic by ensuring a website can be found in search engines for phrases that are relevant to what the site is offering. Google is the most popular search engine in the world and presence in top search results is invaluable for any online business since click rates drop exponentially with ranking position. Since the beginning, specialized entities have been decoding signals that influence position in search engine result page (SERP) focusing on e.g. number of outlinks, presence of keywords or content length. Developed practices typically resulted in better visibility, but needed to be constantly challenged because search engines introduce changes to their algorithms even every day. Since the rapid advancements in Big Data and machine learning finding significant ranking factors became increasingly more difficult. Thus, the whole SEO field required a shift where recommendations are backed up by large scale studies based on real data rather than old-fashioned practices. <a href="https://whites.agency/">Whites Agency</a> focuses strongly on Data-Driven SEO. We run many Big Data analyses which give us insights into multiple optimization opportunities.</p>
-<p>Majority of cases we are dealing with right now focus on data harvesting and analysis. Data presentation plays an important part and since the beginning, we needed a tool that would allow us to experiment with different forms of visualizations. Because our organization is Python driven, Matplotlib was a straightforward choice for us. It is a mature project that offers flexibility and control. Among other features, Matplotlib figures can be easily exported not only to raster graphic formats (PNG, JPG) but also to vector ones (SVG, PDF, EPS), creating high-quality images that can be embedded in HTML code, LaTeX or utilized by graphic designers. In one of our projects, Matplotlib was a part of the Python processing pipeline that automatically generated PDF summaries from an HTML template for individual clients. Every data visualization project has the same core presented in the figure below, where data is loaded from the database, processed in pandas or PySpark and finally visualized with Matplotlib.</p>
-<p><img src="fig1.png" alt="Data Visualization Pipeline at Whites Agency"></p>
-<p>In what follows, we would like to share two insights from our studies. All figures were prepared in Matplotlib and in each case we set up a global style (overwritten if necessary):</p>
-<pre><code>import matplotlib.pyplot as plt
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Matplotlib in Data Driven SEO &#183; Matplotblog</title><meta name=description content="At Whites Agency we analyze big unstructured data to increases client's online visibility. We share our story of how we used Matplotlib to present the complicated data in a simple and reader-friendly way."><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Matplotlib in Data Driven SEO</h1><p class=post-date>Posted <time datetime=2019-12-04>Dec 4, 2019</time>
+<span class=post-author>&mdash; By Whites Agency</span></p></header><p><img src=fig4.jpg alt="Other visualization projects at Whites Agency."></p><p>Search Engine Optimization (SEO) is a process that aims to increase quantity and quality of website traffic by ensuring a website can be found in search engines for phrases that are relevant to what the site is offering. Google is the most popular search engine in the world and presence in top search results is invaluable for any online business since click rates drop exponentially with ranking position. Since the beginning, specialized entities have been decoding signals that influence position in search engine result page (SERP) focusing on e.g. number of outlinks, presence of keywords or content length. Developed practices typically resulted in better visibility, but needed to be constantly challenged because search engines introduce changes to their algorithms even every day. Since the rapid advancements in Big Data and machine learning finding significant ranking factors became increasingly more difficult. Thus, the whole SEO field required a shift where recommendations are backed up by large scale studies based on real data rather than old-fashioned practices. <a href=https://whites.agency/>Whites Agency</a> focuses strongly on Data-Driven SEO. We run many Big Data analyses which give us insights into multiple optimization opportunities.</p><p>Majority of cases we are dealing with right now focus on data harvesting and analysis. Data presentation plays an important part and since the beginning, we needed a tool that would allow us to experiment with different forms of visualizations. Because our organization is Python driven, Matplotlib was a straightforward choice for us. It is a mature project that offers flexibility and control. Among other features, Matplotlib figures can be easily exported not only to raster graphic formats (PNG, JPG) but also to vector ones (SVG, PDF, EPS), creating high-quality images that can be embedded in HTML code, LaTeX or utilized by graphic designers. In one of our projects, Matplotlib was a part of the Python processing pipeline that automatically generated PDF summaries from an HTML template for individual clients. Every data visualization project has the same core presented in the figure below, where data is loaded from the database, processed in pandas or PySpark and finally visualized with Matplotlib.</p><p><img src=fig1.png alt="Data Visualization Pipeline at Whites Agency"></p><p>In what follows, we would like to share two insights from our studies. All figures were prepared in Matplotlib and in each case we set up a global style (overwritten if necessary):</p><pre><code>import matplotlib.pyplot as plt
 from cycler import cycler
 
 colors = ['#00b2b8', '#fa5e00', '#404040', '#78A3B3', '#008F8F', '#ADC9D6']
@@ -88,11 +21,7 @@ plt.rcParams['font.weight'] = 'medium'
 plt.rcParams['xtick.labelsize'] = 13
 plt.rcParams['ytick.labelsize'] = 13
 plt.rcParams['lines.linewidth'] = 2.0
-</code></pre><h1 id="case-1-website-speed-performance">Case 1: Website Speed Performance</h1>
-<p>Our R&amp;D department analyzed a set of 10,000 potential customer intent phrases from the <em>Electronics</em> (eCommerce) and <em>News</em> domains (5000 phrases each). They scraped data from the Google ranking in a specific location (London, United Kingdom) both for mobile and desktop results [full study available <a href="https://whites.agency/blog/google-lighthouse-study-seo-ranking-factors-in-ecommerce-vs-news/">here</a>]. Based on those data, we distinguished TOP 20 results that appeared in SERPs. Next, each page was audited with the <a href="https://developers.google.com/web/tools/lighthouse">Google Lighthouse tool</a>. Google Lighthouse is an open-source, automated tool for improving the quality of web pages, that among other collects information about website loading time. A single sample from our analysis which shows variations of <em>Time to First Byte</em> (TTFB) as a function of Google position (grouped in threes) is presented below. TTFB measures the time it takes for a user's browser to receive the first byte of page content. Regardless of the device, TTFB score is the lowest for websites that occurred in TOP 3 positions. The difference is significant, especially between TOP 3 and 4-6 results. Therefore, Google favors websites that respond fast and therefore it is advised to invest in website speed optimization.</p>
-<p><img src="fig2.png" alt="Time to first byte from Lighthouse study performed at Whites Agency."></p>
-<p>The figure above uses <code>fill_between</code> function from Matplotlib library to draw colored shade that represents the 40-60th percentile range.  A simple line plot with circle markers denotes the median (50th percentile). X-axis labels were assigned manually. The whole style is wrapped into a custom function that allows us to reproduce the whole figure in a single line of code. A sample is presented below:</p>
-<pre><code>import matplotlib.pyplot as plt
+</code></pre><h1 id=case-1-website-speed-performance>Case 1: Website Speed Performance</h1><p>Our R&D department analyzed a set of 10,000 potential customer intent phrases from the <em>Electronics</em> (eCommerce) and <em>News</em> domains (5000 phrases each). They scraped data from the Google ranking in a specific location (London, United Kingdom) both for mobile and desktop results [full study available <a href=https://whites.agency/blog/google-lighthouse-study-seo-ranking-factors-in-ecommerce-vs-news/>here</a>]. Based on those data, we distinguished TOP 20 results that appeared in SERPs. Next, each page was audited with the <a href=https://developers.google.com/web/tools/lighthouse>Google Lighthouse tool</a>. Google Lighthouse is an open-source, automated tool for improving the quality of web pages, that among other collects information about website loading time. A single sample from our analysis which shows variations of <em>Time to First Byte</em> (TTFB) as a function of Google position (grouped in threes) is presented below. TTFB measures the time it takes for a user's browser to receive the first byte of page content. Regardless of the device, TTFB score is the lowest for websites that occurred in TOP 3 positions. The difference is significant, especially between TOP 3 and 4-6 results. Therefore, Google favors websites that respond fast and therefore it is advised to invest in website speed optimization.</p><p><img src=fig2.png alt="Time to first byte from Lighthouse study performed at Whites Agency."></p><p>The figure above uses <code>fill_between</code> function from Matplotlib library to draw colored shade that represents the 40-60th percentile range. A simple line plot with circle markers denotes the median (50th percentile). X-axis labels were assigned manually. The whole style is wrapped into a custom function that allows us to reproduce the whole figure in a single line of code. A sample is presented below:</p><pre><code>import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
 # --------------------------------------------
@@ -140,11 +69,7 @@ for ax in axx:
 # Export figure
 # ----------------------------------------------
 fig.savefig(&quot;lighthouse.png&quot;, bbox_inches='tight', dpi=250)
-</code></pre><h1 id="case-2-google-ads-ranking">Case 2: Google Ads ranking</h1>
-<p>Another example let us draw insights from Google's paid campaigns (Ads). Our R&amp;D department scraped the first page in Google for more than 7600 queries and analyzed the ads that were present [study available only in <a href="https://agencjawhites.pl/aktualnosci/ponad-1000-graczy-walczy-o-polskiego-turyste-w-wyszukiwarce-google/">Polish</a>]. The queries were narrowed down to <em>Travel</em> category. At the moment of writing this post, each SERP can have up to 4 ads at the top and up to 3 ads at the bottom. Each ad is associated with a domain and has a headline, description, and optional extensions. Below we present TOP 25 domains with the highest visibility on desktop computers. The Y-axis shows the name of a domain and the X-axis indicates how many ads is linked with particular domain, in total. We repeated the study 3 times and aggregated the counts that is why the scale is much larger than 7600. In this project, the type of plot below allows us to summarize different brands&rsquo; ads campaign strategies and their advertising market shares. For example, <em>itaka</em> and <em>wakacje</em> have the strongest presence both on mobile and desktop and most of their ads appear at the top. The <em>neckermann</em> positions itself are very high, but most of their ads appear at the bottom of search results.</p>
-<p><img src="fig3.png" alt="TOP 25 domains with the highest visibility on desktop computers."></p>
-<p>The figure above is a standard horizontal bar plot that can be reproduced with <code>barh</code> function in Matplotlib. Each y-tick has 4 different pieces (see legend). We also added automatically generated count numbers at the end of each bar for better readability. The code snippet is shown below:</p>
-<pre><code>import matplotlib.pyplot as plt
+</code></pre><h1 id=case-2-google-ads-ranking>Case 2: Google Ads ranking</h1><p>Another example let us draw insights from Google's paid campaigns (Ads). Our R&D department scraped the first page in Google for more than 7600 queries and analyzed the ads that were present [study available only in <a href=https://agencjawhites.pl/aktualnosci/ponad-1000-graczy-walczy-o-polskiego-turyste-w-wyszukiwarce-google/>Polish</a>]. The queries were narrowed down to <em>Travel</em> category. At the moment of writing this post, each SERP can have up to 4 ads at the top and up to 3 ads at the bottom. Each ad is associated with a domain and has a headline, description, and optional extensions. Below we present TOP 25 domains with the highest visibility on desktop computers. The Y-axis shows the name of a domain and the X-axis indicates how many ads is linked with particular domain, in total. We repeated the study 3 times and aggregated the counts that is why the scale is much larger than 7600. In this project, the type of plot below allows us to summarize different brands&rsquo; ads campaign strategies and their advertising market shares. For example, <em>itaka</em> and <em>wakacje</em> have the strongest presence both on mobile and desktop and most of their ads appear at the top. The <em>neckermann</em> positions itself are very high, but most of their ads appear at the bottom of search results.</p><p><img src=fig3.png alt="TOP 25 domains with the highest visibility on desktop computers."></p><p>The figure above is a standard horizontal bar plot that can be reproduced with <code>barh</code> function in Matplotlib. Each y-tick has 4 different pieces (see legend). We also added automatically generated count numbers at the end of each bar for better readability. The code snippet is shown below:</p><pre><code>import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.colors import LinearSegmentedColormap, PowerNorm
 
@@ -208,27 +133,4 @@ legend_elements = [
 ]
     
 ax.legend(handles=legend_elements, fontsize=15)
-</code></pre><h1 id="summary">Summary</h1>
-<p>This is just a sample from our studies and more can be found on our website. The Matplotlib library meets our needs in terms of visual capabilities and flexibility. It allows us to create standard plots in a single line of code, as well as experiment with different forms of graphs thanks to its lower level features. Thanks to opportunities offered by Matplotlib we may present the complicated data in a simple and reader-friendly way.</p>
-
-      </article>
-      
-    </main>
-    <nav class="end-nav side-padding">
-      
-      
-      
-      
-    </nav>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"
-    onload="renderMathInElement(document.body);"></script>
-  
-  <script src="https://matplotlib.org/matplotblog/js/core.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-  </body>
-</html>
+</code></pre><h1 id=summary>Summary</h1><p>This is just a sample from our studies and more can be found on our website. The Matplotlib library meets our needs in terms of visual capabilities and flexibility. It allows us to create standard plots in a single line of code, as well as experiment with different forms of graphs thanks to its lower level features. Thanks to opportunities offered by Matplotlib we may present the complicated data in a simple and reader-friendly way.</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
