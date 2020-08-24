@@ -39,7 +39,6 @@ We have written documentation explaining the following scenarios:
 
 ## Links to the work done
 
-- [Proposal](https://storage.googleapis.com/summerofcode-prod.appspot.com/gsoc/core_project/doc/6456687923298304_1585668871_MatPlotLib_GSoc_Proposal__Baseline_Images_Problem.pdf?Expires=1597725704&GoogleAccessId=summerofcode-prod%40appspot.gserviceaccount.com&Signature=xyvO7MmMbNmW3BFz8J3JXUovI3xfZLBll4UPWZqZvHbOfPAu6PAK9enC4vXBCTwgH%2BXQ%2FxU57P3K1G0MAXvtAI7Wq0zhEfpZNXOPUQnipqRkkGdJYLLiFkIV93R6M83Z04Z%2BxyX3pepIPPaHTTNkXoxkXVyG2bx5jwtBnTTmCn1peOURPmsjOkdSp5w57vkTxzlGal5li%2FaV4sseGP8kzGtQ2YxljfZXura0WX5uA7bcNumdqMXUJ2eeqTxOwucUh8uOj6b%2BLn21d3py2KA%2FyxBuaBF8rwdqZM%2ByEeuNJ8aPAoR5kUS%2FUq7kjCyOIfuwb8%2F84TafLa91oGd4wMFNKA%3D%3D)
 - [Issue](https://github.com/matplotlib/matplotlib/issues/16447)
 - [Pull Request](https://github.com/matplotlib/matplotlib/pull/17793)
 - [Blog Posts](https://matplotlib.org/matplotblog/categories/gsoc/)
