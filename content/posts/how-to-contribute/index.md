@@ -16,12 +16,22 @@ resources:
 
 Matplotblog relies on your contributions to it. We want to showcase all the amazing projects that make use of Matplotlib. In this post, we will see which steps you have to follow to add a post to our blog.
 
-To manage your contributions, we will use [Git pull requests](https://yangsu.github.io/pull-request-tutorial/). So, if you have not done it already, you first need to clone [our Git repository](https://github.com/matplotlib/matplotblog), by typing the following in a terminal window:
+To manage your contributions, we will use [Git pull requests](https://yangsu.github.io/pull-request-tutorial/). So, if you have not done it already, you first need to fork and clone [our Git repository](https://github.com/matplotlib/matplotblog), by clicking on the Fork button on the top right corner of the Github page, and then type the following in a terminal window:
 ```
-git clone https://github.com/matplotlib/matplotblog.git
+git clone git@github.com:[USERNAME]/matplotblog.git
+```
+where [USERNAME] should be replaced by your Github username. You now have to make sure that if you reuse this forked repository, it is up to date with the main Matplotblog repository. To do so, type the following:
+```
+git remote add upstream https://github.com/matplotlib/matplotblog.git
 ```
 
-Then, you should create a new branch, which will contain your changes.
+You should now create a new branch, which will contain your changes. First, checkout the master:
+```
+git checkout master
+git merge upstream/master
+```
+
+and then create a new branch and check it out:
 
 ```
 cd matplotblog
@@ -83,11 +93,18 @@ hugo server
 ```
 Then open the browser and visit [http://localhost:1313/matplotblog](http://localhost:1313/matplotblog) to make sure your post appears in the homepage. If you spot errors or something that you want to tune, go back to your index.md file and modify it.
 
-When your post is ready to go, you can add it to the repository, commit and push the changes to your branch:
+When your post is ready to go, you can add it to your local repository, commit and push the changes to your branch:
 ```
 git add content/posts/my-fancy-title
 git commit -m "Added new blog post"
 git push
 ```
 
-Finally, submit a pull request to have our admins review your contribution and merge it to the master repository. That is it folks!
+Finally, submit a **pull request** to have our admins review your contribution and merge it to the master repository. To do so, type the following:
+```
+git checkout post-my-fancy-title
+git rebase master
+```
+and then go to the page for your fork on GitHub, select your development branch, and click the pull request button. Your pull request will automatically track the changes on your development branch and update. Further info on the pull request process are available [here](https://docs.github.com/en/enterprise/2.16/user/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
+
+That is it folks!
