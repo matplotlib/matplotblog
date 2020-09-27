@@ -1,6 +1,6 @@
 ---
-title: "Visualizing Code-Switching with Step Charts in Matplotlib"
-date: 2020-08-25T12:33:20-07:00
+title: "Visualizing Code-Switching with Step Charts"
+date: 2020-09-26T19:41:21-07:00
 description: "Learn how to easily create step charts through examining the multilingualism of pop group WayV"
 categories: ["tutorials", "graphs"]
 author: J (a.k.a. WayV Subs & Translations)
@@ -29,19 +29,19 @@ As an independent translator who translates WayV content into English, I've beco
 This tutorial on creating step charts uses one of WayV's livestreams as an example. There were four members in this livestream and a total of eight languages/dialects spoken. I will go through the basic steps of creating a step chart that depicts the frequency of code-switching for just one member. A full code chunk that shows how to layer two or more step chart lines in one graph to depict code-switching for multiple members can be found near the end.
 
 ## Dataset
-First, we import the required libaries and load the data into a Pandas dataframe.
+First, we import the required libraries and load the data into a Pandas dataframe.
 
     import pandas as pd
     import matplotlib.pyplot as plt
     import seaborn as sns
-    
+
 This dataset includes the timestamp of every switch (in seconds) and the language of switch for one speaker.
 
     df_h = pd.read_csv("WayVHendery.csv")
     HENDERY = df_h.reset_index()
     HENDERY.head()
-    
-    
+
+
 | index | time | lang |
 | ----  |----|----|
 | 0 | 2 | ENG |
@@ -56,30 +56,30 @@ With the dataset loaded, we can now set up our graph in terms of determining the
 
 ### Without Customization
     fig, ax = plt.subplots(figsize = (20,12))
-    
+
 ![](fig1.png)
-    
+
 ### With Customization
 
     sns.set(rc={'axes.facecolor':'aliceblue', 'figure.facecolor':'c'})
     fig, ax = plt.subplots(figsize = (20,12), dpi = 300)
-    
+
     plt.xlabel("Duration of Instagram Live (seconds)", fontsize = 18)
     plt.ylabel("Cumulative Number of Times of Code-Switching", fontsize = 18)
 
     plt.xlim(0, 570)
     plt.ylim(0, 85)
-    
-![](fig2.png) 
+
+![](fig2.png)
 
 <!--     ax.step(HENDERY.time, HENDERY.index, label = "HENDERY") -->
-   
-    
+
+
 Following this, we can make our step chart line easily with matplotlib.pyplot.step, in which we plot the x and y values and determine the text of the legend, color of the step chart line, and width of the step chart line.
 
     ax.step(HENDERY.time, HENDERY.index, label = "HENDERY", color = "palevioletred", linewidth = 4)
-    
-![](fig3.png) 
+
+![](fig3.png)
 
 ## Labeling
 Of course, we want to know not only how many switches there were and when they occurred, but also to what language the member switched. For this, we can write a for loop that labels each switch with its respective language as recorded in our dataset.
@@ -92,16 +92,16 @@ Of course, we want to know not only how many switches there were and when they o
                      xytext = (15,-5), #distance from text to coordinate (x,y)
                      ha = "center", #alignment
                      fontsize = 8.5) #font size of text
-                 
-![](fig4.png) 
-                 
+
+![](fig4.png)
+
 ## Final Touches
-Now add a title, save the graph, and there you have it! 
-    
+Now add a title, save the graph, and there you have it!
+
     plt.title("WayV Livestream Code-Switching", fontsize = 35)
 
     fig.savefig("wayv_codeswitching.png", bbox_inches = "tight", facecolor = fig.get_facecolor())
-    
+
 Below is the complete code for layering step chart lines for multiple speakers in one graph. You can see how easy it is to take the code for visualizing the code-switching of one speaker and adapt it to visualizing that of multiple speakers. In addition, you can see that I've intentionally left the title blank so I can incorporate external graphic adjustments after I created the chart in Matplotlib, such as the addition of my social media handle and the use of a specific font I wanted, which you can see in the final graph. With visualizations being all about communicating information, I believe using Matplotlib in conjunction with simple elements of graphic design can be another way to make whatever you're presenting that little bit more effective and personal, especially when you're doing so on social media platforms.
 
 ## Complete Code for Step Chart of Multiple Speakers
@@ -110,7 +110,7 @@ Below is the complete code for layering step chart lines for multiple speakers i
     # Initialize graph color and size
     sns.set(rc={'axes.facecolor':'aliceblue', 'figure.facecolor':'c'})
 
-    fig, ax = plt.subplots(figsize = (20,12), dpi = 120) 
+    fig, ax = plt.subplots(figsize = (20,12), dpi = 120)
 
     # Set up axes and labels
     plt.xlabel("Duration of Instagram Live (seconds)", fontsize = 18)
@@ -144,7 +144,7 @@ Below is the complete code for layering step chart lines for multiple speakers i
 
     # Save figure
     fig.savefig("wayv_codeswitching.png", bbox_inches = "tight", facecolor = fig.get_facecolor())
-  
+
 ![](Image1.png)
 Languages/dialects: Korean (KOR), English (ENG), Mandarin (MAND), German (GER), Cantonese (CANT), Hokkien (HOKK), Teochew (TEO), Thai (THAI)
 
