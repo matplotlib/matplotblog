@@ -1,0 +1,68 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Visualizing Code-Switching with Step Charts &#183; Matplotblog</title><meta name=description content="Learn how to easily create step charts through examining the multilingualism of pop group WayV"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Visualizing Code-Switching with Step Charts</h1><p class=post-date>Posted <time datetime=2020-09-26>Sep 26, 2020</time>
+<span class=post-author>&mdash; By J (a.k.a. WayV Subs & Translations)</span></p></header><p><img src=Image1.png alt></p><h1 id=introduction>Introduction</h1><p>Code-switching is the practice of alternating between two or more languages in the context of a single conversation, either consciously or unconsciously. As someone who grew up bilingual and is currently learning other languages, I find code-switching a fascinating facet of communication from not only a purely linguistic perspective, but also a social one. In particular, I've personally found that code-switching often helps build a sense of community and familiarity in a group and that the unique ways in which speakers code-switch with each other greatly contribute to shaping group dynamics.</p><p>This is something that's evident in seven-member pop boy group WayV. Aside from their discography, artistry, and group chemistry, WayV is well-known among fans and many non-fans alike for their multilingualism and code-switching, which many fans have affectionately coined as &ldquo;WayV language.&rdquo; Every member in the group is fluent in both Mandarin and Korean, and at least one member in the group is fluent in one or more of the following: English, Cantonese, Thai, Wenzhounese, and German. It's an impressive trait that's become a trademark of WayV as they've quickly drawn a global audience since their debut in January 2019. Their multilingualism is reflected in their music as well. On top of their regular album releases in Mandarin, WayV has also released singles in Korean and English, with their latest single &ldquo;Bad Alive (English Ver.)&rdquo; being a mix of English, Korean, and Mandarin.</p><p>As an independent translator who translates WayV content into English, I've become keenly aware of the true extent and rate of WayV's code-switching when communicating with each other. In a lot of their content, WayV frequently switches between three or more languages every couple of seconds, a phenomenon that can make translating quite challenging at times, but also extremely rewarding and fun. I wanted to be able to present this aspect of WayV in a way that would both highlight their linguistic skills and present this dimension of their group dynamic in a more concrete, quantitative, and visually intuitive manner, beyond just stating that &ldquo;they code-switch a lot.&rdquo; This prompted me to make step charts - perfect for displaying data that changes at irregular intervals but remains constant between the changes - in hopes of enriching the viewer's experience and helping make a potentially abstract concept more understandable and readily consumable. With a step chart, it becomes more apparent to the viewer the extent of how a group communicates, and cross-sections of the graph allow a rudimentary look into how multilinguals influence each other in code-switching.</p><h1 id=tutorial>Tutorial</h1><p>This tutorial on creating step charts uses one of WayV's livestreams as an example. There were four members in this livestream and a total of eight languages/dialects spoken. I will go through the basic steps of creating a step chart that depicts the frequency of code-switching for just one member. A full code chunk that shows how to layer two or more step chart lines in one graph to depict code-switching for multiple members can be found near the end.</p><h2 id=dataset>Dataset</h2><p>First, we import the required libraries and load the data into a Pandas dataframe.</p><pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+</code></pre><p>This dataset includes the timestamp of every switch (in seconds) and the language of switch for one speaker.</p><pre><code>df_h = pd.read_csv(&quot;WayVHendery.csv&quot;)
+HENDERY = df_h.reset_index()
+HENDERY.head()
+</code></pre><table><thead><tr><th>index</th><th>time</th><th>lang</th></tr></thead><tbody><tr><td>0</td><td>2</td><td>ENG</td></tr><tr><td>1</td><td>3</td><td>KOR</td></tr><tr><td>2</td><td>10</td><td>ENG</td></tr><tr><td>3</td><td>13</td><td>MAND</td></tr><tr><td>4</td><td>15</td><td>ENG</td></tr></tbody></table><h2 id=plotting>Plotting</h2><p>With the dataset loaded, we can now set up our graph in terms of determining the size of the figure, dpi, font size, and axes limits. We can also play around with the aesthetics, such as modifying the colors of our plot. These few simple steps easily transform the default all-white graph into a more visually appealing one.</p><h3 id=without-customization>Without Customization</h3><pre><code>fig, ax = plt.subplots(figsize = (20,12))
+</code></pre><p><img src=fig1.png alt></p><h3 id=with-customization>With Customization</h3><pre><code>sns.set(rc={'axes.facecolor':'aliceblue', 'figure.facecolor':'c'})
+fig, ax = plt.subplots(figsize = (20,12), dpi = 300)
+
+plt.xlabel(&quot;Duration of Instagram Live (seconds)&quot;, fontsize = 18)
+plt.ylabel(&quot;Cumulative Number of Times of Code-Switching&quot;, fontsize = 18)
+
+plt.xlim(0, 570)
+plt.ylim(0, 85)
+</code></pre><p><img src=fig2.png alt></p><p>Following this, we can make our step chart line easily with matplotlib.pyplot.step, in which we plot the x and y values and determine the text of the legend, color of the step chart line, and width of the step chart line.</p><pre><code>ax.step(HENDERY.time, HENDERY.index, label = &quot;HENDERY&quot;, color = &quot;palevioletred&quot;, linewidth = 4)
+</code></pre><p><img src=fig3.png alt></p><h2 id=labeling>Labeling</h2><p>Of course, we want to know not only how many switches there were and when they occurred, but also to what language the member switched. For this, we can write a for loop that labels each switch with its respective language as recorded in our dataset.</p><pre><code>for x,y,z in zip(HENDERY[&quot;time&quot;], HENDERY[&quot;index&quot;], HENDERY[&quot;lang&quot;]):
+    label = z
+    ax.annotate(label, #text
+                 (x,y), #label coordinate
+                 textcoords = &quot;offset points&quot;, #how to position text
+                 xytext = (15,-5), #distance from text to coordinate (x,y)
+                 ha = &quot;center&quot;, #alignment
+                 fontsize = 8.5) #font size of text
+</code></pre><p><img src=fig4.png alt></p><h2 id=final-touches>Final Touches</h2><p>Now add a title, save the graph, and there you have it!</p><pre><code>plt.title(&quot;WayV Livestream Code-Switching&quot;, fontsize = 35)
+
+fig.savefig(&quot;wayv_codeswitching.png&quot;, bbox_inches = &quot;tight&quot;, facecolor = fig.get_facecolor())
+</code></pre><p>Below is the complete code for layering step chart lines for multiple speakers in one graph. You can see how easy it is to take the code for visualizing the code-switching of one speaker and adapt it to visualizing that of multiple speakers. In addition, you can see that I've intentionally left the title blank so I can incorporate external graphic adjustments after I created the chart in Matplotlib, such as the addition of my social media handle and the use of a specific font I wanted, which you can see in the final graph. With visualizations being all about communicating information, I believe using Matplotlib in conjunction with simple elements of graphic design can be another way to make whatever you're presenting that little bit more effective and personal, especially when you're doing so on social media platforms.</p><h2 id=complete-code-for-step-chart-of-multiple-speakers>Complete Code for Step Chart of Multiple Speakers</h2><pre><code># Initialize graph color and size
+sns.set(rc={'axes.facecolor':'aliceblue', 'figure.facecolor':'c'})
+
+fig, ax = plt.subplots(figsize = (20,12), dpi = 120)
+
+# Set up axes and labels
+plt.xlabel(&quot;Duration of Instagram Live (seconds)&quot;, fontsize = 18)
+plt.ylabel(&quot;Cumulative Number of Times of Code-Switching&quot;, fontsize = 18)
+
+plt.xlim(0, 570)
+plt.ylim(0, 85)
+
+# Layer step charts for each speaker
+ax.step(YANGYANG.time, YANGYANG.index, label = &quot;YANGYANG&quot;, color = &quot;firebrick&quot;, linewidth = 4)         
+ax.step(HENDERY.time, HENDERY.index, label = &quot;HENDERY&quot;, color = &quot;palevioletred&quot;, linewidth = 4)            
+ax.step(TEN.time, TEN.index, label = &quot;TEN&quot;, color = &quot;mediumpurple&quot;, linewidth = 4)            
+ax.step(KUN.time, KUN.index, label = &quot;KUN&quot;, color = &quot;mediumblue&quot;, linewidth = 4)
+
+# Add legend
+ax.legend(fontsize = 17)
+
+# Label each data point with the language switch
+for i in (KUN, TEN, HENDERY, YANGYANG): #for each dataset
+    for x,y,z in zip(i[&quot;time&quot;], i[&quot;index&quot;], i[&quot;lang&quot;]): #looping within the dataset
+        label = z
+        ax.annotate(label, #text
+                     (x,y), #label coordinate
+                     textcoords = &quot;offset points&quot;, #how to position text
+                     xytext = (15,-5), #distance from text to coordinate (x,y)
+                     ha = &quot;center&quot;, #alignment
+                     fontsize = 8.5) #font size of text
+
+# Add title (blank to leave room for external graphics)
+plt.title(&quot;\n\n&quot;, fontsize = 35)
+
+# Save figure
+fig.savefig(&quot;wayv_codeswitching.png&quot;, bbox_inches = &quot;tight&quot;, facecolor = fig.get_facecolor())
+</code></pre><p><img src=Image1.png alt>
+Languages/dialects: Korean (KOR), English (ENG), Mandarin (MAND), German (GER), Cantonese (CANT), Hokkien (HOKK), Teochew (TEO), Thai (THAI)</p><p>186 total switches! That's approximately one code-switch in the group every 2.95 seconds.</p><p>And voilà! There you have it: a brief guide on how to make step charts. While I utilized step charts here to visualize code-switching, you can use them to visualize whatever data you would like. Please feel free to contact me <a href=https://twitter.com/WayVSubs2019>here</a> if you have any questions or comments. I hope you enjoyed this tutorial, and thank you so much for reading!</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
