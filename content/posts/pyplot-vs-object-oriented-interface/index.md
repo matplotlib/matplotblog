@@ -60,7 +60,7 @@ This interface shares a lot of similarities in syntax and methodology with MATLA
 import matplotlib.pyplot as plt
 
 plt.figure(figsize=(9,7), dpi=100)
-plt.plot(distance,'bo-')
+plt.plot(time,distance,'bo-')
 plt.xlabel("Time")
 plt.ylabel("Distance")
 plt.legend(["Distance"])
@@ -76,7 +76,7 @@ The plot shows how much distance was covered by the free-falling object with eac
 
 ```python
 plt.figure(figsize=(9,7), dpi=100)
-plt.plot(velocity,'go-')
+plt.plot(time, velocity,'go-')
 plt.xlabel("Time")
 plt.ylabel("Velocity")
 plt.legend(["Velocity"])
@@ -94,8 +94,8 @@ Let's try to see what kind of plot we get when we plot both distance and velocit
 
 ```python
 plt.figure(figsize=(9,7), dpi=100)
-plt.plot(velocity,'g-')
-plt.plot(distance,'b-')
+plt.plot(time, velocity,'g-')
+plt.plot(time, distance,'b-')
 plt.ylabel("Distance and Velocity")
 plt.xlabel("Time")
 plt.legend(["Distance", "Velocity"])
