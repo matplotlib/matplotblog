@@ -57,7 +57,7 @@ The scenario ensemble was made accessible via an interactive *IAMC 1.5°C Scenar
 [FAIR principles for scientific data management and stewardship](https://www.go-fair.org/fair-principles/).
 The process for compiling, validating and analyzing the scenario ensemble
 was described in an open-access manuscript published in *Nature Climate Change*  
-(doi: [10.1038/s41558-018-0317-4](https://doi.org/)).
+(doi: [10.1038/s41558-018-0317-4](https://doi.org/10.1038/s41558-018-0317-4)).
 
 In addition, the Jupyter notebooks generating many of the headline statements,
 tables and figures (using Matplotlib) were released under an open-source license

@@ -16,4 +16,4 @@ link1_description = "About"
   category = "categories"
 
 [markup.goldmark.renderer]
-unsafe = true
+  unsafe = true
