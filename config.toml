@@ -14,3 +14,6 @@ link1_description = "About"
 
 [taxonomies]
   category = "categories"
+
+[markup.goldmark.renderer]
+unsafe = true
