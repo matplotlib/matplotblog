@@ -16,7 +16,7 @@ resources:
 
 In May 2020, Alexandre Morin-Chassé published a blog post about the **stellar chart**. This type of chart is an (approximately) direct alternative to the **radar chart** (also known as web, spider, star, or cobweb chart) — you can read more about this chart [here](https://medium.com/nightingale/the-stellar-chart-an-elegant-alternative-to-radar-charts-ae6a6931a28e).
 
-![Comparison of a radar chart and a stellar chart](radar_stellar_chart.png "teste")
+![Comparison of a radar chart and a stellar chart](radar_stellar_chart.png)
 
 In this tutorial, we will see how we can create a quick-and-dirty stellar chart. First of all, let's get the necessary modules/libraries, as well as prepare a dummy dataset (with just a single record).
 
