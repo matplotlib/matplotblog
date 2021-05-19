@@ -14,22 +14,21 @@ resources:
     showOnTop: true
 ---
 
-**The day of result, was a very, very long day.**
+**<ins>The day of result, was a very, very long day.</ins>**
 
 With this small writeup, I intend to talk about everything before _that day_, my experiences, my journey, and the role of Matplotlib throughout!
 
 ## About Me
 I am a third-year undergraduate student currently pursuing a Dual Degree (B.Tech + M.Tech) in Information Technology at Indian Institute of Information Technology, Gwalior.
 
-Personal Website (drop in and say hi!): https://aitikgupta.github.io/
-
-During my sophomore year, my interests started expanding in the domain of Machine Learning, where I learnt about various amazing open-source libraries like NumPy, SciPy, pandas, and Matplotlib! Gradually, in my third year, I explored the field of Computer Vision during my internship at a startup, where a big chunk of my work was to integrate their native C++ codebase to Android via JNI calls.
+During my sophomore year, my interests started expanding in the domain of Machine Learning, where I learnt about various amazing open-source libraries like *NumPy*, *SciPy*, *pandas*, and *Matplotlib*! Gradually, in my third year, I explored the field of Computer Vision during my internship at a startup, where a big chunk of my work was to integrate their native C++ codebase to Android via JNI calls.
 
 To actuate my learnings from the internship, I worked upon my own research along with a [friend from my university](https://linkedin.com/in/aaditagarwal). The paper was accepted in CoDS-COMAD’21 and is published at ACM Digital Library. ([Link](https://dl.acm.org/doi/abs/10.1145/3430984.3430986), if anyone's interested)
 
 During this period, I also picked up the knack for open-source and started glaring at various issues (and pull requests) in libraries, including OpenCV [[contributions](https://github.com/opencv/opencv/issues?q=author%3Aaitikgupta+)] and NumPy [[contributions](https://github.com/numpy/numpy/issues?q=author%3Aaitikgupta+)].
 
 I quickly got involved in Matplotlib’s community; it was very welcoming and beginner-friendly.
+
 **Fun fact: Its dev call was the very first I attended with people from all around the world!**
 
 ## First Contributions
@@ -52,7 +51,7 @@ At this point when I look back at those fumbled PRs, I feel like they were impor
 It was around initial weeks of November last year, I was scanning through `Good First Issue` and `New Feature` labels, I realised a pattern - most <ins>Mathtext</ins> related issues were unattended.
 
 To make it simple, Mathtext is a part of Matplotlib which parses mathematical expressions and provides TeX-like outputs, for example:
-<span><img src="https://matplotlib.org/stable/_images/mathmpl/math-050e387807.png" style="width: 25%"></img></span>
+<span><img src="https://matplotlib.org/stable/_images/mathmpl/math-050e387807.png" style="width: 25%"></span>
 
 I scanned the related source code to try to figure out how to solve those Mathtext issues. Eventually, with the help of maintainers reviewing the PRs and <ins>a lot of verbose discussions</ins> on GitHub issues/pull requests and on the [Gitter](https://gitter.im/matplotlib/matplotlib) channel, I was able to get my initial PRs merged!
 
@@ -87,3 +86,7 @@ The aim of the project is divided into 3 subgoals:
 **Mentors** [Thomas A Caswell](https://github.com/tacaswell), [Antony Lee](https://github.com/anntzer), [Hannah](https://github.com/story645).
 
 Thanks a lot for spending time reading the blog! I'll be back with my progress in subsequent posts.
+
+
+##### NOTE: This blog post is also available at my [personal website](https://aitikgupta.github.io/gsoc-intro/)!
+
