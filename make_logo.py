@@ -1,8 +1,9 @@
 import numpy as np
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import matplotlib.font_manager
-from matplotlib.patches import Rectangle, PathPatch
+from matplotlib.patches import Circle, Rectangle, PathPatch
 from matplotlib.textpath import TextPath
 import matplotlib.transforms as mtrans
 
@@ -129,7 +130,6 @@ def make_logo(height_px, lw_bars, lw_grid, lw_border, rgrid, with_text=False):
     ax = create_icon_axes(fig, ax_pos, lw_bars, lw_grid, lw_border, rgrid)
 
     return fig, ax
-
 
 make_logo(height_px=110, lw_bars=0.7, lw_grid=0.5, lw_border=1,
           rgrid=[1, 3, 5, 7], with_text=True)
