@@ -40,15 +40,8 @@ Something which one of my mentors said which _really_ stuck with me:
 > Matplotlib isn't a font library, and shouldn't try to be one.
 
 It's really easy to fall into the trap of trying to do _everything_ within your own project, which ends up rather _hurting_ itself.
-<hr>
 
-To give an analogy, <ins>Google Docs</ins> try to do _a lot_ of things with its platform, from basic text editing to full-fledged project management.
-
-Compared with <ins>Notion</ins>, whose whole _niche_ is to provide a platform for project management (among other things), **some people tend to choose the latter for their specific needs.**
-
-<hr>
-
-Since this analogy holds true even for Matplotlib, it uses external dependencies like [FreeType](https://www.freetype.org/), [ttconv](https://github.com/sandflow/ttconv), and newly proposed [fontTools](https://github.com/fonttools/fonttools) to handle font subsetting, embedding, rendering, and related stuff.
+Since this holds true even for Matplotlib, it uses external dependencies like [FreeType](https://www.freetype.org/), [ttconv](https://github.com/sandflow/ttconv), and newly proposed [fontTools](https://github.com/fonttools/fonttools) to handle font subsetting, embedding, rendering, and related stuff.
 
 PS: If that font stuff didn't make sense, I would recommend going through a friendly tutorial I wrote, which is all about [Matplotlib and Fonts](https://matplotlib.org/stable/users/fonts.html)!
 ## Unexpected Complications
@@ -57,7 +50,7 @@ Matplotlib uses an external dependency `ttconv` which was initially forked into 
 
 Over the time, there were a lot of issues with it which were either hard to fix, or didn't attract a lot of attention. (See the above paragraph for a valid reason)
 
-One major utility which is still used is `convert_ttf_to_ps`, which takes a _font path_ as input and converts it into a Type 3 or Type 42 PostScript font, which can be embedded within PS/EPS output documents. The guide I wrote (mentioned just above the recent heading) contains decent descriptions, the differences between these type of fonts, etc.
+One major utility which is still used is `convert_ttf_to_ps`, which takes a _font path_ as input and converts it into a Type 3 or Type 42 PostScript font, which can be embedded within PS/EPS output documents. The guide I wrote ([link](https://matplotlib.org/stable/users/fonts.html)) contains decent descriptions, the differences between these type of fonts, etc.
 
 #### So we need to convert that _font path_ input to a _font buffer_ input.
 Why do we need to? Type 42 subsetting isn't really supported by ttconv, so we use a new dependency called fontTools, whose 'full-time job' is to subset Type 42 fonts for us (among other things).
