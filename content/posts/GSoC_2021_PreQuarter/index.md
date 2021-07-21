@@ -62,7 +62,7 @@ matplotlib.rcParams["font-family"] = ["list", "of", "font", "families"]
 
 You can immediately see the problems with this approach; using the same font for every character will not render any glyph which isn't present in that font, and will instead spit out a square rectangle called "tofu" (read the first line [here](https://www.google.com/get/noto/)).
 
-And that is exactly the first milestone! That is, parsing the <ins>_entire list_</ins> of font families to get an intermediate representation of a multi-font interface.
+And that is exactly the first milestone! That is, parsing the _<ins>entire list</ins>_ of font families to get an intermediate representation of a multi-font interface.
 ## Don't break, a lot at stake!
 Imagine if you had the superpower to change Python standard library's internal functions, _without_ consulting anybody. Let's say you wanted to write a solution by hooking in and changing, let's say `str("dumb")` implementation by returning:
 ```ipython
