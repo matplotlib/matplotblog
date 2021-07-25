@@ -20,7 +20,7 @@ The [Python Graph Gallery](https://www.python-graph-gallery.com) is here to help
 
 # About 400 charts in 40 sections
 
-The gallery currently provides more than [300 chart examples](https://www.python-graph-gallery.com/all-charts/). Those examples are organized in 40 sections, one for each chart types: [scatterplot](), [boxplot](https://www.python-graph-gallery.com/boxplot/), [barplot](https://www.python-graph-gallery.com/barplot/), [treemap](https://www.python-graph-gallery.com/treemap/) and so on. Those chart types are organized in 7 big families as suggested by [data-to-viz.com](https://www.data-to-viz.com): one for each visualization purpose.
+The gallery currently provides more than [400 chart examples](https://www.python-graph-gallery.com/all-charts/). Those examples are organized in 40 sections, one for each chart types: [scatterplot](https://www.python-graph-gallery.com/scatter-plot/), [boxplot](https://www.python-graph-gallery.com/boxplot/), [barplot](https://www.python-graph-gallery.com/barplot/), [treemap](https://www.python-graph-gallery.com/treemap/) and so on. Those chart types are organized in 7 big families as suggested by [data-to-viz.com](https://www.data-to-viz.com): one for each visualization purpose.
 
 It is important to note that not only the most common chart types are covered. Lesser known charts like [chord diagrams](https://www.python-graph-gallery.com/chord-diagram/), [streamgraphs](https://www.python-graph-gallery.com/streamchart/) or [bubble maps](https://www.python-graph-gallery.com/bubble-map/) are also available.
 
