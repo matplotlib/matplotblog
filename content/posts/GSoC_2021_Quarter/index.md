@@ -16,7 +16,7 @@ resources:
 
 **“<ins>Matplotlib, I want 多个汉字 in between my text.</ins>”**
 
-Let's say you wanted some (多个汉字 -> multiple Chinese characters) in between your English text, to be rendered by Matplotlib.
+Let's say you asked Matplotlib to render a plot with some label containing 多个汉字 (multiple Chinese characters) in between your English text.
 
 Or conversely, let's say you use a Chinese font with Matplotlib, but you had English text in between (which is quite common).
 
@@ -28,7 +28,7 @@ Logically, the very first step to solving this would be to ask whether you _have
 
 Matplotlib doesn't ship [CJK](https://en.wikipedia.org/wiki/List_of_CJK_fonts) (Chinese Japanese Korean) fonts, which ideally contains these Chinese glyphs. It does try to cover most grounds with the [default font](https://matplotlib.org/stable/users/dflt_style_changes.html#normal-text) it ships with, however.
 
-So if you don't have a font to render your Chinese characters, go ahead and install one! Matplotlib will find your installed fonts.
+So if you don't have a font to render your Chinese characters, go ahead and install one! Matplotlib will find your installed fonts (after rebuilding the cache, that is).
 ### Parse the fonts
 This is where things get interesting, and what my [previous writeup](https://matplotlib.org/matplotblog/posts/gsoc_2021_prequarter/) was all about..
 
@@ -127,7 +127,7 @@ With the idea surrounding this implementation, the [Agg backend](https://matplot
 ## Python C-API is hard, at first!
 I've spent days at Python C-API's [argument doc](https://docs.python.org/3/c-api/arg.html), and it's hard to get what you need at first, ngl.
 
-But, with the help of some amazing people in GSoC community ([@srijan-paul](https://srijan-paul.github.io/), [@atharvaraykar](https://atharvaraykar.me/)) and amazing mentors, blockers begone!
+But, with the help of some amazing people in the GSoC community ([@srijan-paul](https://srijan-paul.github.io/), [@atharvaraykar](https://atharvaraykar.me/)) and amazing mentors, blockers begone!
 
 ## So are we done?
 Oh no. XD
