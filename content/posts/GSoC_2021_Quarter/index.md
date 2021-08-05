@@ -30,14 +30,14 @@ Matplotlib doesn't ship [CJK](https://en.wikipedia.org/wiki/List_of_CJK_fonts) (
 
 So if you don't have a font to render your Chinese characters, go ahead and install one! Matplotlib will find your installed fonts.
 ### Parse the fonts
-This is where things get interesting, and what my [previous writeup](https://aitikgupta.com/gsoc-pre-quarter/) was all about..
+This is where things get interesting, and what my [previous writeup](https://matplotlib.org/matplotblog/posts/gsoc_2021_prequarter/) was all about..
 
 > Parsing the whole family to get multiple fonts for given font properties
 
 ## FT2Font Magic!
 To give you an idea about how things used to work for Matplotlib:
 1. A single font was chosen _at draw time_
-		 (fixed: re [previous writeup]((https://aitikgupta.com/gsoc-pre-quarter/)))
+		 (fixed: re [previous writeup]((https://matplotlib.org/matplotblog/posts/gsoc_2021_prequarter/)))
 2. Every character displayed in your document was rendered by only that font
 		 (partially fixed: re <ins>_this writeup_</ins>)
 
@@ -71,7 +71,7 @@ Oh, looks like all we need are Faces!
 
 Anyway, if you already know what Faces are, it might strike you:
 
-If we already have all the faces we need from multiple fonts (let's say we created a child of FT2Font.. which only <ins>tracks the faces</ins> for its families), we should be able to render everything from that parent's FT2Font right?
+If we already have all the faces we need from multiple fonts (let's say we created a child of FT2Font.. which only <ins>tracks the faces</ins> for its families), we should be able to render everything from that parent FT2Font right?
 
 As I later figured out while finding segfaults in implementing this design:
 ```
