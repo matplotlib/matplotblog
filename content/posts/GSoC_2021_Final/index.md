@@ -20,11 +20,11 @@ Here's a [meme](https://user-images.githubusercontent.com/43996118/129448683-bc1
 ## About Matplotlib
 Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations, which has become a _de-facto Python plotting library_.
 
-Much of the implementation behind its font manager is inspired from [W3C](https://www.w3.org/) compliant algorithms, allowing users to interact with font properties like `font-size`, `font-weight`, `font-family`, etc.
+Much of the implementation behind its font manager is inspired by [W3C](https://www.w3.org/) compliant algorithms, allowing users to interact with font properties like `font-size`, `font-weight`, `font-family`, etc.
 
 #### However, the way Matplotlib handled fonts and general text layout was not ideal, which is what all Summer 2021 was about.
 
-> By "not ideal", I do not mean that the library has design flaws, but that the design was engineered in early 2000s, and is now _outdated_.
+> By "not ideal", I do not mean that the library has design flaws, but that the design was engineered in the early 2000s, and is now _outdated_.
 
 (..more on this later)
 
@@ -63,7 +63,7 @@ Once that font was found (which is almost always found, since Matplotlib ships w
 
 It might seem like an _outdated_ approach for text rendering, now that we have these concepts like font-fallback, <ins>but these concepts weren't very well discussed in early 2000s</ins>. Even getting a single font to work _was considered a hard engineering problem_.
 
-This was especially because of the lack of **any standardization** for representation of fonts (Adobe had their own font representation, and so did Apple, Microsoft, etc.)
+This was primarily because of the lack of **any standardization** for representation of fonts (Adobe had their own font representation, and so did Apple, Microsoft, etc.)
 
 
 | ![Previous](https://user-images.githubusercontent.com/43996118/128605750-9d76fa4a-ce57-45c6-af23-761334d48ef7.png) | ![After](https://user-images.githubusercontent.com/43996118/128605746-9f79ebeb-c03d-407e-9e27-c3203a210908.png) |
@@ -79,7 +79,7 @@ The very first (and crucial!) step is to get to a point where we have multiple f
 - [PR: [with findfont diff] Parsing all families in font_manager](https://github.com/matplotlib/matplotlib/pull/20496), or
 - [PR: [without findfont diff] Parsing all families in font_manager](https://github.com/matplotlib/matplotlib/pull/20549)
 
-Quoting one of my [previous](https://aitikgupta.github.io/gsoc-pre-quarter/) blogs:
+Quoting one of my [previous](https://matplotlib.org/matplotblog/posts/gsoc_2021_prequarter/) blogs:
 > Don’t break, a lot at stake!
 
 My first approach was to change the existing public `findfont` API to incorporate multiple filepaths. Since Matplotlib has a _very huge_ userbase, there's a high chance it would break a chunk of people's workflow:
@@ -105,14 +105,14 @@ For simplicity, only one type of cache (<ins>character -> FT2Font</ins>) is show
 > Note: Only the parent's APIs are used in some backends, so for each of the individual public functions like `load_glyph`, `load_char`, `get_kerning`, etc., we find the FT2Font object which has that glyph from the parent FT2Font cache!
 
 ### Multi-Font embedding in PDF/PS/EPS
-Now that we have multiple fonts to render a string, we also need to embed them for those special backends (i.e., PDF/PS, etc). This was done with some patches to specific backends:
+Now that we have multiple fonts to render a string, we also need to embed them for those special backends (i.e., PDF/PS, etc.). This was done with some patches to specific backends:
 - [PR: Implement multi-font embedding for PDF Backend](https://github.com/matplotlib/matplotlib/pull/20804)
 - [PR: Implement multi-font embedding for PS Backend](https://github.com/matplotlib/matplotlib/pull/20832)
 
 With this, one could create a PDF or a PS/EPS document with multiple fonts which are embedded (and subsetted!).
 
 ## Conclusion
-From small contributions to eventually working on a core module of a such a huge library, the road was not what I had imagined, and I learnt a lot while designing solutions to these problems.
+From small contributions to eventually working on a core module of such a huge library, the road was not what I had imagined, and I learnt a lot while designing solutions to these problems.
 
 #### The work I did would eventually end up affecting every single Matplotlib user.
 ...since all plots will work their way through the new codepath!
@@ -133,15 +133,15 @@ For the sake of statistics (and to make GSoC sound a bit less intimidating), her
 
 
 ## Acknowledgements
-From learning about software engineering fundamentals from [Tom](https://github.com/tacaswell), to learning about nitty-gritty details about font representations from [Jouni](https://github.com/jkseppan).
+From learning about software engineering fundamentals from [Tom](https://github.com/tacaswell) to learning about nitty-gritty details about font representations from [Jouni](https://github.com/jkseppan);
 
-From learning through [Antony](https://github.com/anntzer)'s patches and pointers, to receiving amazing feedback on these blogs from [Hannah](https://github.com/story645), it has been an adventure! 💯
+From learning through [Antony](https://github.com/anntzer)'s patches and pointers to receiving amazing feedback on these blogs from [Hannah](https://github.com/story645), it has been an adventure! 💯
 
 _Special Mentions: [Frank](https://github.com/sauerburger), [Srijan](https://github.com/srijan-paul) and [Atharva](https://github.com/tfidfwastaken) for their helping hands!_
 
-And lastly, _you_, the reader; if you've been following my [previous blogs](https://aitikgupta.github.io/tags/#gsoc), or if you've landed at this one directly, I thank you nevertheless. (one last [meme](https://user-images.githubusercontent.com/43996118/126441988-5a2067fd-055e-44e5-86e9-4dddf47abc9d.png), I promise!)
+And lastly, _you_, the reader; if you've been following my [previous blogs](https://matplotlib.org/matplotblog/categories/gsoc/), or if you've landed at this one directly, I thank you nevertheless. (one last [meme](https://user-images.githubusercontent.com/43996118/126441988-5a2067fd-055e-44e5-86e9-4dddf47abc9d.png), I promise!)
 
-I know I speak for every developer out there, when I say <ins>***it means a lot***</ins> when you choose to look at their journey or their work product; it could as well be a very small website, or it could be as big as designing a complete library!
+I know I speak for every developer out there, when I say <ins>***it means a lot***</ins> when you choose to look at their journey or their work product; it could as well be a tiny website, or it could be as big as designing a complete library!
 
 <hr>
 
