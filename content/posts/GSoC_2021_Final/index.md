@@ -22,7 +22,7 @@ Matplotlib is a comprehensive library for creating static, animated, and interac
 
 Much of the implementation behind its font manager is inspired by [W3C](https://www.w3.org/) compliant algorithms, allowing users to interact with font properties like `font-size`, `font-weight`, `font-family`, etc.
 
-#### However, the way Matplotlib handled fonts and general text layout was not ideal, which is what all Summer 2021 was about.
+#### However, the way Matplotlib handled fonts and general text layout was not ideal, which is what Summer 2021 was all about.
 
 > By "not ideal", I do not mean that the library has design flaws, but that the design was engineered in the early 2000s, and is now _outdated_.
 
@@ -37,7 +37,7 @@ Overall, the project was divided into two major subgoals:
 
 But before we take each of them on, we should get an idea about some basic terminology for fonts (which are a _lot_, and are rightly _confusing_)
 
-The [PR: Clarify/Improve docs on family-names vs generic-families](https://github.com/matplotlib/matplotlib/pull/20346/files) brings about a bit of clarity about some of these terms. The next section has a linked PR which also explains the types of fonts and how is that relevant to Matplotlib.
+The [PR: Clarify/Improve docs on family-names vs generic-families](https://github.com/matplotlib/matplotlib/pull/20346/files) brings about a bit of clarity about some of these terms. The next section has a linked PR which also explains the types of fonts and how that is relevant to Matplotlib.
 ## Font Subsetting
 An easy-to-read guide on Fonts and Matplotlib was created with [PR: [Doc] Font Types and Font Subsetting](https://github.com/matplotlib/matplotlib/pull/20450), which is currently live at [Matplotlib's DevDocs](https://matplotlib.org/devdocs/users/fonts.html).
 
@@ -119,17 +119,29 @@ From small contributions to eventually working on a core module of such a huge l
 
 I think that single statement is worth the <ins>whole GSoC project</ins>.
 
-For the sake of statistics (and to make GSoC sound a bit less intimidating), here's a list of contributions I made to Matplotlib before Summer '21, most of which are only a few lines of diff:
+### Pull Request Statistics
+For the sake of statistics (and to make GSoC sound a bit less intimidating), here's a list of contributions I made to Matplotlib <ins>before Summer '21</ins>, most of which are only a few lines of diff:
 
-|              |                                                                                                                         |                 |        |
-|--------------|-------------------------------------------------------------------------------------------------------------------------|-----------------|--------|
-| Nov 2, 2020  | [Expand ScalarMappable.set_array to accept array-like inputs](https://github.com/matplotlib/matplotlib/pull/18870)      | (+28 −4)        | MERGED |
-| Nov 8, 2020  | [Add overset and underset support for mathtext](https://github.com/matplotlib/matplotlib/pull/18916)                    | (+71 −0)        | MERGED |
-| Nov 14, 2020 | [Strictly increasing check with test coverage for streamplot grid](https://github.com/matplotlib/matplotlib/pull/18947) | (+54 −2)        | MERGED |
-| Jan 11, 2021 | [WIP: Add support to edit subplot configurations via textbox](https://github.com/matplotlib/matplotlib/pull/19271)      | (+51 −11)       | DRAFT  |
-| Jan 18, 2021 | [Fix over/under mathtext symbols](https://github.com/matplotlib/matplotlib/pull/19314)                                  | (+7,459 −4,169) | MERGED |
-| Feb 11, 2021 | [Add overset/underset whatsnew entry](https://github.com/matplotlib/matplotlib/pull/19497)                              | (+28 −17)       | MERGED |
-| May 15, 2021 | [Warn user when mathtext font is used for ticks](https://github.com/matplotlib/matplotlib/pull/20235)                   | (+28 −0)        | MERGED |
+|  Created At  	| PR Title                                                                                                                	|       Diff      	| Status 	|
+|:------------:	|-------------------------------------------------------------------------------------------------------------------------	|:---------------:	|:------:	|
+|  Nov 2, 2020 	| [Expand ScalarMappable.set_array to accept array-like inputs](https://github.com/matplotlib/matplotlib/pull/18870)      	|     (+28 −4)    	| MERGED 	|
+|  Nov 8, 2020 	| [Add overset and underset support for mathtext](https://github.com/matplotlib/matplotlib/pull/18916)                    	|     (+71 −0)    	| MERGED 	|
+| Nov 14, 2020 	| [Strictly increasing check with test coverage for streamplot grid](https://github.com/matplotlib/matplotlib/pull/18947) 	|     (+54 −2)    	| MERGED 	|
+| Jan 11, 2021 	| [WIP: Add support to edit subplot configurations via textbox](https://github.com/matplotlib/matplotlib/pull/19271)      	|    (+51 −11)    	|  DRAFT 	|
+| Jan 18, 2021 	| [Fix over/under mathtext symbols](https://github.com/matplotlib/matplotlib/pull/19314)                                  	| (+7,459 −4,169) 	| MERGED 	|
+| Feb 11, 2021 	| [Add overset/underset whatsnew entry](https://github.com/matplotlib/matplotlib/pull/19497)                              	|    (+28 −17)    	| MERGED 	|
+| May 15, 2021 	| [Warn user when mathtext font is used for ticks](https://github.com/matplotlib/matplotlib/pull/20235)                   	|     (+28 −0)    	| MERGED 	|
+
+Here's a list of PRs I opened <ins>during Summer'21</ins>:
+- [Status: ✅] [Clarify/Improve docs on family-names vs generic-families](https://github.com/matplotlib/matplotlib/pull/20346)
+- [Status: ✅] [Add parse_math in Text and default it False for TextBox](https://github.com/matplotlib/matplotlib/pull/20367)
+- [Status: ✅] [Type42 subsetting in PS/PDF](https://github.com/matplotlib/matplotlib/pull/20391)
+- [Status: ✅] [[Doc] Font Types and Font Subsetting](https://github.com/matplotlib/matplotlib/pull/20450)
+- [Status: 🚧] [[with findfont diff] Parsing all families in font_manager](https://github.com/matplotlib/matplotlib/pull/20496)
+- [Status: 🚧] [[without findfont diff] Parsing all families in font_manager](https://github.com/matplotlib/matplotlib/pull/20549)
+- [Status: 🚧] [Implement Font-Fallback in Matplotlib](https://github.com/matplotlib/matplotlib/pull/20740)
+- [Status: 🚧] [Implement multi-font embedding for PDF Backend](https://github.com/matplotlib/matplotlib/pull/20804)
+- [Status: 🚧] [Implement multi-font embedding for PS Backend](https://github.com/matplotlib/matplotlib/pull/20832)
 
 
 ## Acknowledgements
