@@ -16,7 +16,7 @@ resources:
 
 **<ins>Matplotlib: Revisiting Text/Font Handling</ins>**
 
-Here's a [meme](https://user-images.githubusercontent.com/43996118/129448683-bc136398-afeb-40ac-bbb7-0576757baf3c.jpg) I created, to kick things off for this final report!
+To kick things off for the final report, here's a [meme](https://user-images.githubusercontent.com/43996118/129448683-bc136398-afeb-40ac-bbb7-0576757baf3c.jpg) to nudge about the [previous blogs](https://matplotlib.org/matplotblog/categories/gsoc/).
 ## About Matplotlib
 Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations, which has become a _de-facto Python plotting library_.
 
@@ -29,7 +29,7 @@ Much of the implementation behind its font manager is inspired by [W3C](https://
 (..more on this later)
 
 ### About the Project
-(PS: here's [the link](https://docs.google.com/document/d/11PrXKjMHhl0rcQB4p_W9JY_AbPCkYuoTT0t85937nB0/) to my GSoC proposal, if you're interested)
+(PS: here's [the link](https://docs.google.com/document/d/11PrXKjMHhl0rcQB4p_W9JY_AbPCkYuoTT0t85937nB0/view#heading=h.feg5pv3x59u2) to my GSoC proposal, if you're interested)
 
 Overall, the project was divided into two major subgoals:
 1. Font Subsetting
