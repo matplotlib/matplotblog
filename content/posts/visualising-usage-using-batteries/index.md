@@ -23,7 +23,7 @@ For players who have been barely used (played fewer minutes)***.
 
 So, what is the purpose of a battery chart? You can use it to show usage, consumption, involvement, fatigue etc. (anything usage related).
 
-The image below is a sample view of how a battery would look in our figure athough a single battery isn't exactly what we are going to recreate in this tutorial.
+The image below is a sample view of how a battery would look in our figure, athough a single battery isn't exactly what we are going to recreate in this tutorial.
 
 ![A sample visualisation](battery.png)
 
