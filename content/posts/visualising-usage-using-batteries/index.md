@@ -19,7 +19,7 @@ resources:
 
 I have been creating the cliche visualisations like scatter plots, bar charts, beeswarms etc. for a while and thought about doing something different. Since I'm an avid football fan, I thought of ideas to represent players' usage or involvement over a period (a season, a couple of seasons). I have seen some cool visualisations like donut which depict usage and I wanted to make something different and simple to understand. I thought about representing batteries as a form of player usage and it made a lot of sense.
 
-For players who have been barely used (less number of minutes played), show ***large amount of battery*** present since they have enough energy left in the tank. And for heavily used players, do the opposite i.e. show ***drained or less amount of battery***.
+For players who have been barely used (played fewer minutes)***.
 
 So, what is the purpose of a battery chart? You can use it to show usage, consumption, involvement, fatigue etc. (anything usage related).
 
