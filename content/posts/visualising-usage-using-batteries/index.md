@@ -17,13 +17,13 @@ resources:
 
 # Introduction
 
-I have been creating the cliche visualisations like scatter plots, bar charts, beeswarms etc. for a while and thought about doing something different. Since I'm an avid football fan, I thought of ideas to represent players' usage or involvement over a period (a season, a couple of seasons). I have seen some cool visualisations like donut which depict usage and I wanted to make something different and simple to understand. I thought about representing batteries as a form of player usage and it made a lot of sense.
+I have been creating common visualisations like scatter plots, bar charts, beeswarms etc. for a while and thought about doing something different. Since I'm an avid football fan, I thought of ideas to represent players' usage or involvement over a period (a season, a couple of seasons). I have seen some cool visualisations like donuts which depict usage and I wanted to make something different and simple to understand. I thought about representing batteries as a form of player usage and it made a lot of sense.
 
-For players who have been barely used (played fewer minutes)***.
+For players who have been barely used (played fewer minutes) show a ***large amount of battery*** present since they have enough energy left in the tank. And for heavily used players, do the opposite i.e. show ***drained or less amount of battery***
 
 So, what is the purpose of a battery chart? You can use it to show usage, consumption, involvement, fatigue etc. (anything usage related).
 
-The image below is a sample view of how a battery would look in our figure, athough a single battery isn't exactly what we are going to recreate in this tutorial.
+The image below is a sample view of how a battery would look in our figure, although a single battery isn't exactly what we are going to recreate in this tutorial.
 
 ![A sample visualisation](battery.png)
 
@@ -43,12 +43,12 @@ Before jumping on to the tutorial, I would like to make it known that the functi
 
 What is our use case?
 
-- We are given a dataset where we have data of Liverpool's players and their minutes played in the last 2 seasons (for whichever club they played in that time period). We will use this data for our visualisation.
-- The final visualisation is the featured image of this blog post. We will navigate step-by-step to how we'll create the visualisation.
+- We are given a dataset where we have data of Liverpool's players and their minutes played in the last 2 seasons (for whichever club they for played in that time period). We will use this data for our visualisation.
+- The final visualisation is the featured image of this blog post. We will navigate step-by-step as to how we'll create the visualisation.
 
 ## <span style="text-decoration: underline">Importing Libraries</span>
 
-The first and foremost part is to import the essential libraries so that we can leverage the functions within. In this case, we will import the following:-
+The first and foremost part is to import the essential libraries so that we can leverage the functions within. In this case, we will import the libraries we need.
 
 ```python
 import pandas as pd
@@ -187,7 +187,7 @@ fig.text(0.35, 0.95, "Liverpool: Player Usage/Involvement", color="white", size=
 fig.text(0.25, 0.92, "Data from 19/20 and 20/21 | Battery percentage indicate usage | less battery = played more/ more involved", color="white", size=12, fontname="Libre Baskerville")
 ```
 
-After getting the headers, figure size etc done, we will now plot all the axes i.e. batteries for each and every player. `p` is the variable used to iterate through the dataframe and fetch each players data. The `draw_battery()` function call will obviously plot the battery. We also add the required labels along with that - player name and usage rate/percentage in this case. 
+We have now now filled in appropriate headers, figure size etc. The next step is to plot all the axes i.e. batteries for each and every player. `p` is the variable used to iterate through the dataframe and fetch each players data. The `draw_battery()` function call will obviously plot the battery. We also add the required labels along with that - player name and usage rate/percentage in this case. 
 
 ```python
 p = 0 #The variable that'll iterate through each row of the dataframe (for every player)
