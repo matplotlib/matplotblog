@@ -14,7 +14,7 @@ resources:
     showOnTop: true
 ---
 
-It's my great pleasure to announce that I've finished my book on matplotlib and it is now freely available at https://www.labri.fr/perso/nrougier/scientific-visualization.html while sources for the book are hosted at github.com/rougier/scientific-visualization-book.
+It's my great pleasure to announce that I've finished my book on matplotlib and it is now freely available at [www.labri.fr/perso/nrougier/scientific-visualization.html](https://www.labri.fr/perso/nrougier/scientific-visualization.html) while sources for the book are hosted at [github.com/rougier/scientific-visualization-book](https://github.com/rougier/scientific-visualization-book).
 
 ## Abstract
 
