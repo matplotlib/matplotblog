@@ -1,0 +1,185 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Art from UNC BIOL222 &#183; Matplotblog</title><meta name=description content="UNC BIOL222: Art created with Matplotlib"><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css integrity=sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y crossorigin=anonymous><link href=https://matplotlib.org/matplotblog/css/concated.min.css rel=stylesheet><style>body{background:#ecedef url(https://matplotlib.org/matplotblog/bg_tiles.png)repeat}</style></head><body class=single-body><nav class="nav-bar side-padding"><h1 class=nav-header><a href=https://matplotlib.org/matplotblog/ class=nav-text><img src=https://matplotlib.org/matplotblog/mpl_logo.png></a></h1><a href=https://matplotlib.org/matplotblog/index.xml><img src=https://matplotlib.org/matplotblog/rss.svg style=width:25px;margin:10px alt="RSS feed"></a><div class=hamburger-menu><button onclick=hamburgerMenuPressed.call(this) aria-haspopup=true aria-expanded=false aria-controls=menu aria-label=Menu>
+<span></span><span></span></button><ul id=menu class=hamburger-menu-overlay><li><a href=https://matplotlib.org/matplotblog/ class=hamburger-menu-overlay-link>Home</a></li><li><a href=https://matplotlib.org/matplotblog/posts/how-to-contribute/ class=hamburger-menu-overlay-link>How to Contribute</a></li><li><a href=https://matplotlib.org/matplotblog/categories/3d class=hamburger-menu-overlay-link>3d</a></li><li><a href=https://matplotlib.org/matplotblog/categories/academia class=hamburger-menu-overlay-link>Academia</a></li><li><a href=https://matplotlib.org/matplotblog/categories/art class=hamburger-menu-overlay-link>Art</a></li><li><a href=https://matplotlib.org/matplotblog/categories/editorial class=hamburger-menu-overlay-link>Editorial</a></li><li><a href=https://matplotlib.org/matplotblog/categories/graphs class=hamburger-menu-overlay-link>Graphs</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsoc class=hamburger-menu-overlay-link>Gsoc</a></li><li><a href=https://matplotlib.org/matplotblog/categories/gsod class=hamburger-menu-overlay-link>Gsod</a></li><li><a href=https://matplotlib.org/matplotblog/categories/industry class=hamburger-menu-overlay-link>Industry</a></li><li><a href=https://matplotlib.org/matplotblog/categories/news class=hamburger-menu-overlay-link>News</a></li><li><a href=https://matplotlib.org/matplotblog/categories/tutorials class=hamburger-menu-overlay-link>Tutorials</a></li><li><a href=https://matplotlib.org class=hamburger-menu-overlay-link target=blank>About</a></li></ul></div></nav><main class="content side-text-padding"><article class="post dropcase"><header class=post-header><h1 class=post-title>Art from UNC BIOL222</h1><p class=post-date>Posted <time datetime=2021-11-19>Nov 19, 2021</time>
+<span class=post-author>&mdash; By Joseph Lucas</span></p></header><picture class=post-figure>
+<source srcset=https://matplotlib.org/matplotblog/posts/unc-biol222/fox_hu4389d316af787c5b457f1ab83fcaad2c_34774_800x0_resize_lanczos_2.png><img src=https://matplotlib.org/matplotblog/posts/unc-biol222/fox_hu4389d316af787c5b457f1ab83fcaad2c_34774_800x0_resize_lanczos_2.png alt="Emily Foster's Fox"></picture><p>As part of the University of North Carolina BIOL222 class, <a href=https://twitter.com/tylikcat>Dr. Catherine Kehl</a> asked her students to &ldquo;use <code>matplotlib.pyplot</code> to make art.&rdquo; BIOL222 is Introduction to Programming, aimed at students with no programming background. The emphasis is on practical, hands-on active learning.</p><p>The students completed the assignment with festive enthusiasm around Halloween. Here are some great examples:</p><p>Harris Davis showed an affinity for pumpkins, opting to go 3D!
+<img src=pumpkin.png alt="3D Pumpkin"></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e># get library for 3d plotting</span>
+<span style=color:#f92672>from</span> mpl_toolkits.mplot3d <span style=color:#f92672>import</span> Axes3D
+
+<span style=color:#75715e># make a pumpkin :) </span>
+rho <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>3</span><span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>pi,<span style=color:#ae81ff>32</span>)
+theta, phi <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>meshgrid(rho, rho)
+r, R <span style=color:#f92672>=</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>5</span>, <span style=color:#f92672>.</span><span style=color:#ae81ff>5</span>
+X <span style=color:#f92672>=</span> (R <span style=color:#f92672>+</span> r <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>cos(phi)) <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>cos(theta)
+Y <span style=color:#f92672>=</span> (R <span style=color:#f92672>+</span> r <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>cos(phi)) <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>sin(theta)
+Z <span style=color:#f92672>=</span> r <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>sin(phi)
+
+<span style=color:#75715e># make the stem</span>
+theta1 <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>2</span><span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>pi,<span style=color:#ae81ff>90</span>)
+r1 <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>,<span style=color:#ae81ff>3</span>,<span style=color:#ae81ff>50</span>)
+T1, R1 <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>meshgrid(theta1, r1)
+X1 <span style=color:#f92672>=</span> R1 <span style=color:#f92672>*</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>5</span><span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>sin(T1)
+Y1 <span style=color:#f92672>=</span> R1 <span style=color:#f92672>*</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>5</span><span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>cos(T1)
+Z1 <span style=color:#f92672>=</span> <span style=color:#f92672>-</span>(np<span style=color:#f92672>.</span>sqrt(X1<span style=color:#f92672>*</span><span style=color:#f92672>*</span><span style=color:#ae81ff>2</span> <span style=color:#f92672>+</span> Y1<span style=color:#f92672>*</span><span style=color:#f92672>*</span><span style=color:#ae81ff>2</span>) <span style=color:#f92672>-</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span>)
+Z1[Z1 <span style=color:#f92672>&lt;</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>nan
+Z1[Z1 <span style=color:#f92672>&gt;</span> <span style=color:#f92672>.</span><span style=color:#ae81ff>7</span>] <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>nan
+
+<span style=color:#75715e># Display the pumpkin &amp; stem</span>
+fig <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>figure()
+ax <span style=color:#f92672>=</span> fig<span style=color:#f92672>.</span>gca(projection <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>3d</span><span style=color:#e6db74>&#39;</span>)
+ax<span style=color:#f92672>.</span>set_xlim3d(<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>)
+ax<span style=color:#f92672>.</span>set_ylim3d(<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>)
+ax<span style=color:#f92672>.</span>set_zlim3d(<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>1</span>)
+ax<span style=color:#f92672>.</span>plot_surface(X, Y, Z, color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>tab:orange</span><span style=color:#e6db74>&#39;</span>, rstride <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, cstride <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>)
+ax<span style=color:#f92672>.</span>plot_surface(X1, Y1, Z1, color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>tab:green</span><span style=color:#e6db74>&#39;</span>, rstride <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>, cstride <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>)
+plt<span style=color:#f92672>.</span>show()
+</code></pre></div><p>Bryce Desantis stuck to the biological theme and demonstrated <a href=https://en.wikipedia.org/wiki/Fractal>fractal</a> art.
+<img src=leaf.png alt="Bryce Fern"></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
+<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+
+<span style=color:#75715e>#Barnsley&#39;s Fern - Fractal; en.wikipedia.org/wiki/Barnsley_…</span>
+
+<span style=color:#75715e>#functions for each part of fern:</span>
+<span style=color:#75715e>#stem</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>stem</span>(x,y):
+  <span style=color:#66d9ef>return</span> (<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0.16</span><span style=color:#f92672>*</span>y)
+<span style=color:#75715e>#smaller leaflets</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>smallLeaf</span>(x,y):
+  <span style=color:#66d9ef>return</span> (<span style=color:#ae81ff>0.85</span><span style=color:#f92672>*</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.04</span><span style=color:#f92672>*</span>y, <span style=color:#f92672>-</span><span style=color:#ae81ff>0.04</span><span style=color:#f92672>*</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.85</span><span style=color:#f92672>*</span>y <span style=color:#f92672>+</span> <span style=color:#ae81ff>1.6</span>)
+<span style=color:#75715e>#large left leaflets</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>leftLarge</span>(x,y):
+  <span style=color:#66d9ef>return</span> (<span style=color:#ae81ff>0.2</span><span style=color:#f92672>*</span>x <span style=color:#f92672>-</span> <span style=color:#ae81ff>0.26</span><span style=color:#f92672>*</span>y, <span style=color:#ae81ff>0.23</span><span style=color:#f92672>*</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.22</span><span style=color:#f92672>*</span>y <span style=color:#f92672>+</span> <span style=color:#ae81ff>1.6</span>)
+<span style=color:#75715e>#large right leftlets</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>rightLarge</span>(x,y):
+  <span style=color:#66d9ef>return</span> (<span style=color:#f92672>-</span><span style=color:#ae81ff>0.15</span><span style=color:#f92672>*</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.28</span><span style=color:#f92672>*</span>y, <span style=color:#ae81ff>0.26</span><span style=color:#f92672>*</span>x <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.24</span><span style=color:#f92672>*</span>y <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.44</span>)
+componentFunctions <span style=color:#f92672>=</span> [stem, smallLeaf, leftLarge, rightLarge]
+
+<span style=color:#75715e># number of data points and frequencies for parts of fern generated:</span>
+<span style=color:#75715e>#lists with all 75000 datapoints</span>
+datapoints <span style=color:#f92672>=</span> <span style=color:#ae81ff>75000</span>
+x, y <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>
+datapointsX <span style=color:#f92672>=</span> []
+datapointsY <span style=color:#f92672>=</span> []
+<span style=color:#75715e>#For 75,000 datapoints</span>
+<span style=color:#66d9ef>for</span> n <span style=color:#f92672>in</span> range(datapoints):
+  FrequencyFunction <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>random<span style=color:#f92672>.</span>choice(componentFunctions, p<span style=color:#f92672>=</span>[<span style=color:#ae81ff>0.01</span>, <span style=color:#ae81ff>0.85</span>, <span style=color:#ae81ff>0.07</span>, <span style=color:#ae81ff>0.07</span>])
+  x, y <span style=color:#f92672>=</span> FrequencyFunction(x,y)
+  datapointsX<span style=color:#f92672>.</span>append(x)
+  datapointsY<span style=color:#f92672>.</span>append(y)
+
+<span style=color:#75715e>#Scatter plot &amp; scaled down to 0.1 to show more definition:</span>
+plt<span style=color:#f92672>.</span>scatter(datapointsX,datapointsY,s<span style=color:#f92672>=</span><span style=color:#ae81ff>0.1</span>, color<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>g</span><span style=color:#e6db74>&#39;</span>)
+<span style=color:#75715e>#Title of Figure</span>
+plt<span style=color:#f92672>.</span>title(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>Barnsley</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>s Fern - Assignment 3</span><span style=color:#e6db74>&#34;</span>)
+<span style=color:#75715e>#Changing background color</span>
+ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>axes()
+ax<span style=color:#f92672>.</span>set_facecolor(<span style=color:#e6db74></span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>#d8d7bf</span><span style=color:#e6db74>&#34;</span>)
+</code></pre></div><p>Grace Bell got a little trippy with this rotationally semetric art. It's pretty cool how she captured mouse events. It reminds us of a flower. What do you see?
+<img src=rotations.png alt=Rotations></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+<span style=color:#f92672>from</span> matplotlib.tri <span style=color:#f92672>import</span> Triangulation
+<span style=color:#f92672>from</span> matplotlib.patches <span style=color:#f92672>import</span> Polygon
+<span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
+
+<span style=color:#75715e>#I found this sample code online and manipulated it to make the art piece! </span>
+<span style=color:#75715e>#was interested in because it combined what we used for functions as well as what we used for plotting with (x,y)</span>
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>update_polygon</span>(tri):
+    <span style=color:#66d9ef>if</span> tri <span style=color:#f92672>==</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>:
+        points <span style=color:#f92672>=</span> [<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>]
+    <span style=color:#66d9ef>else</span>:
+        points <span style=color:#f92672>=</span> triang<span style=color:#f92672>.</span>triangles[tri]
+    xs <span style=color:#f92672>=</span> triang<span style=color:#f92672>.</span>x[points]
+    ys <span style=color:#f92672>=</span> triang<span style=color:#f92672>.</span>y[points]
+    polygon<span style=color:#f92672>.</span>set_xy(np<span style=color:#f92672>.</span>column_stack([xs, ys]))
+
+<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>on_mouse_move</span>(event):
+    <span style=color:#66d9ef>if</span> event<span style=color:#f92672>.</span>inaxes <span style=color:#f92672>is</span> None:
+        tri <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>
+    <span style=color:#66d9ef>else</span>:
+        tri <span style=color:#f92672>=</span> trifinder(event<span style=color:#f92672>.</span>xdata, event<span style=color:#f92672>.</span>ydata)
+    update_polygon(tri)
+    ax<span style=color:#f92672>.</span>set_title(f<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>In triangle {tri}</span><span style=color:#e6db74>&#39;</span>)
+    event<span style=color:#f92672>.</span>canvas<span style=color:#f92672>.</span>draw()
+<span style=color:#75715e>#this is the info that creates the angles </span>
+n_angles <span style=color:#f92672>=</span> <span style=color:#ae81ff>14</span>
+n_radii <span style=color:#f92672>=</span> <span style=color:#ae81ff>7</span>
+min_radius <span style=color:#f92672>=</span> <span style=color:#ae81ff>0.1</span> <span style=color:#75715e>#the radius of the middle circle can move with this variable </span>
+radii <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(min_radius, <span style=color:#ae81ff>0.95</span>, n_radii)
+angles <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>linspace(<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>2</span> <span style=color:#f92672>*</span> np<span style=color:#f92672>.</span>pi, n_angles, endpoint<span style=color:#f92672>=</span>False)
+angles <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>repeat(angles[<span style=color:#f92672>.</span><span style=color:#f92672>.</span><span style=color:#f92672>.</span>, np<span style=color:#f92672>.</span>newaxis], n_radii, axis<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>)
+angles[:, <span style=color:#ae81ff>1</span>::<span style=color:#ae81ff>2</span>] <span style=color:#f92672>+</span><span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>pi <span style=color:#f92672>/</span> n_angles
+x <span style=color:#f92672>=</span> (radii<span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>cos(angles))<span style=color:#f92672>.</span>flatten()
+y <span style=color:#f92672>=</span> (radii<span style=color:#f92672>*</span>np<span style=color:#f92672>.</span>sin(angles))<span style=color:#f92672>.</span>flatten()
+triang <span style=color:#f92672>=</span> Triangulation(x, y)
+triang<span style=color:#f92672>.</span>set_mask(np<span style=color:#f92672>.</span>hypot(x[triang<span style=color:#f92672>.</span>triangles]<span style=color:#f92672>.</span>mean(axis<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>),
+                         y[triang<span style=color:#f92672>.</span>triangles]<span style=color:#f92672>.</span>mean(axis<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>))
+                <span style=color:#f92672>&lt;</span> min_radius)
+
+trifinder <span style=color:#f92672>=</span> triang<span style=color:#f92672>.</span>get_trifinder()
+
+fig, ax <span style=color:#f92672>=</span> plt<span style=color:#f92672>.</span>subplots(subplot_kw<span style=color:#f92672>=</span>{<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>aspect</span><span style=color:#e6db74>&#39;</span>: <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>equal</span><span style=color:#e6db74>&#39;</span>})
+ax<span style=color:#f92672>.</span>triplot(triang, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>y+-</span><span style=color:#e6db74>&#39;</span>) <span style=color:#75715e>#made the color of the plot yellow and there are &#34;+&#34; for the data points but you can&#39;t really see them because of the lines crossing </span>
+polygon <span style=color:#f92672>=</span> Polygon([[<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>], [<span style=color:#ae81ff>0</span>, <span style=color:#ae81ff>0</span>]], facecolor<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>y</span><span style=color:#e6db74>&#39;</span>)
+update_polygon(<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>)
+ax<span style=color:#f92672>.</span>add_patch(polygon)
+fig<span style=color:#f92672>.</span>canvas<span style=color:#f92672>.</span>mpl_connect(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>motion_notify_event</span><span style=color:#e6db74>&#39;</span>, on_mouse_move)
+plt<span style=color:#f92672>.</span>show()
+</code></pre></div><p>As a bonus, did you like that fox in the banner? That was created (and well documented) by Emily Foster!</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> numpy <span style=color:#f92672>as</span> np
+<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#f92672>as</span> plt
+
+plt<span style=color:#f92672>.</span>axis(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>off</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#head</span>
+xhead <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>50</span>,<span style=color:#ae81ff>50</span>,<span style=color:#ae81ff>0.1</span>)
+yhead <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.007</span><span style=color:#f92672>*</span>(xhead<span style=color:#f92672>*</span>xhead) <span style=color:#f92672>+</span> <span style=color:#ae81ff>100</span>
+
+plt<span style=color:#f92672>.</span>plot(xhead, yhead, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>darkorange</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#outer ears</span>
+xearL <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>45.8</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>0.1</span>)
+yearL <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.08</span><span style=color:#f92672>*</span>(xearL<span style=color:#f92672>*</span>xearL) <span style=color:#f92672>-</span><span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>xearL <span style=color:#f92672>+</span> <span style=color:#ae81ff>70</span>
+
+xearR <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>45.8</span>,<span style=color:#ae81ff>0.1</span>)
+yearR <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.08</span><span style=color:#f92672>*</span>(xearR<span style=color:#f92672>*</span>xearR) <span style=color:#f92672>+</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>xearR <span style=color:#f92672>+</span> <span style=color:#ae81ff>70</span>
+
+plt<span style=color:#f92672>.</span>plot(xearL, yearL, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>plot(xearR, yearR, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#inner ears</span>
+xinL <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>41.1</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>13.7</span>,<span style=color:#ae81ff>0.1</span>)
+yinL <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.08</span><span style=color:#f92672>*</span>(xinL<span style=color:#f92672>*</span>xinL) <span style=color:#f92672>-</span><span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>xinL <span style=color:#f92672>+</span> <span style=color:#ae81ff>59</span>
+
+xinR <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#ae81ff>13.7</span>,<span style=color:#ae81ff>41.1</span>,<span style=color:#ae81ff>0.1</span>)
+yinR <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.08</span><span style=color:#f92672>*</span>(xinR<span style=color:#f92672>*</span>xinR) <span style=color:#f92672>+</span> <span style=color:#ae81ff>4</span><span style=color:#f92672>*</span>xinR <span style=color:#f92672>+</span> <span style=color:#ae81ff>59</span>
+
+plt<span style=color:#f92672>.</span>plot(xinL, yinL, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>salmon</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>plot(xinR, yinR, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>salmon</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e># bottom of face</span>
+xfaceL <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>49.6</span>,<span style=color:#f92672>-</span><span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>0.1</span>)
+xfaceR <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>49.3</span>,<span style=color:#ae81ff>0.1</span>)
+xfaceM <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>0.1</span>)
+
+plt<span style=color:#f92672>.</span>plot(xfaceL, abs(xfaceL), <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>darkorange</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>plot(xfaceR, abs(xfaceR), <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>darkorange</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>plot(xfaceM, abs(xfaceM), <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#nose</span>
+xnose <span style=color:#f92672>=</span> np<span style=color:#f92672>.</span>arange(<span style=color:#f92672>-</span><span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>0.1</span>)
+ynose <span style=color:#f92672>=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>0.03</span><span style=color:#f92672>*</span>(xnose<span style=color:#f92672>*</span>xnose) <span style=color:#f92672>+</span> <span style=color:#ae81ff>20</span>
+
+plt<span style=color:#f92672>.</span>plot(xnose, ynose, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#whiskers</span>
+xwhiskR <span style=color:#f92672>=</span> [<span style=color:#ae81ff>50</span>, <span style=color:#ae81ff>70</span>, <span style=color:#ae81ff>55</span>, <span style=color:#ae81ff>70</span>, <span style=color:#ae81ff>55</span>, <span style=color:#ae81ff>70</span>, <span style=color:#ae81ff>49.3</span>]
+xwhiskL <span style=color:#f92672>=</span> [<span style=color:#f92672>-</span><span style=color:#ae81ff>50</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>70</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>55</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>70</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>55</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>70</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>49.3</span>]
+ywhisk <span style=color:#f92672>=</span> [<span style=color:#ae81ff>82.6</span>, <span style=color:#ae81ff>85</span>, <span style=color:#ae81ff>70</span>, <span style=color:#ae81ff>65</span>, <span style=color:#ae81ff>60</span>, <span style=color:#ae81ff>45</span>, <span style=color:#ae81ff>49.3</span>]
+
+plt<span style=color:#f92672>.</span>plot(xwhiskR, ywhisk, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>darkorange</span><span style=color:#e6db74>&#39;</span>)
+plt<span style=color:#f92672>.</span>plot(xwhiskL, ywhisk, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>darkorange</span><span style=color:#e6db74>&#39;</span>)
+
+<span style=color:#75715e>#eyes</span>
+plt<span style=color:#f92672>.</span>plot(<span style=color:#ae81ff>20</span>,<span style=color:#ae81ff>60</span>, color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>o</span><span style=color:#e6db74>&#39;</span>, markersize <span style=color:#f92672>=</span> <span style=color:#ae81ff>15</span>)
+plt<span style=color:#f92672>.</span>plot(<span style=color:#f92672>-</span><span style=color:#ae81ff>20</span>,<span style=color:#ae81ff>60</span>,color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>black</span><span style=color:#e6db74>&#39;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>o</span><span style=color:#e6db74>&#39;</span>, markersize <span style=color:#f92672>=</span> <span style=color:#ae81ff>15</span>)
+
+plt<span style=color:#f92672>.</span>plot(<span style=color:#ae81ff>22</span>,<span style=color:#ae81ff>62</span>, color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>white</span><span style=color:#e6db74>&#39;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>o</span><span style=color:#e6db74>&#39;</span>, markersize <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>)
+plt<span style=color:#f92672>.</span>plot(<span style=color:#f92672>-</span><span style=color:#ae81ff>18</span>,<span style=color:#ae81ff>62</span>,color <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>white</span><span style=color:#e6db74>&#39;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>o</span><span style=color:#e6db74>&#39;</span>, markersize <span style=color:#f92672>=</span> <span style=color:#ae81ff>6</span>)
+</code></pre></div><p>We look forward to seeing these students continue in their plotting and scientific adventures!</p></article></main><nav class="end-nav side-padding"></nav><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js integrity=sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js integrity=sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe crossorigin=anonymous onload=renderMathInElement(document.body);></script><script src=https://matplotlib.org/matplotblog/js/core.min.js></script><script>hljs.initHighlightingOnLoad();</script></body></html>
