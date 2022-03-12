@@ -18,15 +18,15 @@ resources:
 
 This tutorial will teach you how to create custom tables in Matplotlib, which are extremely flexible in terms of the design and layout. You’ll hopefully see that the code is very straightforward! In fact, the main methods we will be using are `ax.text()` and `ax.plot()`.
 
-I want to give a lot of credit to Todd Whitehead, [@CrumpledJumper](https://twitter.com/CrumpledJumper), who has created these types of tables for various Basketball teams and players. His approach to tables is nothing short of fantastic due to the simplicity in design and how he manages to effectively communicate data to his audience. I was very much inspired by his approach and wanted to be able to achieve something similar in Matplotlib.
+I want to give a lot of credit to [Todd Whitehead](https://twitter.com/CrumpledJumper) who has created these types of tables for various Basketball teams and players. His approach to tables is nothing short of fantastic due to the simplicity in design and how he manages to effectively communicate data to his audience. I was very much inspired by his approach and wanted to be able to achieve something similar in Matplotlib.
 
 Before I begin with the tutorial, I wanted to go through the logic behind my approach as I think it's valuable and transferable to other  visualizations (and tools!).
 
-With that, I would like you to **think of tables as highly structured and organized scatterplots**. Let me explain why: For me, scatterplots are the most fundamental chart type (regardless of tool).
+With that, I would like you to **think of tables as highly structured and organized scatterplots**. Let me explain why: for me, scatterplots are the most fundamental chart type (regardless of tool).
 
 ![Scatterplots](scatterplots.png)
 
-For example ax.plot() automatically "connects the dots" to form a line chart or ax.bar() automatically "draws rectangles" across a set of coordinates. Very often (again regardless of tool) we may not always see this process happening. The point is, it is useful to think of any chart as a scatterplot or simply as a collection of shapes based on xy coordinates. This logic / thought process can unlock a ton of *custom* charts as the only thing you need are the coordinates (which can be mathematically computed).
+For example `ax.plot()` automatically "connects the dots" to form a line chart or `ax.bar()` automatically "draws rectangles" across a set of coordinates. Very often (again regardless of tool) we may not always see this process happening. The point is, it is useful to think of any chart as a scatterplot or simply as a collection of shapes based on xy coordinates. This logic / thought process can unlock a ton of *custom* charts as the only thing you need are the coordinates (which can be mathematically computed).
 
 With that in mind, we can move on to tables! So rather than plotting rectangles or circles we want to plot text and gridlines in a highly organized manner.
 
@@ -45,7 +45,7 @@ import matplotlib.patches as patches
 from matplotlib import pyplot as plt
 ```
 
-First, we will need to set up a coordinate space - I like two approaches; 
+First, we will need to set up a coordinate space - I like two approaches: 
 1. working with the standard Matplotlib 0-1 scale (on both the x- and y-axis) or 
 2. an index system based on row / column numbers (this is what I will use here)
 
@@ -193,6 +193,8 @@ ax.set_title(
 )
 ```
 
+![Title](6_title.png)
+
 # Bonus: Adding special columns
 
 Finally, if you wish to add images, sparklines, or other custom shapes and patterns then we can do this too.
@@ -229,5 +231,5 @@ newaxes[0].axis('off')
 
 ![Sparklines](8_sparklines.png)
 
-That’s it, custom tables in Matplotlib. I did promise very simple code and an ultra-flexible design in terms of what you want / need. You can adjust sizes, colors and pretty much anything with this approach and all you need is simply a loop that plots text in a structured and organized manner. I hope you found it useful.
+That’s it, custom tables in Matplotlib. I did promise very simple code and an ultra-flexible design in terms of what you want / need. You can adjust sizes, colors and pretty much anything with this approach and all you need is simply a loop that plots text in a structured and organized manner. I hope you found it useful. Link to a Google Colab notebook with the code is [here](https://colab.research.google.com/drive/1JshATKxjs7NWz2U8Oy6xOJaLgjldC1CW)
 
