@@ -3,7 +3,7 @@ languageCode = "en-us"
 title = "Matplotblog"
 theme = "aether"
 canonifyurls = true
-paginate = 3
+paginate = 4
 
 [params]
 head_img = "/mpl_logo.png"
